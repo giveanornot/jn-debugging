@@ -1,5 +1,5 @@
 {
-  "count": 14,
+  "count": 17,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -161,6 +161,30 @@
       "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
     },
     {
+      "title": "RSSHub Docker 缺 Chromium 導致 puppeteer-real-browser route 503",
+      "description": "RSSHub routes using puppeteer-real-browser need PUPPETEER_REAL_BROWSER_SERVICE or CHROMIUM_EXECUTABLE_PATH; browserless websocket alone is not enough.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "medium",
+      "tags": [
+        "rsshub",
+        "docker",
+        "chromium",
+        "puppeteer",
+        "browserless"
+      ],
+      "aliases": [
+        "PUPPETEER_REAL_BROWSER_SERVICE",
+        "CHROMIUM_EXECUTABLE_PATH",
+        "RSSHub Chromium Docker"
+      ],
+      "related": [],
+      "slug": "docker/rsshub-puppeteer-real-browser-chromium",
+      "url": "/docker/rsshub-puppeteer-real-browser-chromium/",
+      "source": "src/content/docs/docker/rsshub-puppeteer-real-browser-chromium.md"
+    },
+    {
       "title": "License & Reuse Notice",
       "description": "License, ownership, and attribution text for humans and AI-assisted reuse.",
       "date": "2026-07-14",
@@ -289,6 +313,54 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "RSSHub Dcard API 被擋時改抓 JSON-LD",
+      "description": "Dcard API behind Cloudflare can break RSSHub routes even when the public board page still exposes SocialMediaPosting JSON-LD.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "medium",
+      "tags": [
+        "rsshub",
+        "dcard",
+        "cloudflare",
+        "json-ld",
+        "puppeteer"
+      ],
+      "aliases": [
+        "RSSHub Dcard 503",
+        "Dcard SocialMediaPosting",
+        "Dcard JSON-LD"
+      ],
+      "related": [],
+      "slug": "web/rsshub-dcard-json-ld",
+      "url": "/web/rsshub-dcard-json-ld/",
+      "source": "src/content/docs/web/rsshub-dcard-json-ld.md"
+    },
+    {
+      "title": "RSSHub feed URL 指到 private IP 被 RSS reader 拒絕",
+      "description": "RSS readers and feed validators may block private or reserved network URLs to prevent SSRF; publish RSSHub through a public origin instead.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "low",
+      "tags": [
+        "rsshub",
+        "rss",
+        "ssrf",
+        "reverse-proxy",
+        "self-hosted"
+      ],
+      "aliases": [
+        "private network RSS URL",
+        "reserved network feed URL",
+        "RSSHub private IP"
+      ],
+      "related": [],
+      "slug": "web/rsshub-private-ip-feed-url",
+      "url": "/web/rsshub-private-ip-feed-url/",
+      "source": "src/content/docs/web/rsshub-private-ip-feed-url.md"
     },
     {
       "title": "Starlight dev server 舊 content store 導致 500",
