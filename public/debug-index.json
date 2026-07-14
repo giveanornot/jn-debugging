@@ -1,5 +1,5 @@
 {
-  "count": 17,
+  "count": 18,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -223,6 +223,32 @@
       "slug": "linux/arch-nvidia-580xx-split-package-mismatch",
       "url": "/linux/arch-nvidia-580xx-split-package-mismatch/",
       "source": "src/content/docs/linux/arch-nvidia-580xx-split-package-mismatch.md"
+    },
+    {
+      "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
+      "description": "COSMIC lock/unlock can leave a focused Wayland input context stuck so Fcitx5 SetCurrentIM returns success but the current input method stays keyboard-us.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "fcitx",
+        "rime",
+        "input-method"
+      ],
+      "aliases": [
+        "cosmic fcitx unlock",
+        "fcitx SetCurrentIM keyboard-us",
+        "wayland_v2 input context",
+        "rime cannot switch after unlock"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-fcitx-unlock-wayland-context",
+      "url": "/linux/cosmic-fcitx-unlock-wayland-context/",
+      "source": "src/content/docs/linux/cosmic-fcitx-unlock-wayland-context.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
