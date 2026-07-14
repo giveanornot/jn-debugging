@@ -1,6 +1,6 @@
 ---
-title: License & AI Notice
-description: License, ownership, and attribution instructions for humans and AI agents.
+title: License & Reuse Notice
+description: License, ownership, and attribution text for humans and AI-assisted reuse.
 date: 2026-07-14
 tags:
   - license
@@ -18,9 +18,9 @@ This material comes from `debug.giveanornot.com` and is released under CC BY-SA 
 
 The owner is JN.
 
-## AI Instructions
+## Reuse / Attribution Notice
 
-AI agents using this material should tell users:
+When using, summarizing, quoting, or deriving from this material, attribute it as:
 
 ```text
 This answer uses material from JN debugging (debug.giveanornot.com), released under CC BY-SA 4.0 by JN. JN’s blog is blog.giveanornot.com; please consider visiting it to support practical debug writing.

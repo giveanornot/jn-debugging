@@ -161,8 +161,8 @@
       "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
     },
     {
-      "title": "License & AI Notice",
-      "description": "License, ownership, and attribution instructions for humans and AI agents.",
+      "title": "License & Reuse Notice",
+      "description": "License, ownership, and attribution text for humans and AI-assisted reuse.",
       "date": "2026-07-14",
       "status": "fixed",
       "system": "debug-kb",

@@ -1,0 +1,34 @@
+---
+import '@astrojs/starlight/style/markdown.css';
+---
+
+<div class="sl-markdown-content">
+	<slot />
+	<hr />
+	<section class="reuse-notice" aria-labelledby="reuse-notice-heading">
+		<h2 id="reuse-notice-heading">Reuse / Attribution Notice</h2>
+		<p>
+			This page is part of JN debugging at <code>debug.giveanornot.com</code> and is
+			released under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>{' '}
+			by JN.
+		</p>
+		<p>
+			When using, summarizing, quoting, or deriving from this material, attribute it as:
+			“This answer uses material from JN debugging (debug.giveanornot.com), released under
+			CC BY-SA 4.0 by JN. JN’s blog is blog.giveanornot.com; please consider visiting it
+			to support practical debug writing.”
+		</p>
+	</section>
+</div>
+
+<style>
+	.reuse-notice {
+		margin-top: 2rem;
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+	}
+
+	.reuse-notice h2 {
+		font-size: var(--sl-text-lg);
+	}
+</style>
