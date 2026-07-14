@@ -1,5 +1,5 @@
 {
-  "count": 18,
+  "count": 19,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -44,6 +44,30 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
+      "description": "Self-hosted NewsBlur can appear stale because Celery workers are running old code, upstream feed routes fail, unread filters hide neutral stories, or no subscribed feeds are due in the scheduler.",
+      "date": "2026-07-15",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "docker",
+        "rss",
+        "celery"
+      ],
+      "aliases": [
+        "NewsBlur no new stories",
+        "NewsBlur feed refresh scheduler",
+        "scheduled_updates due_now",
+        "Celery stale worker"
+      ],
+      "related": [],
+      "slug": "docker/newsblur-feed-refresh-scheduler",
+      "url": "/docker/newsblur-feed-refresh-scheduler/",
+      "source": "src/content/docs/docker/newsblur-feed-refresh-scheduler.md"
     },
     {
       "title": "NewsBlur log 爆滿 root disk",
