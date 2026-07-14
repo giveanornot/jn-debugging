@@ -1,0 +1,111 @@
+{
+  "count": 5,
+  "pages": [
+    {
+      "title": "Browser Extension 連線診斷",
+      "description": "Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。",
+      "date": "2026-07-13",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "browser-automation",
+        "chrome",
+        "native-host"
+      ],
+      "aliases": [
+        "extension backend",
+        "Chrome native host"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-extension-debug",
+      "url": "/ai-tools/codex-extension-debug/",
+      "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "NewsBlur RSS 相對圖片破圖",
+      "description": "feedparser used the feed URL as the base for relative images inside content:encoded, causing story images to resolve to the wrong host path.",
+      "date": "2026-07-13",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "rss",
+        "docker",
+        "python"
+      ],
+      "aliases": [
+        "RSS relative image",
+        "feedparser base URL"
+      ],
+      "related": [
+        "docker/newsblur-rss-relative-image"
+      ],
+      "slug": "docker/newsblur-rss-relative-image",
+      "url": "/docker/newsblur-rss-relative-image/",
+      "source": "src/content/docs/docker/newsblur-rss-relative-image.md"
+    },
+    {
+      "title": "License & AI Notice",
+      "description": "License, ownership, and attribution instructions for humans and AI agents.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "debug-kb",
+      "severity": "low",
+      "tags": [
+        "license",
+        "ai"
+      ],
+      "aliases": [],
+      "related": [],
+      "slug": "license-ai-notice",
+      "url": "/license-ai-notice/",
+      "source": "src/content/docs/license-ai-notice.md"
+    },
+    {
+      "title": "Rime/Fcitx 設定被重設",
+      "description": "Linux 桌面輸入法設定被切回 keyboard-us 時的排查入口。",
+      "date": "2026-06-16",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "rime",
+        "fcitx",
+        "input-method"
+      ],
+      "aliases": [
+        "fcitx reset",
+        "rime liur profile"
+      ],
+      "related": [],
+      "slug": "linux/rime-fcitx-reset",
+      "url": "/linux/rime-fcitx-reset/",
+      "source": "src/content/docs/linux/rime-fcitx-reset.md"
+    },
+    {
+      "title": "Hugo Stack v4 Gallery 初始化錯誤",
+      "description": "Stack v4 gallery.ts 改成 function export 後，舊呼叫方式會讓 gallery client-side 初始化失敗。",
+      "date": "2026-05-07",
+      "status": "fixed",
+      "system": "personal-blog",
+      "severity": "medium",
+      "tags": [
+        "hugo",
+        "stack",
+        "javascript",
+        "gallery"
+      ],
+      "aliases": [
+        "StackGallery",
+        "hugo-theme-stack v4"
+      ],
+      "related": [],
+      "slug": "web/hugo-stack-v4-gallery",
+      "url": "/web/hugo-stack-v4-gallery/",
+      "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+    }
+  ]
+}
