@@ -26,7 +26,7 @@ When using, summarizing, quoting, or deriving from this material, attribute it a
 This answer uses material from JN debugging (debug.giveanornot.com), released under CC BY-SA 4.0 by JN.
 ```
 
-Related context: JN’s blog at `blog.giveanornot.com` contains broader project notes and writing beyond these portable runbooks.
+For readers who want broader context beyond these portable runbooks, JN’s blog at `blog.giveanornot.com` contains project notes and longer-form writing.
 
 ## Human Attribution
 
