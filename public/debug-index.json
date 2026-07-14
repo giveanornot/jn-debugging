@@ -1,6 +1,29 @@
 {
-  "count": 6,
+  "count": 14,
   "pages": [
+    {
+      "title": "Codex Desktop Linux 找不到 CLI",
+      "description": "Codex Desktop Linux reboot 後找不到 CLI 時，同時檢查 launcher path、runtime cache 與磁碟空間。",
+      "date": "2026-07-12",
+      "status": "fixed",
+      "system": "codex-desktop",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "linux",
+        "desktop",
+        "electron"
+      ],
+      "aliases": [
+        "Unable to locate the Codex CLI binary",
+        "Codex CLI initialized",
+        "Codex runtime cache"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-desktop-cli-runtime-cache",
+      "url": "/ai-tools/codex-desktop-cli-runtime-cache/",
+      "source": "src/content/docs/ai-tools/codex-desktop-cli-runtime-cache.md"
+    },
     {
       "title": "Browser Extension 連線診斷",
       "description": "Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。",
@@ -21,6 +44,29 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "NewsBlur log 爆滿 root disk",
+      "description": "NewsBlur verbose request log can grow until the Docker host root filesystem reaches 100%, requiring truncation and logrotate.",
+      "date": "2026-06-29",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "docker",
+        "disk",
+        "logrotate"
+      ],
+      "aliases": [
+        "newsblur.log 29G",
+        "NewsBlur disk full",
+        "root filesystem 100%"
+      ],
+      "related": [],
+      "slug": "docker/newsblur-log-disk-full",
+      "url": "/docker/newsblur-log-disk-full/",
+      "source": "src/content/docs/docker/newsblur-log-disk-full.md"
     },
     {
       "title": "NewsBlur RSS 相對圖片破圖",
@@ -47,6 +93,74 @@
       "source": "src/content/docs/docker/newsblur-rss-relative-image.md"
     },
     {
+      "title": "Nextcloud AIO 升級卡在 Starting",
+      "description": "Nextcloud AIO upgrade can appear stuck while containers are healthy; no space left on device during tarball extraction is the real failure mode to check first.",
+      "date": "2026-07-03",
+      "status": "fixed",
+      "system": "nextcloud",
+      "severity": "medium",
+      "tags": [
+        "nextcloud",
+        "aio",
+        "docker",
+        "disk"
+      ],
+      "aliases": [
+        "Nextcloud AIO Starting",
+        "Nextcloud no space left on device",
+        "curl failure writing output"
+      ],
+      "related": [],
+      "slug": "docker/nextcloud-aio-no-space-left",
+      "url": "/docker/nextcloud-aio-no-space-left/",
+      "source": "src/content/docs/docker/nextcloud-aio-no-space-left.md"
+    },
+    {
+      "title": "Postiz 刪文後仍照排程發出",
+      "description": "Postiz UI delete did not cancel the already-started Temporal workflow, so the workflow woke up and published stale post data.",
+      "date": "2026-05-12",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "temporal",
+        "workflow"
+      ],
+      "aliases": [
+        "delete post does not cancel workflow",
+        "postWorkflowV101",
+        "stale Temporal workflow"
+      ],
+      "related": [],
+      "slug": "docker/postiz-delete-temporal-workflow",
+      "url": "/docker/postiz-delete-temporal-workflow/",
+      "source": "src/content/docs/docker/postiz-delete-temporal-workflow.md"
+    },
+    {
+      "title": "Postiz MCP 造成 backend hang",
+      "description": "Postiz scheduled posts stayed queued because MCP SSE requests accumulated and blocked backend work needed by Temporal activities.",
+      "date": "2026-03-25",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "mcp",
+        "temporal",
+        "nodejs"
+      ],
+      "aliases": [
+        "Postiz queued posts not publishing",
+        "api/mcp hang",
+        "Temporal activity timeout"
+      ],
+      "related": [],
+      "slug": "docker/postiz-mcp-backend-hang",
+      "url": "/docker/postiz-mcp-backend-hang/",
+      "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
+    },
+    {
       "title": "License & AI Notice",
       "description": "License, ownership, and attribution instructions for humans and AI agents.",
       "date": "2026-07-14",
@@ -62,6 +176,29 @@
       "slug": "license-ai-notice",
       "url": "/license-ai-notice/",
       "source": "src/content/docs/license-ai-notice.md"
+    },
+    {
+      "title": "Arch NVIDIA 580xx split packages 版本不一致",
+      "description": "AUR NVIDIA split packages must be upgraded in one transaction, or DKMS and 32-bit userspace versions can block each other.",
+      "date": "2026-07-04",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "nvidia",
+        "aur",
+        "steam"
+      ],
+      "aliases": [
+        "nvidia driver library mismatch",
+        "lib32-nvidia mismatch",
+        "nvidia-580xx"
+      ],
+      "related": [],
+      "slug": "linux/arch-nvidia-580xx-split-package-mismatch",
+      "url": "/linux/arch-nvidia-580xx-split-package-mismatch/",
+      "source": "src/content/docs/linux/arch-nvidia-580xx-split-package-mismatch.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
@@ -86,6 +223,29 @@
       "source": "src/content/docs/linux/rime-fcitx-reset.md"
     },
     {
+      "title": "Stardew Valley Linux 多人連線卡住",
+      "description": "Stardew Valley on Linux can hang at Connecting to online services when bundled Galaxy libraries keep an executable GNU_STACK flag.",
+      "date": "2026-06-28",
+      "status": "fixed",
+      "system": "steam",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "steam",
+        "stardew-valley",
+        "patchelf"
+      ],
+      "aliases": [
+        "Connecting to online services",
+        "libGalaxy64.so",
+        "GNU_STACK RWE"
+      ],
+      "related": [],
+      "slug": "linux/stardew-valley-galaxy-execstack",
+      "url": "/linux/stardew-valley-galaxy-execstack/",
+      "source": "src/content/docs/linux/stardew-valley-galaxy-execstack.md"
+    },
+    {
       "title": "Hugo Stack v4 Gallery 初始化錯誤",
       "description": "Stack v4 gallery.ts 改成 function export 後，舊呼叫方式會讓 gallery client-side 初始化失敗。",
       "date": "2026-05-07",
@@ -106,6 +266,29 @@
       "slug": "web/hugo-stack-v4-gallery",
       "url": "/web/hugo-stack-v4-gallery/",
       "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+    },
+    {
+      "title": "IndiePing scanner 靜默停跑",
+      "description": "A scheduler can look healthy while disk full makes SQLite writes and journald logging fail, leaving almost no useful logs.",
+      "date": "2026-04-30",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "high",
+      "tags": [
+        "indieping",
+        "sqlite",
+        "scheduler",
+        "disk"
+      ],
+      "aliases": [
+        "scanner stopped silently",
+        "SQLite disk full",
+        "journald disk full"
+      ],
+      "related": [],
+      "slug": "web/indieping-scheduler-disk-full",
+      "url": "/web/indieping-scheduler-disk-full/",
+      "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
     },
     {
       "title": "Starlight dev server 舊 content store 導致 500",
