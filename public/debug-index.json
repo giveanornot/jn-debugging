@@ -1,5 +1,5 @@
 {
-  "count": 5,
+  "count": 6,
   "pages": [
     {
       "title": "Browser Extension 連線診斷",
@@ -106,6 +106,29 @@
       "slug": "web/hugo-stack-v4-gallery",
       "url": "/web/hugo-stack-v4-gallery/",
       "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+    },
+    {
+      "title": "Starlight dev server 舊 content store 導致 500",
+      "description": "Astro/Starlight production build 通過，但背景 dev server 仍吃舊 content store，導致 sidebar slug 找不到並回 500。",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "starlight",
+      "severity": "low",
+      "tags": [
+        "astro",
+        "starlight",
+        "dev-server",
+        "content-collection"
+      ],
+      "aliases": [
+        "Astro dev server 500",
+        "Starlight sidebar slug",
+        "stale content store"
+      ],
+      "related": [],
+      "slug": "web/starlight-dev-server-stale-content",
+      "url": "/web/starlight-dev-server-stale-content/",
+      "source": "src/content/docs/web/starlight-dev-server-stale-content.md"
     }
   ]
 }
