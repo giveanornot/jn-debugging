@@ -10,6 +10,21 @@ export default defineConfig({
 		starlight({
 			title: 'JN debugging',
 			description: 'Debug runbooks and troubleshooting notes optimized for humans and AI agents.',
+			head: [
+				{
+					tag: 'script',
+					attrs: {
+						defer: true,
+						'data-domain': 'debug.giveanornot.com',
+						src: 'https://plausible.giveanornot.com/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js',
+					},
+				},
+				{
+					tag: 'script',
+					content:
+						'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }',
+				},
+			],
 			components: {
 				MarkdownContent: './src/components/MarkdownContent.astro',
 			},
