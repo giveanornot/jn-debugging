@@ -1,5 +1,5 @@
 {
-  "count": 19,
+  "count": 20,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -138,6 +138,31 @@
       "slug": "docker/nextcloud-aio-no-space-left",
       "url": "/docker/nextcloud-aio-no-space-left/",
       "source": "src/content/docs/docker/nextcloud-aio-no-space-left.md"
+    },
+    {
+      "title": "Plausible CE v2 升 v3 時避免 PostgreSQL 資料目錄不相容",
+      "description": "Upgrade a self-hosted Plausible Community Edition v2 stack to v3 by logically migrating PostgreSQL, preserving ClickHouse rollback data, and verifying analytics without polluting production traffic.",
+      "date": "2026-07-15",
+      "status": "fixed",
+      "system": "plausible",
+      "severity": "high",
+      "tags": [
+        "plausible",
+        "docker",
+        "postgresql",
+        "clickhouse",
+        "migration"
+      ],
+      "aliases": [
+        "Plausible v2 to v3 migration",
+        "PostgreSQL 14 to 16 Plausible",
+        "ClickHouse 23 to 24 Plausible",
+        "Plausible community edition upgrade"
+      ],
+      "related": [],
+      "slug": "docker/plausible-v2-v3-migration",
+      "url": "/docker/plausible-v2-v3-migration/",
+      "source": "src/content/docs/docker/plausible-v2-v3-migration.md"
     },
     {
       "title": "Postiz 刪文後仍照排程發出",
