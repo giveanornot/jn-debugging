@@ -1,5 +1,5 @@
 {
-  "count": 21,
+  "count": 22,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -415,6 +415,31 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
+      "description": "A deployed PWA serves an old shell or stays on “loading local drafts” when a stale service worker cache and another tab’s IndexedDB connection delay an application upgrade.",
+      "date": "2026-07-16",
+      "status": "fixed",
+      "system": "progressive-web-app",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "service-worker",
+        "indexeddb",
+        "cache",
+        "cloudflare-pages"
+      ],
+      "aliases": [
+        "PWA update stuck loading IndexedDB",
+        "service worker stale app shell",
+        "IndexedDB versionchange blocked",
+        "PWA 舊版快取"
+      ],
+      "related": [],
+      "slug": "web/pwa-service-worker-indexeddb-upgrade",
+      "url": "/web/pwa-service-worker-indexeddb-upgrade/",
+      "source": "src/content/docs/web/pwa-service-worker-indexeddb-upgrade.md"
     },
     {
       "title": "RSSHub Dcard API 被擋時改抓 JSON-LD",
