@@ -1,5 +1,5 @@
 {
-  "count": 22,
+  "count": 23,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -370,6 +370,31 @@
       "slug": "web/cloudflare-pages-upload-token-405",
       "url": "/web/cloudflare-pages-upload-token-405/",
       "source": "src/content/docs/web/cloudflare-pages-upload-token-405.md"
+    },
+    {
+      "title": "Framework7 Svelte 白畫面與本機草稿無法開啟",
+      "description": "A Framework7 Svelte app can render a blank page when the adapter is not registered, and later fail on local draft actions when Svelte reactive proxies are passed to IndexedDB or structuredClone.",
+      "date": "2026-07-17",
+      "status": "fixed",
+      "system": "web-app",
+      "severity": "medium",
+      "tags": [
+        "framework7",
+        "svelte",
+        "indexeddb",
+        "progressive-web-app",
+        "frontend"
+      ],
+      "aliases": [
+        "Framework7 Svelte app.Framework7 is not a constructor",
+        "Framework7 Svelte blank screen",
+        "Svelte DataCloneError IndexedDB",
+        "Svelte structuredClone proxy error"
+      ],
+      "related": [],
+      "slug": "web/framework7-svelte-blank-screen-local-state",
+      "url": "/web/framework7-svelte-blank-screen-local-state/",
+      "source": "src/content/docs/web/framework7-svelte-blank-screen-local-state.md"
     },
     {
       "title": "Hugo Stack v4 Gallery 初始化錯誤",
