@@ -1,5 +1,5 @@
 {
-  "count": 20,
+  "count": 21,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -345,6 +345,31 @@
       "slug": "linux/stardew-valley-galaxy-execstack",
       "url": "/linux/stardew-valley-galaxy-execstack/",
       "source": "src/content/docs/linux/stardew-valley-galaxy-execstack.md"
+    },
+    {
+      "title": "Cloudflare Pages Direct Upload 的 upload-token 回 405",
+      "description": "A Pages Direct Upload client gets HTTP 405 when it POSTs to upload-token; the current Wrangler flow obtains that JWT with GET, then POSTs assets and deployments separately.",
+      "date": "2026-07-16",
+      "status": "fixed",
+      "system": "cloudflare-pages",
+      "severity": "medium",
+      "tags": [
+        "cloudflare",
+        "pages",
+        "direct-upload",
+        "oauth",
+        "cors"
+      ],
+      "aliases": [
+        "Pages upload-token 405",
+        "Cloudflare Pages Direct Upload JWT",
+        "GET upload-token",
+        "Pages assets check-missing"
+      ],
+      "related": [],
+      "slug": "web/cloudflare-pages-upload-token-405",
+      "url": "/web/cloudflare-pages-upload-token-405/",
+      "source": "src/content/docs/web/cloudflare-pages-upload-token-405.md"
     },
     {
       "title": "Hugo Stack v4 Gallery 初始化錯誤",
