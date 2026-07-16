@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。
-date: 2026-07-13
+date: 2026-07-16
 tags:
   - browser-automation
   - chrome
@@ -12,6 +12,8 @@ severity: medium
 aliases:
   - extension backend
   - Chrome native host
+  - No Codex browser client is connected
+  - Codex Chrome Extension
 ---
 
 ## 快速結論
@@ -27,10 +29,24 @@ local AI agent 無法連到 extension backend，browser automation 沒有可用 
 常見表現：
 
 - agent 顯示 browser backend disconnected。
+- Codex Chrome Extension 顯示 `No Codex browser client is connected`。
 - helper 等待 extension connect 到 timeout。
 - Chrome/Brave 看似開了，但 agent 讀不到 tab。
 - 換瀏覽器 profile 後 extension 消失。
 - 從 terminal 開 browser 正常，從 agent app 開卻抓不到 GUI session。
+
+### 「No Codex browser client」分支
+
+這個畫面表示瀏覽器 extension 沒有連上 desktop app 的 browser client；它不等於 native host manifest 一定壞掉。常見情況是 browser 尚未啟動、開錯 profile，或 desktop app / task 的連線狀態已失效。
+
+先用最短路徑恢復，不要立刻重裝：
+
+1. 完全關閉 browser 與 desktop app。
+2. 先開 desktop app，確認 Browser / Chrome plugin 已啟用。
+3. 再開有安裝 extension 的同一個 browser profile，從工具列確認 extension 顯示 **Connected**。
+4. 開新 task 後，先讀取一個現有分頁來驗證。
+
+若仍未連上，才回到 profile、native host manifest 與 GUI session env 的排查。
 
 ## 影響範圍
 
@@ -72,13 +88,13 @@ printf 'HOME=%s\nDISPLAY=%s\nXDG_RUNTIME_DIR=%s\nDBUS_SESSION_BUS_ADDRESS=%s\n' 
 
 ## 根因
 
-helper 預設選到空 Brave profile，且 GUI session 需要的環境變數不完整。
+helper 預設選到空 Brave profile，且 GUI session 需要的環境變數不完整。在另一個常見分支中，extension 和 native host 都已安裝，但 desktop app 的 browser client 尚未和目前 browser session 建立連線。
 
 所以 extension backend 不是壞掉；它只是沒有在 agent 能控制的那個 profile/session 裡運作。
 
 ## 修正
 
-指定正確 Chrome user data dir，並補齊 GUI session env 後再啟動瀏覽器。
+指定正確 Chrome user data dir，並補齊 GUI session env 後再啟動瀏覽器。若是 browser client 未連線分支，先以「desktop app → 同 profile browser → 新 task」的順序重建連線。
 
 修正方向：
 
@@ -96,6 +112,7 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 - extension backend 連線成功。
 - browser automation 可讀取目前分頁。
 - browser helper 可跑出候選資料並落盤 JSONL。
+- Chrome extension 的可用分頁清單不再是空的。
 
 驗證時要分兩層：
 
