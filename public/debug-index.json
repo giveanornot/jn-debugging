@@ -373,8 +373,8 @@
     },
     {
       "title": "Framework7 Svelte 白畫面與本機草稿無法開啟",
-      "description": "A Framework7 Svelte app can render a blank page when the adapter is not registered, and later fail on local draft actions when Svelte reactive proxies are passed to IndexedDB or structuredClone.",
-      "date": "2026-07-17",
+      "description": "Framework7 Svelte apps can fail during startup, local draft persistence, or Sheet interaction after HMR when adapter, reactive-state, and component event contracts are mixed.",
+      "date": "2026-07-18",
       "status": "fixed",
       "system": "web-app",
       "severity": "medium",
@@ -383,13 +383,16 @@
         "svelte",
         "indexeddb",
         "progressive-web-app",
-        "frontend"
+        "frontend",
+        "hot-module-replacement"
       ],
       "aliases": [
         "Framework7 Svelte app.Framework7 is not a constructor",
         "Framework7 Svelte blank screen",
         "Svelte DataCloneError IndexedDB",
-        "Svelte structuredClone proxy error"
+        "Svelte structuredClone proxy error",
+        "Framework7 Sheet closeByBackdropClick",
+        "Framework7 Svelte Sheet HMR backdrop error"
       ],
       "related": [],
       "slug": "web/framework7-svelte-blank-screen-local-state",
