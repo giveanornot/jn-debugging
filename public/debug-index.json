@@ -443,8 +443,8 @@
     },
     {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
-      "description": "A deployed PWA serves an old shell or stays on “loading local drafts” when a stale service worker cache and another tab’s IndexedDB connection delay an application upgrade.",
-      "date": "2026-07-16",
+      "description": "A deployed PWA can keep showing an old shell after a release when a browser or CDN caches service-worker files; diagnose the delivery layer separately from IndexedDB upgrades.",
+      "date": "2026-07-18",
       "status": "fixed",
       "system": "progressive-web-app",
       "severity": "medium",
