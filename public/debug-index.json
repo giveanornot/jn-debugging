@@ -1,5 +1,5 @@
 {
-  "count": 23,
+  "count": 24,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -445,6 +445,28 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "Android PWA 返回鍵直接關閉 browser",
+      "description": "當單頁 PWA 沒有同步 app 畫面到瀏覽器 history 時，Android 返回鍵會跳過 app 內導覽並直接離開。",
+      "date": "2026-07-18",
+      "status": "fixed",
+      "system": "web-pwa",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "android",
+        "history-api",
+        "svelte"
+      ],
+      "aliases": [
+        "popstate android back button",
+        "PWA back closes browser"
+      ],
+      "related": [],
+      "slug": "web/pwa-android-back-history",
+      "url": "/web/pwa-android-back-history/",
+      "source": "src/content/docs/web/pwa-android-back-history.md"
     },
     {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
