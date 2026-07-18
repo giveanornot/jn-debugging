@@ -373,7 +373,7 @@
     },
     {
       "title": "Framework7 Svelte 白畫面與本機草稿無法開啟",
-      "description": "Framework7 Svelte apps can fail during startup, local draft persistence, or Sheet interaction after HMR when adapter, reactive-state, and component event contracts are mixed.",
+      "description": "Framework7 Svelte apps can fail during startup, local draft persistence, Sheet interaction, or browser Blob downloads when adapter, reactive-state, and click-routing contracts are mixed.",
       "date": "2026-07-18",
       "status": "fixed",
       "system": "web-app",
@@ -392,7 +392,9 @@
         "Svelte DataCloneError IndexedDB",
         "Svelte structuredClone proxy error",
         "Framework7 Sheet closeByBackdropClick",
-        "Framework7 Svelte Sheet HMR backdrop error"
+        "Framework7 Svelte Sheet HMR backdrop error",
+        "Framework7 Blob download intercepted by router",
+        "PWA ZIP download user activation"
       ],
       "related": [],
       "slug": "web/framework7-svelte-blank-screen-local-state",
