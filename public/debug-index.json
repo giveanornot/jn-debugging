@@ -1,5 +1,5 @@
 {
-  "count": 24,
+  "count": 25,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -234,6 +234,29 @@
       "slug": "docker/rsshub-puppeteer-real-browser-chromium",
       "url": "/docker/rsshub-puppeteer-real-browser-chromium/",
       "source": "src/content/docs/docker/rsshub-puppeteer-real-browser-chromium.md"
+    },
+    {
+      "title": "自架服務出現陌生帳號時的註冊封鎖與清理",
+      "description": "Self-hosted services may expose a registration route by default; inventory accounts first, then disable registration at the supported setting or reverse proxy and verify the actual signup API.",
+      "date": "2026-07-21",
+      "status": "fixed",
+      "system": "self-hosted-web-services",
+      "severity": "high",
+      "tags": [
+        "docker",
+        "authentication",
+        "account-security",
+        "traefik"
+      ],
+      "aliases": [
+        "unexpected user registrations",
+        "disable self-hosted signup",
+        "block signup API with Traefik"
+      ],
+      "related": [],
+      "slug": "docker/self-hosted-unwanted-signups",
+      "url": "/docker/self-hosted-unwanted-signups/",
+      "source": "src/content/docs/docker/self-hosted-unwanted-signups.md"
     },
     {
       "title": "License & Reuse Notice",
