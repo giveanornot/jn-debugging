@@ -16,6 +16,7 @@ aliases:
   - Cloudflare Pages Direct Upload JWT
   - GET upload-token
   - Pages assets check-missing
+  - localhost CORS relay
 ---
 
 ## 快速結論
@@ -90,6 +91,28 @@ Pages Direct Upload 是兩段授權：帳號 OAuth token 先以 `GET` 換短期 
 ```
 
 若使用 PWA，OAuth authorization/token/revoke endpoint 的 CORS 設定不會自動改變通用 `api.cloudflare.com` REST API 的 CORS policy。需要 browser client 時，relay 應維持最小權限：固定 origin、精確 path + method allowlist、只轉送當次 `Authorization` header，且不保存 token 或內容。
+
+本機測試時，`localhost` 與 `127.0.0.1` 是不同 Origin。若 Vite 開在 `http://localhost:5173`，relay 即使已允許 `http://127.0.0.1:5173`，瀏覽器仍會在帳號 discovery 前以 `Failed to fetch` 失敗。兩者都需要明確列入 allowlist：
+
+```js
+const PWA_ORIGINS = new Set([
+  "https://publisher.example",
+  "http://127.0.0.1:5173",
+  "http://localhost:5173"
+]);
+```
+
+不要把它放寬成反射任意 `Origin`。預檢應只對 allowlist 中的來源回傳相同的 `Access-Control-Allow-Origin`：
+
+```bash
+curl -i -X OPTIONS \
+  -H 'Origin: http://localhost:5173' \
+  -H 'Access-Control-Request-Method: GET' \
+  -H 'Access-Control-Request-Headers: authorization' \
+  https://publisher.example/api/cloudflare/accounts
+```
+
+預期是 `204` 和 `Access-Control-Allow-Origin: http://localhost:5173`；若回 `403 Origin is not allowed`，先部署更新過的 relay，再重新測試。
 
 ## 驗證
 

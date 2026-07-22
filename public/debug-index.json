@@ -387,7 +387,8 @@
         "Pages upload-token 405",
         "Cloudflare Pages Direct Upload JWT",
         "GET upload-token",
-        "Pages assets check-missing"
+        "Pages assets check-missing",
+        "localhost CORS relay"
       ],
       "related": [],
       "slug": "web/cloudflare-pages-upload-token-405",
