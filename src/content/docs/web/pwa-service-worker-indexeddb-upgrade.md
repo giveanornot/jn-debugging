@@ -1,7 +1,7 @@
 ---
 title: PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋
-description: A deployed PWA can keep showing an old shell after a release when a browser or CDN caches service-worker files; diagnose the delivery layer separately from IndexedDB upgrades.
-date: 2026-07-18
+description: A deployed PWA can fail or keep showing an old shell after a release when a browser or CDN caches service-worker files; verify the custom domain before changing app code.
+date: 2026-07-22
 tags:
   - pwa
   - service-worker
@@ -16,6 +16,7 @@ aliases:
   - service worker stale app shell
   - IndexedDB versionchange blocked
   - PWA 舊版快取
+  - Cloudflare Pages 手機 PWA 部署後無法載入
 ---
 
 ## 快速結論
@@ -23,6 +24,8 @@ aliases:
 PWA 發版後若仍看到舊 UI，先分開檢查四件事：正式網域是否真的已指向新 deployment、瀏覽器是否仍被舊 service worker 控制、CDN 是否快取了 `sw.js`，以及 shell 指向的 JS URL 是否仍代表相同內容。
 
 `sw.js` 與 Workbox runtime 不應使用長效 HTTP cache。部署平台要讓這些檔案每次重新驗證（例如 `Cache-Control: no-cache`）；hashed JS/CSS 才適合長效 immutable cache。
+
+即使 repository 已有 `_headers`，也要以正式自訂網域的實際 response header 為準。Pages deployment URL 已是新版、手機卻無法載入時，優先判定為 edge 或既有 PWA cache；不要先把它當成手機相容性或 IndexedDB bug。
 
 如果新版同時提高 IndexedDB schema version，另一個開著的舊分頁可能持有資料庫連線，讓新版停在初始化。不要改 database 名稱或清空資料；在 database connection 加上 `onversionchange` 關閉舊連線，並在 upgrade 被阻擋時明確提示使用者關閉其他分頁後重整。
 
@@ -78,6 +81,8 @@ curl -sI https://example.pages.dev/sw.js
 
 部署後要分別檢查新 deployment 與自訂網域的 response headers。前者正確、後者仍舊時，不要誤判為前端 build 問題；等待 edge cache revalidate，或依平台權限針對 `sw.js` 做精準 purge，再以既有 PWA client 驗證。
 
+手機回報「載不出來」時，先請使用者完全關閉已安裝的 PWA 或瀏覽器分頁再重開；若恢復正常，就把它記為 cache 命中，而不是額外修改初始化程式。
+
 最小驗證是檢查 HTML 引用與預快取清單完全一致：
 
 ```text
@@ -122,6 +127,6 @@ request.onsuccess = () => {
 1. 先用 `curl -I` 比對自訂網域與最新 deployment URL 的 `sw.js` cache header，再比對 HTML asset URL。
 2. 若只有自訂網域還是舊 header，先等 edge revalidate 或做精準 purge；不要先改前端程式。
 3. 確認舊 asset URL 沒有被覆寫成新內容；版本不一致先修這層。
-4. 重整一次，讓 browser 完成 service worker update。
+4. 請手機使用者完全關閉已安裝 PWA 或瀏覽器分頁後再開，讓 browser 完成 service worker update。
 5. 新 UI 卡在本機載入時，才看 IndexedDB version upgrade 是否被其他分頁阻擋。
 6. 優先加 `onversionchange` / `onblocked`；不要清使用者資料來解除問題。

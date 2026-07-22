@@ -493,8 +493,8 @@
     },
     {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
-      "description": "A deployed PWA can keep showing an old shell after a release when a browser or CDN caches service-worker files; diagnose the delivery layer separately from IndexedDB upgrades.",
-      "date": "2026-07-18",
+      "description": "A deployed PWA can fail or keep showing an old shell after a release when a browser or CDN caches service-worker files; verify the custom domain before changing app code.",
+      "date": "2026-07-22",
       "status": "fixed",
       "system": "progressive-web-app",
       "severity": "medium",
@@ -509,7 +509,8 @@
         "PWA update stuck loading IndexedDB",
         "service worker stale app shell",
         "IndexedDB versionchange blocked",
-        "PWA 舊版快取"
+        "PWA 舊版快取",
+        "Cloudflare Pages 手機 PWA 部署後無法載入"
       ],
       "related": [],
       "slug": "web/pwa-service-worker-indexeddb-upgrade",
