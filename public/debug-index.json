@@ -1,5 +1,5 @@
 {
-  "count": 25,
+  "count": 26,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -368,6 +368,29 @@
       "slug": "linux/stardew-valley-galaxy-execstack",
       "url": "/linux/stardew-valley-galaxy-execstack/",
       "source": "src/content/docs/linux/stardew-valley-galaxy-execstack.md"
+    },
+    {
+      "title": "Wine 下 KartRider 進入賽事時 NMService.exe 崩潰",
+      "description": "KartRider 可進大廳但一進實際賽事即崩潰時，辨識舊 beanfun NMService.exe access violation，並安全回退 Wine 測試的方法。",
+      "date": "2026-07-24",
+      "status": "investigating",
+      "system": "Wine / KartRider / beanfun",
+      "severity": "medium",
+      "tags": [
+        "wine",
+        "gaming",
+        "compatibility",
+        "beanfun"
+      ],
+      "aliases": [
+        "KartRider Wine race crash",
+        "NMService.exe access violation",
+        "beanfun Wine crash"
+      ],
+      "related": [],
+      "slug": "linux/wine-nmservice-race-crash",
+      "url": "/linux/wine-nmservice-race-crash/",
+      "source": "src/content/docs/linux/wine-nmservice-race-crash.md"
     },
     {
       "title": "Cloudflare Pages Direct Upload 的 upload-token 回 405",
