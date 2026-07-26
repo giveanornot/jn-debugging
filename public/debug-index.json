@@ -463,7 +463,9 @@
         "Framework7 Sheet closeByBackdropClick",
         "Framework7 Svelte Sheet HMR backdrop error",
         "Framework7 Blob download intercepted by router",
-        "PWA ZIP download user activation"
+        "PWA ZIP download user activation",
+        "Svelte $effect autosave nested state",
+        "Svelte settings reset after reload"
       ],
       "related": [],
       "slug": "web/framework7-svelte-blank-screen-local-state",

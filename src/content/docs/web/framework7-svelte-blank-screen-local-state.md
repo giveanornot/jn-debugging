@@ -21,6 +21,8 @@ aliases:
   - Framework7 Svelte Sheet HMR backdrop error
   - Framework7 Blob download intercepted by router
   - PWA ZIP download user activation
+  - Svelte $effect autosave nested state
+  - Svelte settings reset after reload
 ---
 
 ## 快速結論
@@ -59,6 +61,7 @@ TypeError: Cannot read properties of undefined (reading 'closeByBackdropClick')
 
 - Framework7 的 navbar slot、list 或 icon font 看似有載入，但標題消失、文字重疊，或顯示 icon 名稱。
 - ZIP 匯出流程顯示已準備完成，`<a download href="blob:...">` 存在，但點擊後沒有下載或被 SPA 導向處理。
+- 設定頁剛修改的名稱或自介可用於當次發布，但重開 app 後又回到舊值；同一份 IndexedDB 內的文章 autosave 則正常。
 
 ## 影響範圍
 
@@ -91,6 +94,7 @@ TypeError: Cannot read properties of undefined (reading 'closeByBackdropClick')
 3. Framework7 component 的 API 與直覺 HTML nesting 不完全相同。把 `Navbar` slot 再包一層 `NavLeft`／`NavRight`，或讓 `Page` 自動與手動各生成一層 `.page-content`，會產生空白 header、錯位與文字重疊。`f7` icon prop 也需要對應 icon font；沒有資產時會直接顯示 glyph 名稱。
 4. HMR 會替換 Svelte component tree，但 Framework7 的 Sheet/backdrop click handling 仍可能保留舊 instance 的狀態。當點擊事件進入 framework handler 時，已失效的 Sheet 設定是 `undefined`，讀取 `closeByBackdropClick` 就中斷後續互動。
 5. Framework7 以文件層 click handler 解析一般 anchor，並可能把 `blob:` 下載連結當作 app navigation。另一方面，非同步 ZIP builder 結束後才呼叫 `a.click()`，在某些瀏覽器已不屬於原始使用者手勢，下載會被抑制。
+6. Svelte `$effect` 只追蹤 effect 同步執行期間讀取的 reactive 值。若把 `plain(siteProfile)` 放在 `setTimeout()` callback 裡，effect 沒有讀到 `siteProfile`；綁定欄位的巢狀變更不會重新安排 autosave。發布若直接傳入記憶體中的 profile，便會造成「公開站是新值、重開後設定是舊值」。
 
 ## 修正
 
@@ -113,6 +117,19 @@ function plain<T>(value: T): T {
 await store.savePost(plain(activePost));
 await store.saveSite(plain(siteProfile));
 ```
+
+Debounced autosave 必須在 effect 追蹤期間先建立 plain snapshot，再交給延遲 callback：
+
+```svelte
+$effect(() => {
+  if (loading) return;
+  const profile = plain(siteProfile);
+  clearTimeout(siteSaveTimer);
+  siteSaveTimer = setTimeout(() => store.saveSite(profile), 450);
+});
+```
+
+不要在 `setTimeout(() => store.saveSite(plain(siteProfile)))` 才讀取設定；這會讓 effect 只追蹤 `loading`，而不是名稱、自介等巢狀欄位。
 
 若資料含有 `Blob`、`Date`、`Map` 等非 JSON 型別，改用明確 serializer 或只 snapshot 可序列化欄位；不要把 proxy 直接餵給 `structuredClone()`。
 
@@ -166,6 +183,7 @@ function downloadPreparedZip(event: MouseEvent, url: string, filename: string) {
 - Browser 開啟首頁後可見 navbar title、內容庫、底部導覽與縮圖。
 - 點既有草稿能進入 editor；編輯後 autosave 不再出現 `DataCloneError`。
 - 設定頁欄位、建立貼文 sheet 以及取消操作可正常顯示與互動。
+- 修改網站名稱、自介、時區與連結後，等待 debounce 時間再重開 app；所有欄位應從 IndexedDB 還原，且發布結果與後台設定一致。
 - fresh reload 與一次 HMR 後，Sheet 都可開啟、關閉，內部 action 不再出現 `closeByBackdropClick`。
 - Browser console 沒有 `app.Framework7 is not a constructor`、`DataCloneError` 或未載入 icon font 造成的文字 glyph。
 - ZIP 準備後的下載 action 不會變更 app route，並在 Chrome／Brave 實測得到非零 ZIP；以 `unzip -t` 驗證壓縮檔結構。
@@ -177,3 +195,4 @@ function downloadPreparedZip(event: MouseEvent, url: string, filename: string) {
 3. UI 有空白 header、重疊或 icon 字串時，讀元件 source／型別確認 slot contract，並用 browser 截圖驗證實際 layout。
 4. 只有 Sheet 點擊失效時，先搜尋 `backdrop` 與 `<Button onclick`；移除 backdrop close，改為 `onClick` 和明確關閉按鈕後再測 HMR。
 5. ZIP 已產生卻不下載時，先看 anchor 是否是 `blob:`、是否有 `download`，再加 `prevent-router`；若下載程式碼在 `await` 後才執行，改成「準備 ZIP → 使用者點下載」兩步。
+6. 只有設定重開後回舊值、文章卻正常時，先確認 `$effect` 是否在同步區塊讀取完整 profile；將 snapshot 移到 debounce callback 外。
