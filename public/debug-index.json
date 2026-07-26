@@ -1,5 +1,5 @@
 {
-  "count": 26,
+  "count": 27,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -46,6 +46,28 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
+      "description": "Artalk Docker 升版前以 SQLite online backup 保留可回復資料，釘選版本並核對留言資料與公開前端。",
+      "date": "2026-07-26",
+      "status": "fixed",
+      "system": "artalk",
+      "severity": "medium",
+      "tags": [
+        "artalk",
+        "docker",
+        "sqlite",
+        "deployment"
+      ],
+      "aliases": [
+        "Artalk Docker upgrade",
+        "Artalk SQLite backup"
+      ],
+      "related": [],
+      "slug": "docker/artalk-docker-upgrade-sqlite-backup",
+      "url": "/docker/artalk-docker-upgrade-sqlite-backup/",
+      "source": "src/content/docs/docker/artalk-docker-upgrade-sqlite-backup.md"
     },
     {
       "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
