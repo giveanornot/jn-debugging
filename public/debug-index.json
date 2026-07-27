@@ -81,13 +81,18 @@
         "docker",
         "lets-encrypt",
         "tls",
+        "dns-01",
+        "wildcard-certificate",
+        "certificate-transparency",
         "reverse-proxy"
       ],
       "aliases": [
         "Cosmos certificate expired",
         "Cosmos LETSENCRYPT_OBTAIN",
         "Cosmos acme-tls ALPN failed",
-        "bundled SAN certificate renewal"
+        "bundled SAN certificate renewal",
+        "Cosmos DNS-01 wildcard certificate",
+        "Certificate Transparency subdomain enumeration"
       ],
       "related": [],
       "slug": "docker/cosmos-letsencrypt-renewal-stale-domain",
