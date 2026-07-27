@@ -120,6 +120,40 @@ docker compose exec -T plausible_events_db \
 docker compose up -d plausible
 ```
 
+### 已有新版 instance 時：匯出舊 analytics 為 CSV
+
+若新版 Plausible 已經開始收集資料，不要直接把舊 ClickHouse tables 寫入新版 instance。保留原 volumes，複製到隔離暫存路徑，並用相容的舊 PostgreSQL／ClickHouse image 唯讀分析；再依官方 CSV import 格式輸出舊資料。這能把早期歷史統計併入既有站點，而且可在 dashboard 的 Imports & Exports 頁面單獨刪除，不影響新 instance 的原生 events。
+
+先確認兩段資料沒有重疊：
+
+```sql
+SELECT domain, min(timestamp), max(timestamp), count()
+FROM plausible_events_db.events
+GROUP BY domain;
+
+SELECT site_id, min(timestamp), max(timestamp), count()
+FROM plausible_events_db.events_v2
+GROUP BY site_id;
+```
+
+舊版 schema 常以 `domain` 表示站點、sessions 使用 `CollapsingMergeTree(sign)`；統計 sessions 時使用 `FINAL`，否則更新中的 session rows 可能重複計數。至少產生 `imported_visitors`、`imported_pages`、`imported_entry_pages`、`imported_exit_pages`、`imported_sources`、`imported_locations`、`imported_devices`、`imported_browsers` 與 `imported_operating_systems`。檔名需為 `table_YYYYMMDD_YYYYMMDD.csv`。
+
+```sql
+SELECT toDate(start) AS date,
+       uniqExact(user_id) AS visitors,
+       sum(pageviews) AS pageviews,
+       sum(is_bounce) AS bounces,
+       count() AS visits,
+       sum(duration) AS visit_duration
+FROM plausible_events_db.sessions FINAL
+WHERE domain = 'example.com'
+GROUP BY date
+ORDER BY date
+FORMAT CSVWithNames;
+```
+
+在新版 dashboard 的 site settings → Imports & Exports 一次上傳整組 CSV。匯入統計是 aggregate data：會與原生資料一起顯示，但不支援所有交叉篩選；這是保留既有正式 tracking 又能納入歷史資料的安全取捨。
+
 ## 驗證
 
 - PostgreSQL healthcheck 是 `healthy`，且 users、sites、schema migration counts 存在。
@@ -144,3 +178,4 @@ docker exec plausible-plausible_events_db-1 \
 3. PostgreSQL major upgrade 永遠使用新 data directory + restore，不直接重掛舊 directory。
 4. ClickHouse 起來後先確認舊 events tables 與 byte counts。
 5. 最後才啟 app migration，並保留所有 rollback artifacts 到自然 tracking event 也驗證完成。
+6. 若目標 instance 已有原生資料，先比對日期範圍，再以 CSV import 匯入不重疊的舊統計；不要直接 merge 不同世代的 ClickHouse tables。
