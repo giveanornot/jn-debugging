@@ -1,5 +1,5 @@
 {
-  "count": 28,
+  "count": 29,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -93,6 +93,33 @@
       "slug": "docker/cosmos-letsencrypt-renewal-stale-domain",
       "url": "/docker/cosmos-letsencrypt-renewal-stale-domain/",
       "source": "src/content/docs/docker/cosmos-letsencrypt-renewal-stale-domain.md"
+    },
+    {
+      "title": "搬遷 HedgeDoc 到 Docker 與 Cosmos 時保留筆記 URL、uploads 與 TLS",
+      "description": "Move HedgeDoc between Docker hosts with a logical PostgreSQL restore, UID-safe upload copy, Cosmos routing, and a direct DNS record that survives dynamic-IP updates.",
+      "date": "2026-07-27",
+      "status": "fixed",
+      "system": "hedgedoc",
+      "severity": "high",
+      "tags": [
+        "hedgedoc",
+        "docker",
+        "postgresql",
+        "cosmos",
+        "cloudflare",
+        "migration"
+      ],
+      "aliases": [
+        "HedgeDoc Docker migration",
+        "HedgeDoc PostgreSQL restore",
+        "HedgeDoc uploads permission denied",
+        "Cosmos HedgeDoc route",
+        "HedgeDoc DNS cutover"
+      ],
+      "related": [],
+      "slug": "docker/hedgedoc-postgres-cosmos-migration",
+      "url": "/docker/hedgedoc-postgres-cosmos-migration/",
+      "source": "src/content/docs/docker/hedgedoc-postgres-cosmos-migration.md"
     },
     {
       "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
