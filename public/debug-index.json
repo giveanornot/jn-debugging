@@ -1,5 +1,5 @@
 {
-  "count": 27,
+  "count": 28,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -68,6 +68,31 @@
       "slug": "docker/artalk-docker-upgrade-sqlite-backup",
       "url": "/docker/artalk-docker-upgrade-sqlite-backup/",
       "source": "src/content/docs/docker/artalk-docker-upgrade-sqlite-backup.md"
+    },
+    {
+      "title": "Cosmos Let’s Encrypt 合併憑證因舊網域續期失敗",
+      "description": "Cosmos Server may fail to renew every routed hostname in one bundled SAN certificate when a stale route points to a domain now served elsewhere.",
+      "date": "2026-07-27",
+      "status": "fixed",
+      "system": "cosmos-server",
+      "severity": "high",
+      "tags": [
+        "cosmos",
+        "docker",
+        "lets-encrypt",
+        "tls",
+        "reverse-proxy"
+      ],
+      "aliases": [
+        "Cosmos certificate expired",
+        "Cosmos LETSENCRYPT_OBTAIN",
+        "Cosmos acme-tls ALPN failed",
+        "bundled SAN certificate renewal"
+      ],
+      "related": [],
+      "slug": "docker/cosmos-letsencrypt-renewal-stale-domain",
+      "url": "/docker/cosmos-letsencrypt-renewal-stale-domain/",
+      "source": "src/content/docs/docker/cosmos-letsencrypt-renewal-stale-domain.md"
     },
     {
       "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
