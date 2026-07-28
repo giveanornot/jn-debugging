@@ -1,5 +1,5 @@
 {
-  "count": 29,
+  "count": 30,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -46,6 +46,31 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
+      "description": "Threads search results can look complete while delayed hydration, recycled cards, and a long-running browser call have skipped the required time range.",
+      "date": "2026-07-28",
+      "status": "fixed",
+      "system": "browser-automation",
+      "severity": "medium",
+      "tags": [
+        "threads",
+        "browser-automation",
+        "virtual-dom",
+        "checkpoint",
+        "codex"
+      ],
+      "aliases": [
+        "Threads search incomplete",
+        "Threads virtual DOM oldest timestamp",
+        "Threads search checkpoint",
+        "browser runner timeout"
+      ],
+      "related": [],
+      "slug": "ai-tools/threads-search-virtual-dom-checkpoint",
+      "url": "/ai-tools/threads-search-virtual-dom-checkpoint/",
+      "source": "src/content/docs/ai-tools/threads-search-virtual-dom-checkpoint.md"
     },
     {
       "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
