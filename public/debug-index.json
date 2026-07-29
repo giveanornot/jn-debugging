@@ -1,5 +1,5 @@
 {
-  "count": 31,
+  "count": 32,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -553,6 +553,30 @@
       "slug": "web/framework7-svelte-blank-screen-local-state",
       "url": "/web/framework7-svelte-blank-screen-local-state/",
       "source": "src/content/docs/web/framework7-svelte-blank-screen-local-state.md"
+    },
+    {
+      "title": "Hugo Stack 在停用 JavaScript 時保留手機導覽與基本功能",
+      "description": "Hugo Stack 的手機選單預設隱藏且依賴 JavaScript 展開；以 no-js 初始狀態和 HTML fallback 保留可用導覽。",
+      "date": "2026-07-29",
+      "status": "fixed",
+      "system": "static-site",
+      "severity": "medium",
+      "tags": [
+        "hugo",
+        "stack",
+        "javascript",
+        "progressive-enhancement",
+        "accessibility"
+      ],
+      "aliases": [
+        "Hugo no JavaScript fallback",
+        "Stack mobile menu hidden",
+        "progressive enhancement"
+      ],
+      "related": [],
+      "slug": "web/hugo-no-js-progressive-enhancement",
+      "url": "/web/hugo-no-js-progressive-enhancement/",
+      "source": "src/content/docs/web/hugo-no-js-progressive-enhancement.md"
     },
     {
       "title": "Hugo Stack v4 Gallery 初始化錯誤",
