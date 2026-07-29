@@ -1,5 +1,5 @@
 {
-  "count": 30,
+  "count": 31,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -620,6 +620,31 @@
       "slug": "web/pwa-android-back-history",
       "url": "/web/pwa-android-back-history/",
       "source": "src/content/docs/web/pwa-android-back-history.md"
+    },
+    {
+      "title": "PWA editor 日期正確但發布後全變成今天",
+      "description": "A local-first static publisher can display a default publish date without persisting it, causing a later full-site deployment to stamp every post with deployment time.",
+      "date": "2026-07-29",
+      "status": "fixed",
+      "system": "progressive-web-app",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "indexeddb",
+        "static-site",
+        "publishing",
+        "date"
+      ],
+      "aliases": [
+        "PWA published date becomes today",
+        "static site deployment overwrites post dates",
+        "editor 顯示日期正確但發布日期錯誤",
+        "短文發布後全部是今天"
+      ],
+      "related": [],
+      "slug": "web/pwa-published-date-deployment-time",
+      "url": "/web/pwa-published-date-deployment-time/",
+      "source": "src/content/docs/web/pwa-published-date-deployment-time.md"
     },
     {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
