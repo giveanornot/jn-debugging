@@ -1,5 +1,5 @@
 {
-  "count": 32,
+  "count": 33,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -71,6 +71,29 @@
       "slug": "ai-tools/threads-search-virtual-dom-checkpoint",
       "url": "/ai-tools/threads-search-virtual-dom-checkpoint/",
       "source": "src/content/docs/ai-tools/threads-search-virtual-dom-checkpoint.md"
+    },
+    {
+      "title": "VSCodium Remote SSH 的 Codex extension 卡在送出中",
+      "description": "Codex 在 VSCodium Remote SSH 無限轉圈時，檢查遠端 extension host 是否仍載入舊版 extension 與 stale webview cache。",
+      "date": "2026-07-31",
+      "status": "fixed",
+      "system": "codex-ide-extension",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "vscodium",
+        "vscode",
+        "remote-ssh"
+      ],
+      "aliases": [
+        "Codex extension infinite spinner",
+        "VSCodium Remote SSH Codex",
+        "openai.chatgpt stale extension"
+      ],
+      "related": [],
+      "slug": "ai-tools/vscodium-remote-ssh-codex-extension-stale-cache",
+      "url": "/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache/",
+      "source": "src/content/docs/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache.md"
     },
     {
       "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
