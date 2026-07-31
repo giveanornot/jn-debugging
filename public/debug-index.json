@@ -1,5 +1,5 @@
 {
-  "count": 33,
+  "count": 34,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -46,6 +46,29 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "OpenClaw 升級後 Codex 模型顯示 unavailable",
+      "description": "OpenClaw 升級後，因 Node runtime 或舊 openai-codex provider 殘留而無法使用 Codex 模型時的排查與修復。",
+      "date": "2026-07-31",
+      "status": "fixed",
+      "system": "openclaw",
+      "severity": "medium",
+      "tags": [
+        "openclaw",
+        "codex",
+        "openai",
+        "nodejs"
+      ],
+      "aliases": [
+        "Configured model is unavailable from the provider",
+        "Unknown model openai-codex",
+        "OpenClaw Codex model unavailable"
+      ],
+      "related": [],
+      "slug": "ai-tools/openclaw-codex-model-provider-migration",
+      "url": "/ai-tools/openclaw-codex-model-provider-migration/",
+      "source": "src/content/docs/ai-tools/openclaw-codex-model-provider-migration.md"
     },
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
@@ -538,6 +561,8 @@
         "Cloudflare Pages Direct Upload JWT",
         "GET upload-token",
         "Pages assets check-missing",
+        "Pages asset hash BLAKE3",
+        "Wrangler asset hash",
         "localhost CORS relay"
       ],
       "related": [],
