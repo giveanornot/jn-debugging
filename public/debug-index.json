@@ -451,7 +451,7 @@
     {
       "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
       "description": "COSMIC lock/unlock can leave a focused Wayland input context stuck so Fcitx5 SetCurrentIM returns success but the current input method stays keyboard-us.",
-      "date": "2026-07-14",
+      "date": "2026-07-31",
       "status": "fixed",
       "system": "desktop",
       "severity": "medium",

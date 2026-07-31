@@ -1,7 +1,7 @@
 ---
 title: COSMIC unlock 後 Fcitx5 卡在 keyboard-us
 description: COSMIC lock/unlock can leave a focused Wayland input context stuck so Fcitx5 SetCurrentIM returns success but the current input method stays keyboard-us.
-date: 2026-07-14
+date: 2026-07-31
 tags:
   - linux
   - cosmic
@@ -24,6 +24,8 @@ aliases:
 COSMIC lock/unlock 後，如果 Fcitx5 還活著但無法從 `keyboard-us` 切回 Rime，不要先改 profile 順序或移除 keyboard layout。
 
 先確認 Fcitx5 controller 是否卡住：`SetCurrentIM(rime)` 回成功，但 `CurrentInputMethod` 仍是 `keyboard-us`。若 `DebugInfo` 顯示 focused `wayland_v2` input context 的 `program:` 是空白，通常要乾淨重建 Fcitx5 process 才會清掉這個壞 context。
+
+若 `fcitx5.service` 與 unlock watcher 都是 `inactive`，但另有手動啟動的 `fcitx5 -r`，先修 systemd 的 install target：服務應由 `graphical-session.target` 啟動，而不是只在 user manager 初次啟動時生效的 `default.target`。
 
 ## 症狀
 
@@ -130,6 +132,34 @@ Fcitx5 process、Rime addon、D-Bus controller 都還活著，所以一般健康
 
 不要用無條件 watchdog restart。只在 unlock 事件後，而且只有 force Rime 失敗時才 restart。
 
+Fcitx 與 watcher 都要掛在圖形 session target；否則 service 在 session 結束時隨 `PartOf=graphical-session.target` 停止後，下一次圖形 session 不會因 `default.target` 已經 active 而重新啟動。
+
+```ini
+# ~/.config/systemd/user/fcitx5.service
+[Unit]
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/fcitx5
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
+```
+
+unlock watcher 的 `[Install]` 也使用同一個 target。修改後重新建立 enable link，並由 systemd 接管既有手動 process：
+
+```bash
+systemctl --user daemon-reload
+systemctl --user reenable fcitx5.service fcitx5-unlock.service
+systemctl --user stop fcitx5.service fcitx5-unlock.service
+pkill -x fcitx5
+systemctl --user start fcitx5.service fcitx5-unlock.service
+```
+
+`reenable` 後應可看到兩個 symlink 位於 `~/.config/systemd/user/graphical-session.target.wants/`，而非 `default.target.wants/`。
+
 核心流程：
 
 ```bash
@@ -186,6 +216,7 @@ fcitx5-remote
 fcitx5-remote -n
 systemctl --user is-active fcitx5-unlock.service
 systemctl --user is-active fcitx5.service
+busctl --user status org.fcitx.Fcitx5
 ```
 
 Expected:
@@ -196,6 +227,8 @@ rime
 active
 active
 ```
+
+`busctl` 的 `UserUnit=fcitx5.service` 表示 systemd 已接管 Fcitx；如果 `fcitx5-remote -n` 在沒有聚焦文字欄位時回空，這本身是正常現象，不能當成 restart 條件。
 
 Test the unlock watcher with a synthetic greeter log:
 
@@ -228,3 +261,4 @@ rime active
 3. If it stays `keyboard-us`, inspect `org.fcitx.Fcitx.Controller1.DebugInfo`.
 4. If focused `wayland_v2` has blank `program:`, clean restart Fcitx5.
 5. Avoid profile-order hacks, terminal-focus hacks, and ydotool unless there is new evidence.
+6. If both services are inactive but Fcitx is a manual process, check `systemctl --user cat fcitx5.service` and its enable symlink; it must be under `graphical-session.target.wants/`.
