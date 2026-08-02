@@ -1,5 +1,5 @@
 {
-  "count": 34,
+  "count": 35,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -139,6 +139,29 @@
       "slug": "docker/artalk-docker-upgrade-sqlite-backup",
       "url": "/docker/artalk-docker-upgrade-sqlite-backup/",
       "source": "src/content/docs/docker/artalk-docker-upgrade-sqlite-backup.md"
+    },
+    {
+      "title": "Cosmos 431：跨子網域 Cookie 讓 Request Header Fields Too Large",
+      "description": "A shared parent-domain cookie can make an unrelated subdomain exceed Cosmos Server's request-header limit and return HTTP 431.",
+      "date": "2026-08-02",
+      "status": "fixed",
+      "system": "cosmos-server",
+      "severity": "medium",
+      "tags": [
+        "cosmos",
+        "cookie",
+        "http-431",
+        "postiz"
+      ],
+      "aliases": [
+        "Request Header Fields Too Large",
+        "HTTP 431 Cosmos",
+        "cross subdomain cookie"
+      ],
+      "related": [],
+      "slug": "docker/cosmos-431-cross-subdomain-cookies",
+      "url": "/docker/cosmos-431-cross-subdomain-cookies/",
+      "source": "src/content/docs/docker/cosmos-431-cross-subdomain-cookies.md"
     },
     {
       "title": "Cosmos Let’s Encrypt 合併憑證因舊網域續期失敗",
