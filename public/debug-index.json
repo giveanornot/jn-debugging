@@ -1,5 +1,5 @@
 {
-  "count": 35,
+  "count": 36,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -470,6 +470,30 @@
       "slug": "linux/arch-nvidia-580xx-split-package-mismatch",
       "url": "/linux/arch-nvidia-580xx-split-package-mismatch/",
       "source": "src/content/docs/linux/arch-nvidia-580xx-split-package-mismatch.md"
+    },
+    {
+      "title": "Arch paru AUR RPC EOF 與 Chaotic-AUR geo mirror timeout",
+      "description": "Diagnose paru AUR RPC unexpected EOF separately from a Chaotic-AUR geo mirror timeout, then restore reliable package upgrade checks.",
+      "date": "2026-08-03",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "paru",
+        "aur",
+        "chaotic-aur",
+        "networkmanager"
+      ],
+      "aliases": [
+        "paru unexpected EOF",
+        "aur rpc EOF",
+        "chaotic-aur mirror timeout"
+      ],
+      "related": [],
+      "slug": "linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout",
+      "url": "/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/",
+      "source": "src/content/docs/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout.md"
     },
     {
       "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
