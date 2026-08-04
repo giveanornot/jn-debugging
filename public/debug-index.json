@@ -1,5 +1,5 @@
 {
-  "count": 36,
+  "count": 37,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -494,6 +494,30 @@
       "slug": "linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout",
       "url": "/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/",
       "source": "src/content/docs/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout.md"
+    },
+    {
+      "title": "Brave 更新後外部連結開成另一個瀏覽器實例",
+      "description": "Brave 長時間未重啟時，套件更新後由系統 URL handler 開啟的連結可能啟動新版程序，而非交給舊版視窗。",
+      "date": "2026-08-04",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "low",
+      "tags": [
+        "brave",
+        "browser",
+        "linux-desktop",
+        "package-update"
+      ],
+      "aliases": [
+        "Brave 外部連結另開視窗",
+        "Brave 不是同一個實例",
+        "Brave update separate process",
+        "xdg-open Brave"
+      ],
+      "related": [],
+      "slug": "linux/brave-update-separate-instance",
+      "url": "/linux/brave-update-separate-instance/",
+      "source": "src/content/docs/linux/brave-update-separate-instance.md"
     },
     {
       "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
