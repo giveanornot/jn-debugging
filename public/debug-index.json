@@ -1,5 +1,5 @@
 {
-  "count": 37,
+  "count": 38,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -718,6 +718,31 @@
       "slug": "web/hugo-stack-v4-gallery",
       "url": "/web/hugo-stack-v4-gallery/",
       "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+    },
+    {
+      "title": "IndiePing scanner 因 RSS 欄位型別與 Codeberg fetch 失敗",
+      "description": "RSS parser 回傳非字串欄位，或 Node fetch 無法連到 Codeberg Pages 時，scanner 的診斷與 IPv4 fallback 修法。",
+      "date": "2026-08-10",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "medium",
+      "tags": [
+        "indieping",
+        "rss",
+        "node.js",
+        "sqlite",
+        "codeberg"
+      ],
+      "aliases": [
+        "Too few parameter values were provided",
+        "SQLite3 can only bind numbers strings bigints buffers and null",
+        "Codeberg Pages fetch failed",
+        "Undici IPv4 timeout"
+      ],
+      "related": [],
+      "slug": "web/indieping-rss-parser-codeberg-fetch",
+      "url": "/web/indieping-rss-parser-codeberg-fetch/",
+      "source": "src/content/docs/web/indieping-rss-parser-codeberg-fetch.md"
     },
     {
       "title": "IndiePing scanner 靜默停跑",
