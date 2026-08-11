@@ -475,7 +475,7 @@
     },
     {
       "title": "Arch Linux ELAN 指紋辨識在 COSMIC 鎖定畫面失效",
-      "description": "ELAN 04f3:0c4b 已註冊卻無法解鎖時，依序確認專用驅動、實際比對結果與 COSMIC 真正使用的 PAM service。",
+      "description": "ELAN 04f3:0c4b 已註冊卻無法解鎖時，依序確認專用驅動、實際比對結果，以及 COSMIC 與 Bitwarden 各自使用的 PAM service。",
       "date": "2026-08-11",
       "status": "fixed",
       "system": "Linux desktop",
@@ -485,12 +485,15 @@
         "fingerprint",
         "fprintd",
         "cosmic",
-        "pam"
+        "pam",
+        "bitwarden",
+        "polkit"
       ],
       "aliases": [
         "ELAN 04f3:0c4b fprintd",
         "COSMIC fingerprint unlock",
-        "pam_fprintd COSMIC lock screen"
+        "pam_fprintd COSMIC lock screen",
+        "Bitwarden system authentication fingerprint"
       ],
       "related": [],
       "slug": "linux/arch-elan-fingerprint-cosmic-pam",
