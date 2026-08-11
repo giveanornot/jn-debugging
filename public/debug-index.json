@@ -1,5 +1,5 @@
 {
-  "count": 38,
+  "count": 39,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -447,6 +447,31 @@
       "slug": "license-ai-notice",
       "url": "/license-ai-notice/",
       "source": "src/content/docs/license-ai-notice.md"
+    },
+    {
+      "title": "Android Quick Share 在 Linux 找不到裝置時的 P2P 與藍牙替代方案",
+      "description": "When Android Quick Share cannot discover a Linux desktop, distinguish LAN-only clients from Wi-Fi P2P limits and fall back to Bluetooth OBEX transfer.",
+      "date": "2026-08-11",
+      "status": "investigating",
+      "system": "linux-desktop",
+      "severity": "low",
+      "tags": [
+        "android",
+        "quick-share",
+        "bluetooth",
+        "linux-desktop",
+        "networkmanager"
+      ],
+      "aliases": [
+        "rquickshare same Wi-Fi",
+        "Linux Quick Share device not found",
+        "Android Quick Share Bluetooth fallback",
+        "nearby Fast Initiation scanning failed"
+      ],
+      "related": [],
+      "slug": "linux/android-quick-share-linux-p2p-bluetooth-fallback",
+      "url": "/linux/android-quick-share-linux-p2p-bluetooth-fallback/",
+      "source": "src/content/docs/linux/android-quick-share-linux-p2p-bluetooth-fallback.md"
     },
     {
       "title": "Arch NVIDIA 580xx split packages 版本不一致",
