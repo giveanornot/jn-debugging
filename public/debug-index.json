@@ -1,5 +1,5 @@
 {
-  "count": 42,
+  "count": 43,
   "pages": [
     {
       "title": "關於 JN",
@@ -702,6 +702,33 @@
       "slug": "linux/wine-nmservice-race-crash",
       "url": "/linux/wine-nmservice-race-crash/",
       "source": "src/content/docs/linux/wine-nmservice-race-crash.md"
+    },
+    {
+      "title": "Astro Starlight 文件站的 Article schema 與逐頁 Open Graph 圖",
+      "description": "A Starlight documentation site is crawlable but its Article markup and shared social image are incomplete; emit Google-compatible Article data and prerender a representative image per page.",
+      "date": "2026-08-12",
+      "status": "fixed",
+      "system": "astro-starlight",
+      "severity": "low",
+      "tags": [
+        "astro",
+        "starlight",
+        "seo",
+        "json-ld",
+        "open-graph",
+        "social-image"
+      ],
+      "aliases": [
+        "Starlight SEO metadata",
+        "TechArticle Google Article schema",
+        "Open Graph per-page image",
+        "Twitter image alt",
+        "Astro static OG image"
+      ],
+      "related": [],
+      "slug": "web/astro-starlight-article-schema-og-image",
+      "url": "/web/astro-starlight-article-schema-og-image/",
+      "source": "src/content/docs/web/astro-starlight-article-schema-og-image.md"
     },
     {
       "title": "Cloudflare Pages Direct Upload 的 upload-token 回 405",
