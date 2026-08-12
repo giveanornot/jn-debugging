@@ -2,7 +2,7 @@ import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 
 const siteUrl = 'https://debug.giveanornot.com';
 const authorUrl = `${siteUrl}/about/`;
-const ogImageUrl = `${siteUrl}/og.png`;
+const defaultOgImageUrl = `${siteUrl}/og.png`;
 
 function jsonLd(value: Record<string, unknown>) {
 	return JSON.stringify(value).replace(/</g, '\\u003c');
@@ -13,6 +13,8 @@ export const onRequest = defineRouteMiddleware((context) => {
 	const { data } = route.entry;
 	const url = new URL(context.url.pathname, siteUrl).href;
 	const tags = data.tags ?? [];
+	const ogImageUrl = route.id ? `${siteUrl}/og/${route.id}.png` : defaultOgImageUrl;
+	const ogImageAlt = route.id ? `${data.title} | JN debugging` : 'JN debugging troubleshooting runbooks';
 	const ogLocale = route.head.find(
 		(entry) => entry.tag === 'meta' && entry.attrs?.property === 'og:locale'
 	);
@@ -33,18 +35,29 @@ export const onRequest = defineRouteMiddleware((context) => {
 		['og:image:width', '1200'],
 		['og:image:height', '630'],
 		['og:image:type', 'image/png'],
-		['twitter:image', ogImageUrl],
+		['og:image:alt', ogImageAlt],
 	] as const) {
 		route.head.push({ tag: 'meta', attrs: { property, content } });
+	}
+	for (const [name, content] of [
+		['twitter:image', ogImageUrl],
+		['twitter:image:alt', ogImageAlt],
+	] as const) {
+		route.head.push({ tag: 'meta', attrs: { name, content } });
 	}
 
 	const schema = route.id === 'about'
 		? {
 				'@context': 'https://schema.org',
-				'@type': 'Person',
-				name: 'JN',
+				'@type': 'ProfilePage',
 				url,
-				sameAs: ['https://blog.giveanornot.com/'],
+				inLanguage: route.lang,
+				mainEntity: {
+					'@type': 'Person',
+					name: 'JN',
+					url,
+					sameAs: ['https://blog.giveanornot.com/'],
+				},
 			}
 		: route.id
 		? {
