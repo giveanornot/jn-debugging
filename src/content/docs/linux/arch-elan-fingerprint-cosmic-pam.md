@@ -1,7 +1,7 @@
 ---
 title: Arch Linux ELAN 指紋辨識在 COSMIC 鎖定畫面失效
 description: ELAN 04f3:0c4b 已註冊卻無法解鎖時，依序確認專用驅動、實際比對結果，以及 COSMIC 與 Bitwarden 各自使用的 PAM service。
-date: 2026-08-11
+date: 2026-08-12
 tags:
   - arch-linux
   - fingerprint
@@ -17,6 +17,8 @@ aliases:
   - ELAN 04f3:0c4b fprintd
   - COSMIC fingerprint unlock
   - pam_fprintd COSMIC lock screen
+  - COSMIC fingerprint timeout password fallback
+  - pam_fprintd timeout=-1
   - Bitwarden system authentication fingerprint
 ---
 
@@ -25,6 +27,8 @@ aliases:
 `fprintd-enroll` 成功不代表指紋能解鎖。先以 `fprintd-verify` 得到 `verify-match`，再從 journal 找出 COSMIC 鎖定畫面真正呼叫的 PAM service。本案例的運行中 COSMIC locker 使用 `login`，不是預期中的 `cosmic-greeter`；將 `pam_fprintd.so` 加到錯誤檔案不會生效。
 
 ELAN USB ID `04f3:0c4b` 在通用 `libfprint` 驅動出現 protocol error 時，需使用相容的 TOD library 與 Lenovo ELAN driver。COSMIC locker 和 Bitwarden system authentication 是兩條不同的 PAM 鏈：前者用 `login`，後者經由 `polkit-1`。兩條都要保留密碼 fallback；不要修改 `sudo` 或共用的 `system-auth`。
+
+若 COSMIC 在閒置鎖定很久後自動從指紋畫面切到密碼，這通常是 `pam_fprintd` 預設的 30 秒驗證 timeout，不是模板或 reader 失效。把 `login` 的模組參數設為 `timeout=-1`，即可持續等待指紋，並在達到 `max-tries`（預設三次）後才進入密碼 fallback。
 
 ## 症狀
 
@@ -130,6 +134,16 @@ auth       include    system-local-login
 
 `sufficient` 讓成功的指紋完成驗證；掃描失敗或逾時則繼續進入既有密碼路徑。若 SDDM 與 COSMIC locker 使用不同 service，對 SDDM 的 PAM 檔也加入同一行，但不要修改 `sudo` 或全域 Polkit 規則。
 
+### 長時間鎖定後仍優先指紋
+
+`pam_fprintd` 的預設 `timeout` 是 30 秒。若使用者希望即使裝置已鎖定很久，仍持續以指紋解鎖，而不是因為時間經過就直接顯示密碼，將 COSMIC locker 的 `login` 規則改為：
+
+```text
+auth       sufficient pam_fprintd.so timeout=-1
+```
+
+負值代表指紋模組不以時間結束驗證。模組仍保留預設 `max-tries=3`：連續三次未比對成功後，PAM 會繼續進入 `system-local-login` 的密碼 stack。這個選擇適合偏好「指紋一直可用、掃錯才切密碼」的情境；若需要隨時立刻輸入密碼，保留預設 timeout，或改用較長的正數秒數。
+
 ### Bitwarden system authentication
 
 Bitwarden 的 action policy 存在後，備份 distro 提供的 Polkit PAM 檔，再用只影響 `polkit-1` 的 override 加入指紋：
@@ -158,9 +172,10 @@ Polkit 的密碼對話框可能仍會顯示；它只是 fallback。點選 Bitwar
 1. `fprintd-verify` 顯示 `verify-match`。
 2. 鎖定 COSMIC，畫面出現後直接掃指紋；不要先輸入密碼。
 3. 另測一次密碼登入，確認指紋失敗時仍可回退。
-4. 登出至 SDDM，確認 SDDM 的指紋與密碼備援都能使用。
-5. 若使用 Bitwarden，先以主密碼解鎖一次，在 Settings 啟用 system authentication，再鎖定 app，點選 **Unlock with system authentication** 並直接掃指紋。
-6. Bitwarden log 應出現 `unlockWithBiometrics` 和 `Vault unlocked`；另試一次系統密碼，確認 fallback 完整。
+4. 讓系統鎖定超過 30 秒後再解鎖；畫面仍應接受指紋。接著刻意以未註冊手指掃三次，確認才會切到密碼 fallback。
+5. 登出至 SDDM，確認 SDDM 的指紋與密碼備援都能使用。
+6. 若使用 Bitwarden，先以主密碼解鎖一次，在 Settings 啟用 system authentication，再鎖定 app，點選 **Unlock with system authentication** 並直接掃指紋。
+7. Bitwarden log 應出現 `unlockWithBiometrics` 和 `Vault unlocked`；另試一次系統密碼，確認 fallback 完整。
 
 ## 下次先查
 
