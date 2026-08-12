@@ -10,6 +10,10 @@ export default defineConfig({
 		starlight({
 			title: 'JN debugging',
 			description: 'Debug runbooks and troubleshooting notes optimized for humans and AI agents.',
+			locales: {
+				root: { label: '繁體中文', lang: 'zh-TW' },
+			},
+			routeMiddleware: './src/route-data.ts',
 			head: [
 				{
 					tag: 'script',

@@ -2,6 +2,9 @@
 title: JN debugging
 description: Debug runbooks and troubleshooting notes optimized for humans and AI agents.
 template: splash
+head:
+  - tag: title
+    content: JN debugging — troubleshooting runbooks
 hero:
   tagline: Searchable troubleshooting notes with portable Markdown, structured metadata, and llms.txt output.
   actions:
