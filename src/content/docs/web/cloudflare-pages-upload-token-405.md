@@ -16,6 +16,8 @@ aliases:
   - Cloudflare Pages Direct Upload JWT
   - GET upload-token
   - Pages assets check-missing
+  - Pages asset hash BLAKE3
+  - Wrangler asset hash
   - localhost CORS relay
 ---
 
@@ -32,6 +34,8 @@ POST /accounts/:account_id/pages/projects/:project_name/deployments
 ```
 
 若把第一個 endpoint 寫成 `POST`，會在上傳開始前收到 `HTTP 405`。取得 JWT 後的 asset endpoints 才是 `POST`。
+
+Pages asset hash 也必須和 Wrangler 的格式完全一致：先將檔案 bytes 做標準 Base64，串接副檔名後計算 BLAKE3，最後只取 32 個十六進位字元。不能直接對 raw bytes、檔案路徑或 MIME type 做 hash。
 
 ## 症狀
 
@@ -74,6 +78,26 @@ await fetchResult('/pages/assets/check-missing', {
 ```
 
 如果程式經過 allowlist relay，也要同時檢查 relay 是否只允許了錯的 `POST` method。
+
+## Asset hash 規則
+
+`check-missing`、`upload`、`upsert-hashes` 與 deployment manifest 必須使用同一個 asset hash。對每個發布檔案，Wrangler 相容的規則是：
+
+```text
+blake3(base64(file bytes) + extension).hex().slice(0, 32)
+```
+
+其中 `extension` 是檔案路徑最後一個 `.` 後的字串，例如 `/index.html` 是 `html`、`/assets/photo.webp` 是 `webp`。JavaScript 實作可保持 byte-to-Base64 的轉換明確：
+
+```ts
+const extension = file.path.split('.').pop() || '';
+const hash = blake3
+  .hash(base64FromBytes(file.bytes) + extension)
+  .toString('hex')
+  .slice(0, 32);
+```
+
+同一個 `hash` 同時用作 `check-missing` 的 `hashes`、上傳 payload 的 key、`upsert-hashes` 與 deployment manifest value；任何一層改用另一種 hash 都會讓 Pages 重複上傳或找不到 asset。
 
 ## 根因
 
@@ -118,6 +142,7 @@ curl -i -X OPTIONS \
 
 - 對 upload token endpoint 使用 `GET` 後，收到 JWT 而非 405。
 - 用 JWT 成功完成 `check-missing`、asset upload 與 manifest deployment。
+- 對同一個檔案重算 asset hash，確認 `check-missing`、上傳 key 與 deployment manifest 使用相同的 32 字元值。
 - 輪詢 deployment 回報 success，並能讀取公開 Pages URL。
 - refresh OAuth token 後，重跑帳號 discovery 確認 relay 沒有依賴 token storage。
 
