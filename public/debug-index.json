@@ -1,5 +1,5 @@
 {
-  "count": 43,
+  "count": 44,
   "pages": [
     {
       "title": "關於 JN",
@@ -586,6 +586,32 @@
       "slug": "linux/brave-update-separate-instance",
       "url": "/linux/brave-update-separate-instance/",
       "source": "src/content/docs/linux/brave-update-separate-instance.md"
+    },
+    {
+      "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
+      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕約 1.5 秒後退出時，以乾淨 profile 與 XWayland flag 區分 extension、profile 與 compositor 問題。",
+      "date": "2026-08-12",
+      "status": "investigating",
+      "system": "COSMIC / Chromium",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "chromium",
+        "brave",
+        "fullscreen"
+      ],
+      "aliases": [
+        "Chromium fullscreen exits COSMIC",
+        "Brave 全螢幕自動退出",
+        "ozone-platform x11 fullscreen",
+        "cosmic-comp 2677"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-chromium-wayland-fullscreen-exit",
+      "url": "/linux/cosmic-chromium-wayland-fullscreen-exit/",
+      "source": "src/content/docs/linux/cosmic-chromium-wayland-fullscreen-exit.md"
     },
     {
       "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
