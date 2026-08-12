@@ -1,5 +1,5 @@
 {
-  "count": 40,
+  "count": 41,
   "pages": [
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -641,6 +641,30 @@
       "slug": "linux/stardew-valley-galaxy-execstack",
       "url": "/linux/stardew-valley-galaxy-execstack/",
       "source": "src/content/docs/linux/stardew-valley-galaxy-execstack.md"
+    },
+    {
+      "title": "Ubuntu sudo-rs 缺少 setuid 權限而無法提權",
+      "description": "Ubuntu 的 sudo alternative 指向 sudo-rs 時，若執行檔失去 root setuid 位元，sudo 會直接拒絕執行；可用 Polkit 或 recovery shell 修復。",
+      "date": "2026-08-12",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "high",
+      "tags": [
+        "ubuntu",
+        "sudo",
+        "sudo-rs",
+        "permissions",
+        "polkit"
+      ],
+      "aliases": [
+        "sudo must be owned by uid 0 and have the setuid bit set",
+        "sudo-rs setuid missing",
+        "Ubuntu sudo 失效"
+      ],
+      "related": [],
+      "slug": "linux/ubuntu-sudo-rs-setuid-broken",
+      "url": "/linux/ubuntu-sudo-rs-setuid-broken/",
+      "source": "src/content/docs/linux/ubuntu-sudo-rs-setuid-broken.md"
     },
     {
       "title": "Wine 下 KartRider 進入賽事時 NMService.exe 崩潰",
