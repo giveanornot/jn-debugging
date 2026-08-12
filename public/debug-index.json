@@ -1,6 +1,20 @@
 {
-  "count": 41,
+  "count": 42,
   "pages": [
+    {
+      "title": "關於 JN",
+      "description": "JN debugging 的作者與維護者。",
+      "date": "2026-08-12",
+      "status": null,
+      "system": null,
+      "severity": null,
+      "tags": [],
+      "aliases": [],
+      "related": [],
+      "slug": "about",
+      "url": "/about/",
+      "source": "src/content/docs/about.md"
+    },
     {
       "title": "Codex Desktop Linux 找不到 CLI",
       "description": "Codex Desktop Linux reboot 後找不到 CLI 時，同時檢查 launcher path、runtime cache 與磁碟空間。",

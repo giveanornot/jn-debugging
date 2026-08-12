@@ -10,6 +10,7 @@ export default defineConfig({
 		starlight({
 			title: 'JN debugging',
 			description: 'Debug runbooks and troubleshooting notes optimized for humans and AI agents.',
+			lastUpdated: true,
 			locales: {
 				root: { label: '繁體中文', lang: 'zh-TW' },
 			},
@@ -53,7 +54,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Start',
-					items: ['license-ai-notice'],
+					items: ['about', 'license-ai-notice'],
 				},
 				{
 					label: 'Linux',
