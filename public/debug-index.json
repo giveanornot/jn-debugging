@@ -27,8 +27,8 @@
     {
       "title": "Browser Extension 連線診斷",
       "description": "Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。",
-      "date": "2026-07-16",
-      "status": "fixed",
+      "date": "2026-08-12",
+      "status": "investigating",
       "system": "desktop",
       "severity": "medium",
       "tags": [
