@@ -1,5 +1,5 @@
 {
-  "count": 44,
+  "count": 45,
   "pages": [
     {
       "title": "關於 JN",
@@ -911,6 +911,30 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "Mastodon 關閉公開預覽時 public timeline 回 422",
+      "description": "Mastodon instance 關閉 public preview 後，公開時間軸 API 會要求 app token 與 read:statuses；以最小 OAuth client credentials 修復。",
+      "date": "2026-08-14",
+      "status": "fixed",
+      "system": "mastodon",
+      "severity": "medium",
+      "tags": [
+        "mastodon",
+        "fediverse",
+        "oauth",
+        "api",
+        "public-timeline"
+      ],
+      "aliases": [
+        "Mastodon public timeline 422",
+        "This method requires an authenticated user",
+        "Mastodon read:statuses app token"
+      ],
+      "related": [],
+      "slug": "web/mastodon-public-timeline-app-token",
+      "url": "/web/mastodon-public-timeline-app-token/",
+      "source": "src/content/docs/web/mastodon-public-timeline-app-token.md"
     },
     {
       "title": "Android PWA 返回鍵直接關閉 browser",
