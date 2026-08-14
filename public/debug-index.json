@@ -865,8 +865,8 @@
       "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
     },
     {
-      "title": "IndiePing scanner 因 RSS 欄位型別與 Codeberg fetch 失敗",
-      "description": "RSS parser 回傳非字串欄位，或 Node fetch 無法連到 Codeberg Pages 時，scanner 的診斷與 IPv4 fallback 修法。",
+      "title": "IndiePing RSS parser 與 Node fetch 失敗",
+      "description": "RSS 欄位型別不符或 Node fetch 逾時時，scanner 與查詢首頁的 IPv4 fallback 診斷與修法。",
       "date": "2026-08-10",
       "status": "fixed",
       "system": "indieping",
@@ -876,13 +876,16 @@
         "rss",
         "node.js",
         "sqlite",
-        "codeberg"
+        "codeberg",
+        "undici"
       ],
       "aliases": [
         "Too few parameter values were provided",
         "SQLite3 can only bind numbers strings bigints buffers and null",
         "Codeberg Pages fetch failed",
-        "Undici IPv4 timeout"
+        "Undici IPv4 timeout",
+        "IndiePing query unreachable",
+        "RSS discovery unreachable"
       ],
       "related": [],
       "slug": "web/indieping-rss-parser-codeberg-fetch",
