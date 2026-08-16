@@ -1,5 +1,5 @@
 {
-  "count": 45,
+  "count": 47,
   "pages": [
     {
       "title": "關於 JN",
@@ -987,6 +987,30 @@
       "source": "src/content/docs/web/pwa-published-date-deployment-time.md"
     },
     {
+      "title": "R2 同步後，已發布貼文全變成待公開",
+      "description": "A local-first publisher can lose device-local publication evidence during cross-device sync and incorrectly mark every already-live post as pending.",
+      "date": "2026-08-16",
+      "status": "fixed",
+      "system": "local-first-static-publisher",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "r2",
+        "indexeddb",
+        "sync",
+        "publishing"
+      ],
+      "aliases": [
+        "R2 sync marks all published posts pending",
+        "已發布內容同步後全部待公開",
+        "release report site published state"
+      ],
+      "related": [],
+      "slug": "web/pwa-r2-sync-published-posts-pending",
+      "url": "/web/pwa-r2-sync-published-posts-pending/",
+      "source": "src/content/docs/web/pwa-r2-sync-published-posts-pending.md"
+    },
+    {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
       "description": "A deployed PWA can fail or keep showing an old shell after a release when a browser or CDN caches service-worker files; verify the custom domain before changing app code.",
       "date": "2026-07-22",
@@ -1082,6 +1106,31 @@
       "slug": "web/starlight-dev-server-stale-content",
       "url": "/web/starlight-dev-server-stale-content/",
       "source": "src/content/docs/web/starlight-dev-server-stale-content.md"
+    },
+    {
+      "title": "Threads OAuth 被 redirect URI 阻擋，或交換後缺少 user ID",
+      "description": "A Threads integration can fail before consent because the callback is not allowlisted, then fail after consent if it assumes user_id is present in the token exchange response.",
+      "date": "2026-08-16",
+      "status": "fixed",
+      "system": "threads-api",
+      "severity": "medium",
+      "tags": [
+        "threads",
+        "meta",
+        "oauth",
+        "pwa",
+        "cloudflare-worker"
+      ],
+      "aliases": [
+        "Threads error 1349168",
+        "URL blocked valid OAuth redirect URI",
+        "Threads did not return a valid Threads user ID",
+        "Threads OAuth access token no user_id"
+      ],
+      "related": [],
+      "slug": "web/threads-oauth-redirect-uri-user-id",
+      "url": "/web/threads-oauth-redirect-uri-user-id/",
+      "source": "src/content/docs/web/threads-oauth-redirect-uri-user-id.md"
     }
   ]
 }
