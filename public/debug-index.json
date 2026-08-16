@@ -1,5 +1,5 @@
 {
-  "count": 47,
+  "count": 48,
   "pages": [
     {
       "title": "關於 JN",
@@ -914,6 +914,31 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "Instagram Login 拒絕 platform app，或 OAuth user ID 是數字",
+      "description": "An Instagram Business Login integration can fail when it uses the generic Meta App ID instead of the Instagram App ID, then reject Meta's numeric preliminary user_id during token exchange.",
+      "date": "2026-08-16",
+      "status": "fixed",
+      "system": "instagram-api",
+      "severity": "medium",
+      "tags": [
+        "instagram",
+        "meta",
+        "oauth",
+        "pwa",
+        "cloudflare-worker"
+      ],
+      "aliases": [
+        "Invalid platform app",
+        "Instagram did not return a valid Instagram user ID",
+        "Instagram Business Login App ID",
+        "Instagram OAuth numeric user_id"
+      ],
+      "related": [],
+      "slug": "web/instagram-login-platform-app-numeric-user-id",
+      "url": "/web/instagram-login-platform-app-numeric-user-id/",
+      "source": "src/content/docs/web/instagram-login-platform-app-numeric-user-id.md"
     },
     {
       "title": "Mastodon 關閉公開預覽時 public timeline 回 422",
