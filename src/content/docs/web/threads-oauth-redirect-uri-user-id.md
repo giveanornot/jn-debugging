@@ -1,12 +1,15 @@
 ---
-title: Threads OAuth 被 redirect URI 阻擋，或交換後缺少 user ID
-description: A Threads integration can fail before consent because the callback is not allowlisted, then fail after consent if it assumes user_id is present in the token exchange response.
+title: Threads OAuth 被 redirect URI、Android App Link 或 user ID 阻擋
+description: A Threads PWA integration can fail before consent because its callback is not allowlisted or Android opens the Threads app, then fail after consent if it assumes user_id is present in the token exchange response.
 date: 2026-08-16
 tags:
   - threads
   - meta
   - oauth
   - pwa
+  - android
+  - chrome
+  - app-link
   - cloudflare-worker
 status: fixed
 system: threads-api
@@ -16,14 +19,17 @@ aliases:
   - URL blocked valid OAuth redirect URI
   - Threads did not return a valid Threads user ID
   - Threads OAuth access token no user_id
+  - Android opens Threads app instead of OAuth
+  - Threads App Link PWA callback
 ---
 
 ## 快速結論
 
-Threads OAuth 有兩個容易連續出現、但發生在不同階段的問題：
+Threads OAuth 有三個容易連續出現、但發生在不同階段的問題：
 
 1. 授權前，Meta 要求 `redirect_uri` 精確出現在 Valid OAuth Redirect URIs，且 web/client OAuth login 已啟用。
-2. 授權後，token exchange 可只回傳 `access_token`。不要要求短期 token response 一定有 `user_id`；先交換長期 token，再以 `GET /me?fields=id` 取得可發布的帳號 ID。
+2. Android PWA 導向 Threads 網頁授權時，已安裝的 Threads app 可能用 App Link 接走網址，讓 OAuth 網頁流程沒有機會回到 callback。
+3. 授權後，token exchange 可只回傳 `access_token`。不要要求短期 token response 一定有 `user_id`；先交換長期 token，再以 `GET /me?fields=id` 取得可發布的帳號 ID。
 
 OAuth code 只能用一次。修正 redirect 或 relay 後都要從應用程式重新開始連接。
 
@@ -44,9 +50,11 @@ allowlist 修好並完成登入後，PWA 又可能在 callback 顯示：
 Threads did not return a valid Threads user ID.
 ```
 
+Android 上也可能一按「連接 Threads」就離開 PWA、只開啟 Threads app，沒有同意畫面或成功回到原 app。
+
 ## 影響範圍
 
-- Service：使用 Threads API 的 browser PWA 與最小權限 OAuth relay。
+- Service：使用 Threads API 的 browser PWA 與最小權限 OAuth relay；Android 已安裝 Threads app 的情境也受影響。
 - 使用者影響：無法建立本機 Threads connection；不會發出貼文。
 - 資料風險：低；失敗發生在 token／profile 初始化前，access token 不應寫入可攜資料或伺服端。
 
@@ -68,6 +76,8 @@ function callbackUrl() {
 
 從另一台機器操作時，不要填開發機的 `localhost` callback；使用者瀏覽器必須可透過 HTTPS 直接開啟 callback。
 
+若症狀是 Android 直接開啟 Threads app，先把它和 redirect URI allowlist 錯誤分開：沒有 Meta 的 `URL Blocked` 畫面、且 PWA 未進入 callback，表示網址在到達 Threads 網頁授權前已被系統 App Link 攔截。
+
 redirect allowlist 正確後，保留 token response 的欄位形狀。先確認 relay 不在第一個 response 強制讀取 `user_id`：
 
 ```ts
@@ -86,6 +96,8 @@ GET  /v1.0/me?fields=id
 ## 根因
 
 Meta 在授權前精確比對 redirect URI；填 App Domain 或 Website URL 不能取代 callback allowlist。不同 scheme、host、port、pathname、尾端斜線或 query 都可能不是同一個 URI。
+
+Android 可將已驗證網域的 HTTPS URL 交給原生 app。Threads app 接走 `threads.com/oauth/authorize` 後，browser PWA 不會保有可完成授權碼回呼的網頁 context；這不是 Meta dashboard 的 redirect URI 設定問題。
 
 另一個錯誤來自 relay 假設短期 token exchange 必定回傳 `user_id`。目前官方 Threads 範例會在取得 access token 後，以已授權 token 呼叫個人資料 endpoint，從該回應取得 ID。短期 response 缺欄位不代表授權失敗。
 
@@ -115,6 +127,18 @@ const accessToken = requiredUpstreamString(long.access_token, "long-lived access
 
 relay 只接受固定 origin、OAuth code、固定 Threads endpoints 與 bounded JSON；不記錄 code、access token 或 app secret。
 
+對 Android PWA，將 authorize URL 交給 Chrome，而非讓系統解析成 Threads app intent：
+
+```ts
+function androidChromeIntent(authorize: URL): string | null {
+  if (!/\bAndroid\b/i.test(navigator.userAgent)) return null;
+  return authorize.toString().replace(/^https:\/\//, "intent://")
+    + "#Intent;scheme=https;package=com.android.chrome;end";
+}
+```
+
+Chrome 是另一個 tab context，不能只將 OAuth transaction 放在 `sessionStorage`。同時保存同源、短效的 state transaction 到 `localStorage`；callback 必須驗證 state、十分鐘內失效，並在成功或明確錯誤後清除兩份資料。回到 PWA 時重新讀取同源 IndexedDB connection，讓背景中的 PWA 不需重載也能顯示已連接。
+
 ## 驗證
 
 - 以 production HTTPS callback 重新開始 OAuth，確認不再收到 `1349168`。
@@ -122,10 +146,12 @@ relay 只接受固定 origin、OAuth code、固定 Threads endpoints 與 bounded
 - 執行 PWA 型別檢查、connector 合約測試與 production build。
 - 對 relay 執行 deploy dry-run，再部署 Worker；確認正式 connector 的設定端點仍可回傳 App ID，且不回傳 secret。
 - 使用者在真實 Threads 帳號完成連接，確認 connection 已保存在該瀏覽器的本機 credential store。
+- Android 實機從 PWA 按「連接 Threads」，確認先開 Chrome 授權；完成後切回 PWA，確認連接卡立即顯示帳號。
 
 ## 下次先查
 
-1. 先看錯誤是否發生在 Meta consent 前（redirect allowlist）或 callback 後（relay token parsing）。
-2. 從 authorize URL 複製 `redirect_uri`，逐字比對 Meta 設定，包含尾端斜線。
-3. token response 只保證實際文件列出的欄位；需要帳號 ID 時，以授權 token 查 `/me`。
-4. 每次修正後重新發起 OAuth，絕不重用舊 authorization code。
+1. 先看是否為 Android App Link 直接開啟 Threads app；若是，先強制 Chrome web OAuth。
+2. 再看錯誤是否發生在 Meta consent 前（redirect allowlist）或 callback 後（relay token parsing）。
+3. 從 authorize URL 複製 `redirect_uri`，逐字比對 Meta 設定，包含尾端斜線。
+4. token response 只保證實際文件列出的欄位；需要帳號 ID 時，以授權 token 查 `/me`。
+5. 每次修正後重新發起 OAuth，絕不重用舊 authorization code。

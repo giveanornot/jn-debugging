@@ -1159,8 +1159,8 @@
       "source": "src/content/docs/web/starlight-dev-server-stale-content.md"
     },
     {
-      "title": "Threads OAuth 被 redirect URI 阻擋，或交換後缺少 user ID",
-      "description": "A Threads integration can fail before consent because the callback is not allowlisted, then fail after consent if it assumes user_id is present in the token exchange response.",
+      "title": "Threads OAuth 被 redirect URI、Android App Link 或 user ID 阻擋",
+      "description": "A Threads PWA integration can fail before consent because its callback is not allowlisted or Android opens the Threads app, then fail after consent if it assumes user_id is present in the token exchange response.",
       "date": "2026-08-16",
       "status": "fixed",
       "system": "threads-api",
@@ -1170,13 +1170,18 @@
         "meta",
         "oauth",
         "pwa",
+        "android",
+        "chrome",
+        "app-link",
         "cloudflare-worker"
       ],
       "aliases": [
         "Threads error 1349168",
         "URL blocked valid OAuth redirect URI",
         "Threads did not return a valid Threads user ID",
-        "Threads OAuth access token no user_id"
+        "Threads OAuth access token no user_id",
+        "Android opens Threads app instead of OAuth",
+        "Threads App Link PWA callback"
       ],
       "related": [],
       "slug": "web/threads-oauth-redirect-uri-user-id",
