@@ -1,5 +1,5 @@
 {
-  "count": 48,
+  "count": 49,
   "pages": [
     {
       "title": "關於 JN",
@@ -817,6 +817,32 @@
       "slug": "web/framework7-svelte-blank-screen-local-state",
       "url": "/web/framework7-svelte-blank-screen-local-state/",
       "source": "src/content/docs/web/framework7-svelte-blank-screen-local-state.md"
+    },
+    {
+      "title": "Good POSSE 發送 Threads／Instagram 時找不到資源或拒絕圖卡 JPEG",
+      "description": "A local-first social publisher can fail at real delivery when its Threads relay uses the retired Graph host or its Instagram asset allowlist omits the generated share-card JPEG.",
+      "date": "2026-08-16",
+      "status": "fixed",
+      "system": "social-publishing",
+      "severity": "medium",
+      "tags": [
+        "good-posse",
+        "threads",
+        "instagram",
+        "cloudflare-worker",
+        "syndication",
+        "static-assets"
+      ],
+      "aliases": [
+        "The requested resource does not exist",
+        "media.url must be a public Good POSSE Instagram JPEG asset",
+        "Threads graph.threads.com publish failure",
+        "Instagram share-card JPEG allowlist"
+      ],
+      "related": [],
+      "slug": "web/good-posse-threads-instagram-publish-assets",
+      "url": "/web/good-posse-threads-instagram-publish-assets/",
+      "source": "src/content/docs/web/good-posse-threads-instagram-publish-assets.md"
     },
     {
       "title": "Hugo Stack 在停用 JavaScript 時保留手機導覽與基本功能",
