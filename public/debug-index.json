@@ -1,5 +1,5 @@
 {
-  "count": 49,
+  "count": 51,
   "pages": [
     {
       "title": "關於 JN",
@@ -817,6 +817,50 @@
       "slug": "web/framework7-svelte-blank-screen-local-state",
       "url": "/web/framework7-svelte-blank-screen-local-state/",
       "source": "src/content/docs/web/framework7-svelte-blank-screen-local-state.md"
+    },
+    {
+      "title": "Good POSSE 發布檢查顯示未命名空白短文但找不到貼文",
+      "description": "發布前檢查會掃描所有選為公開的短文；空白短文沒有標題時，訊息若未提供貼文識別或跳轉入口，就無法判斷是哪一篇。",
+      "date": "2026-08-17",
+      "status": "investigating",
+      "system": "static-publisher",
+      "severity": "low",
+      "tags": [
+        "good-posse",
+        "publish-validation",
+        "local-first",
+        "ux"
+      ],
+      "aliases": [
+        "未命名短文 沒有文字或照片",
+        "releaseReadiness empty note"
+      ],
+      "related": [],
+      "slug": "web/good-posse-publish-validation-unidentified-empty-note",
+      "url": "/web/good-posse-publish-validation-unidentified-empty-note/",
+      "source": "src/content/docs/web/good-posse-publish-validation-unidentified-empty-note.md"
+    },
+    {
+      "title": "Good POSSE 分享圖卡沒有保留短文手動換行",
+      "description": "Canvas 圖卡若先將所有空白正規化，短文中的換行符會被變成空格；應逐段保留手動換行後再做寬度換行。",
+      "date": "2026-08-17",
+      "status": "fixed",
+      "system": "static-publisher",
+      "severity": "low",
+      "tags": [
+        "good-posse",
+        "canvas",
+        "share-card",
+        "text-rendering"
+      ],
+      "aliases": [
+        "Canvas wrapText newline removed",
+        "分享圖卡換行消失"
+      ],
+      "related": [],
+      "slug": "web/good-posse-share-card-manual-line-breaks",
+      "url": "/web/good-posse-share-card-manual-line-breaks/",
+      "source": "src/content/docs/web/good-posse-share-card-manual-line-breaks.md"
     },
     {
       "title": "Good POSSE 發送 Threads／Instagram 時找不到資源或拒絕圖卡 JPEG",
