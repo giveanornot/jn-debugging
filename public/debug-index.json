@@ -1,5 +1,5 @@
 {
-  "count": 51,
+  "count": 52,
   "pages": [
     {
       "title": "關於 JN",
@@ -638,6 +638,31 @@
       "slug": "linux/cosmic-fcitx-unlock-wayland-context",
       "url": "/linux/cosmic-fcitx-unlock-wayland-context/",
       "source": "src/content/docs/linux/cosmic-fcitx-unlock-wayland-context.md"
+    },
+    {
+      "title": "COSMIC Wayland 搭 NVIDIA 時休眠失敗或卡死",
+      "description": "COSMIC 合成器尚未停止渲染時，NVIDIA suspend helper 接管 DRM，可能造成 Xid、nvidia-sleep.sh 卡死與 systemd-suspend 失敗。",
+      "date": "2026-08-19",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "high",
+      "tags": [
+        "arch-linux",
+        "cosmic",
+        "nvidia",
+        "wayland",
+        "suspend"
+      ],
+      "aliases": [
+        "COSMIC NVIDIA suspend failed",
+        "nvidia-sleep.sh stuck",
+        "NVRM Xid 158 suspend",
+        "systemd-suspend cosmic-comp DRM access error"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-nvidia-suspend-race",
+      "url": "/linux/cosmic-nvidia-suspend-race/",
+      "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
