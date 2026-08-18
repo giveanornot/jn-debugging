@@ -71,15 +71,16 @@ await tab.playwright.evaluate((pixels) => window.scrollBy(0, pixels), 560);
 → 最舊「累積」時間 <= checkpoint 才 completed
 ```
 
-- 每批最多 12 輪；下一批保留同一 tab，以 `navigate: false` 接續。
-- 每批都寫 manifest：未跨 checkpoint 是 `in_progress`，明確收尾才是 `incomplete`。
+- 每個 invocation 只跑一個 query batch；每批最多 12 輪、35 秒安全預算。下一批保留同一 tab，以 `navigate: false` 接續。
+- 每批都寫 manifest：未跨 checkpoint 是 `in_progress`，明確收尾才是 `incomplete`；manifest 記錄 `resume.tab_id`、下一輪與批次時間，讓 kernel reset 後接回原頁。
+- checkpoint 以同 query 最後一次 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime。
 - 從既有 JSONL 重建 URL union 與最舊時間，避免中斷後重跑或誤判。
 - legacy fallback 將預設按鍵由 `End` 改為 `PageDown`。
 
 ## 驗證
 
 - `node --check` 驗證 runner 與 fallback script 語法。
-- 以 mock 模擬兩批搜尋：第一批未跨 checkpoint 時回傳 `in_progress`；第二批讀回第一批 JSONL 後，加入較舊貼文並回傳 `completed`。
+- 以 mock 模擬兩批搜尋：第一批未跨 checkpoint 時回傳 `in_progress` 並帶 resume 資訊；第二批讀回第一批 JSONL 後，加入較舊貼文並回傳 `completed`。
 - 實頁量測確認：等待 hydration 後可取到卡片，小幅捲動能逐步載入更舊結果；可見 DOM 的最舊時間不具單調性。
 
 ## 下次先查
