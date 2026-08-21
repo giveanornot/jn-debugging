@@ -1,7 +1,7 @@
 ---
 title: Good POSSE 發送 Threads／Instagram 時找不到資源或拒絕圖卡 JPEG
-description: A local-first social publisher can fail at real delivery when its Threads relay uses the retired Graph host or its Instagram asset allowlist omits the generated share-card JPEG.
-date: 2026-08-16
+description: A local-first social publisher can fail at real delivery when a stale Threads user ID or a missing release-only JPEG makes Meta reject the publish request.
+date: 2026-08-21
 tags:
   - good-posse
   - threads
@@ -14,6 +14,9 @@ system: social-publishing
 severity: medium
 aliases:
   - The requested resource does not exist
+  - Threads image format not supported
+  - Threads stale user ID
+  - Threads JPEG Pages 404
   - media.url must be a public Good POSSE Instagram JPEG asset
   - Threads graph.threads.com publish failure
   - Instagram share-card JPEG allowlist
@@ -21,10 +24,13 @@ aliases:
 
 ## 快速結論
 
-社群連接成功不代表實際發文可用。兩個容易在首次發文才暴露的 relay 問題是：
+社群連接成功不代表實際發文可用。三個容易在首次發文才暴露的問題是：
 
 1. Threads 發文端點必須使用 `graph.threads.net`；舊的 `graph.threads.com` 可能回 `The requested resource does not exist`。
-2. 如果 PWA 以產生的分享圖卡作為 Instagram 圖片，relay 的固定 URL allowlist 必須同時接受原圖衍生的 `instagram.jpg` 與圖卡的 `instagram-share-card.jpg`。
+2. Threads 本機保存的發文帳號 ID 可能過期；每次送出前以目前 access token 讀取 profile 並更新該 ID。
+3. release-only JPEG 必須在網站部署時就存在。若使用者在部署後才開啟 Threads，同名圖片 URL 可能是 Pages 的 404 HTML，Threads 會報不支援的圖片格式。
+
+Instagram 的 relay allowlist 也必須同時接受原圖衍生的 `instagram.jpg` 與圖卡的 `instagram-share-card.jpg`。
 
 修正 relay 後，重新發布靜態網站以產生本次可公開存取的 JPEG，再由使用者確認重送；不要自動重送失敗收據。
 
@@ -34,6 +40,7 @@ aliases:
 
 ```text
 Threads: The requested resource does not exist
+Threads: image format not supported
 Instagram: media.url must be a public Good POSSE Instagram JPEG asset.
 ```
 
@@ -67,13 +74,23 @@ POST https://graph.threads.net/v1.0/<threads-user-id>/threads_publish
 /assets/<post-id>/instagram-share-card.jpg
 ```
 
-最後檢查這篇內容是否已在本次網站發布前選為 Instagram 目的地。圖卡只存在於該次靜態 release，不能把尚未發布或過去 release 沒產生的檔案當成可送出的媒體。
+最後直接檢查派送 URL 回傳的 HTTP status 與 `Content-Type`。`threads.jpg` 或 `threads-share-card.jpg` 的副檔名正確，不代表該次靜態 release 真的有輸出 JPEG。
+
+```bash
+curl -I 'https://example.com/assets/<id>/threads.jpg'
+```
+
+必須得到 `200` 和 `image/jpeg`，而不是 Pages 的 HTML 404。部署時應為每個合格的短文圖片與每篇圖卡建立 Threads JPEG；不可只依當下的 Threads 勾選狀態決定是否產生。
 
 ## 根因
 
 Threads 的 OAuth、profile lookup 與發文可各自成功或失敗；使用舊 Graph host 時，連接流程未必立即暴露問題，最終寫入 container／publish 才可能被上游視為不存在的資源。
 
+同樣的 `The requested resource does not exist` 也可能是本機 connection 保存的 `user_id` 已不再對應目前 token。token refresh 不會保證同步修正該欄位。
+
 Instagram relay 故意不接受任意外部圖片 URL，以避免變成通用 proxy。新增分享圖卡後，PWA 正確產生了新檔名，但 relay 的正規表示式仍只接受舊的 `instagram.jpg`，兩端契約不同步。
+
+Threads 的圖片問題則發生在另一層：當 JPEG 的產生條件綁定「部署當下已啟用 Threads」，使用者後來才啟用時，PWA 仍會組出合法外觀的 URL，但該 release 根本沒有資產。
 
 ## 修正
 
@@ -91,7 +108,14 @@ Instagram relay 故意不接受任意外部圖片 URL，以避免變成通用 pr
 +/assets/<id>/(instagram|instagram-share-card).jpg
 ```
 
-補兩層測試：PWA core contract 驗證圖卡 URL 與發文計畫；Worker contract 驗證 relay 接受圖卡 URL、仍拒絕任意外部 URL。然後只部署 relay；不主動重新發文。
+在 PWA 發送前用目前 token 讀 connector profile，將回傳的 ID 覆寫 connection 的舊 `user_id`。圖片資產改為每次靜態網站部署都產生，而不是只為已勾選 Threads 的貼文產生：
+
+```text
+note image     → /assets/<media-id>/threads.jpg
+any post card  → /assets/<post-id>/threads-share-card.jpg
+```
+
+補兩層測試：PWA core contract 驗證圖卡 URL 與發文計畫；Worker contract 驗證 relay 接受圖卡 URL、仍拒絕任意外部 URL。部署 PWA 與 relay；不主動重新發文。
 
 ## 驗證
 
@@ -104,7 +128,7 @@ npx wrangler deploy
 ```
 
 - 以允許的 Origin 呼叫 Threads 與 Instagram connector config，確認 Worker 可回應且不洩漏 secret。
-- 重新發布包含該社群目的地的靜態網站，讓 release 產生對應 JPEG。
+- PWA 更新後重新發布網站，確認目標 Threads JPEG 是 `200 image/jpeg`。
 - 在同步確認頁手動重送；Instagram 圖卡選「分享圖卡（單張）」。
 - 只有收到平台確認的發文 ID 才記為 `published`；final publish 網路歧義才標為 `unknown`。
 
@@ -113,4 +137,5 @@ npx wrangler deploy
 1. 先看錯誤來自 relay validation 還是上游平台。
 2. Threads 實際發文先核對 `graph.threads.net`，不要只因 OAuth 成功就假定 publish host 正確。
 3. 新增任何 release-only 社群圖片時，同時更新 PWA URL helper、靜態輸出、relay allowlist 與契約測試。
-4. 重新發布生成資產後，再由使用者確認重送。
+4. Threads 404 先以目前 token 讀 profile，比對／更新 user ID；圖片格式錯誤先確認公開 URL 是 `200 image/jpeg`。
+5. 重新發布生成資產後，再由使用者確認重送。

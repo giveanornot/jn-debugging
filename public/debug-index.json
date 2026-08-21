@@ -889,8 +889,8 @@
     },
     {
       "title": "Good POSSE 發送 Threads／Instagram 時找不到資源或拒絕圖卡 JPEG",
-      "description": "A local-first social publisher can fail at real delivery when its Threads relay uses the retired Graph host or its Instagram asset allowlist omits the generated share-card JPEG.",
-      "date": "2026-08-16",
+      "description": "A local-first social publisher can fail at real delivery when a stale Threads user ID or a missing release-only JPEG makes Meta reject the publish request.",
+      "date": "2026-08-21",
       "status": "fixed",
       "system": "social-publishing",
       "severity": "medium",
@@ -904,6 +904,9 @@
       ],
       "aliases": [
         "The requested resource does not exist",
+        "Threads image format not supported",
+        "Threads stale user ID",
+        "Threads JPEG Pages 404",
         "media.url must be a public Good POSSE Instagram JPEG asset",
         "Threads graph.threads.com publish failure",
         "Instagram share-card JPEG allowlist"
