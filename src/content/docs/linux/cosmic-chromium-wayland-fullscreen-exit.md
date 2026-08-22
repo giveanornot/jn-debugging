@@ -1,7 +1,7 @@
 ---
 title: COSMIC Wayland 下 Chromium 全螢幕立即退出
-description: Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕約 1.5 秒後退出時，以乾淨 profile 與 XWayland flag 區分 extension、profile 與 compositor 問題。
-date: 2026-08-12
+description: Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端並以 XWayland flag 維持可用全螢幕。
+date: 2026-08-23
 tags:
   - linux
   - cosmic
@@ -21,13 +21,13 @@ aliases:
 
 ## 快速結論
 
-Chromium／Brave 在 COSMIC 原生 Wayland 進入 F11 或影片全螢幕後約 1.5 秒自動退出，且無痕模式仍會發生時，不應先判定為 extension。以乾淨 profile 加上 `--ozone-platform=x11` 可正常全螢幕，指向 COSMIC compositor 的 Wayland presentation-feedback 相容性問題。
+Chromium／Brave 在 COSMIC 原生 Wayland 進入 F11 或影片全螢幕後自動退出時，不應先判定為 extension。`cosmic-comp` 的 [#2683 修正](https://github.com/pop-os/cosmic-comp/pull/2683) 已處理 presentation-feedback 的一種已知原因，但升級到含修正的版本後仍必須重跑 F11 與影片全螢幕；它不是所有 Chromium／COSMIC fullscreen 問題的保證修復。
 
-在上游修正進入發行版前，將瀏覽器暫時切到 XWayland；不要在原生 Wayland 與 XWayland 程序混跑後就以為 flag 已生效。
+目前可用的回復方式是將瀏覽器暫時切到 XWayland。設定檔存在不代表已套用：Brave 必須經 distro launcher 啟動，並確認主程序與 GPU process 都帶有 `--ozone-platform=x11`。
 
 ## 症狀
 
-- Brave 或 Chromium 進入 F11、YouTube 或其他影片全螢幕後，約 1.5 秒自行回到視窗模式。
+- Brave 或 Chromium 進入 F11、YouTube 或其他影片全螢幕後，自行回到視窗模式。
 - 無痕模式同樣發生，停用 extension 無法改善。
 - 其他瀏覽器設定看起來正常，沒有明確的 browser crash。
 
@@ -52,11 +52,13 @@ chromium --user-data-dir="$task_dir" --ozone-platform=x11 --no-first-run
 ps -eo pid,args | rg '/(brave|chromium)( |$)' | rg -v -- '--type='
 ```
 
-可參照上游 [COSMIC issue #2677](https://github.com/pop-os/cosmic-comp/issues/2677)：症狀是 Chrome 接受全螢幕後短暫退出；對應的 [PR #2683](https://github.com/pop-os/cosmic-comp/pull/2683) 說明 compositor 回傳 discarded presentation feedback 會觸發這個退出行為。
+先確認實際的 `cosmic-comp` 版本與 [#2683](https://github.com/pop-os/cosmic-comp/pull/2683) 是否已進入套件。該 PR 修正 compositor 未收取 fullscreen surface presentation feedback、令 Chromium 約 1.5 秒後放棄全螢幕的情況。
+
+即使套件已包含修正，仍要重新測試原始 F11 與影片全螢幕流程。Arch + COSMIC + `brave-bin 1.93.129` 的同類問題已有 [Brave #58101](https://github.com/brave/brave-browser/issues/58101) 回報，且 Brave 以不處理結案；這表示可能還有其他 Wayland fullscreen 路徑。
 
 ## 根因
 
-這是 COSMIC compositor 與新版 Chromium 原生 Wayland 全螢幕流程間的相容性問題，而非 extension。Chromium 在等待 presentation feedback 時收到 compositor 的 discarded feedback，便在約 1.5 秒後取消全螢幕。
+COSMIC compositor 與 Chromium 原生 Wayland fullscreen 流程存在相容性問題，而非 extension。#2683 所修的是 presentation-feedback starvation；若修正已入套件仍重現，不能再將根因精確歸為那一個缺陷，只能確認原生 Wayland 路徑仍不相容。
 
 ## 修正
 
@@ -66,19 +68,28 @@ ps -eo pid,args | rg '/(brave|chromium)( |$)' | rg -v -- '--type='
 --ozone-platform=x11
 ```
 
-Brave 可放入 `~/.config/brave-flags.conf`，保留原有 flags。必須完整結束所有 browser 主程序再重新啟動；瀏覽器自己的 restart 流程可能沿用舊的 `--ozone-platform=wayland` 命令列，無法套用新設定。
+Brave 可放入 `~/.config/brave-flags.conf`，保留原有 flags。必須完整結束所有 browser 主程序，再經 distro launcher 重開：
 
-上游修正仍未進入發行版時，保留這個 workaround。待 PR 合併且發行版的 `cosmic-comp` 套件包含修正後，移除上述單一 flag、完整重開瀏覽器並重新測試。
+```bash
+pkill -TERM -x brave
+setsid /usr/bin/brave </dev/null >/dev/null 2>&1 &
+```
+
+`/usr/bin/brave` 會讀取 `~/.config/brave-flags.conf` 後再執行實際 binary；直接啟動 `/opt/brave-bin/brave` 會繞過這個 wrapper，使程序仍以原生 Wayland 跑起來。瀏覽器內建 restart 也可能沿用舊的 `--ozone-platform=wayland` 命令列。
+
+想移除 workaround 時，先確認發行版套件含 #2683，再暫時移除單一 flag、完整重開瀏覽器，並實測 F11 與影片全螢幕。任何一項仍會退出，就還原 flag。
 
 ## 驗證
 
 - 以乾淨 profile 的 X11 Chromium 進入並維持 F11、影片全螢幕。
 - 完整重開 Brave 後，以 `ps` 確認主程序與 GPU process 含有 `--ozone-platform=x11`。
-- 上游修正發布後，移除 workaround，以原生 Wayland 重測兩種全螢幕流程。
+- 若要驗證原生 Wayland，移除 flag、完整重開後確認沒有 Brave XWayland 視窗，再重跑 F11 與影片全螢幕。
+- 升級 `cosmic-comp` 後只算前置條件通過；原始全螢幕流程實測成功才可移除 workaround。
 
 ## 下次先查
 
 1. 無痕模式是否仍重現。
 2. 以乾淨 profile 加 `--ozone-platform=x11` 測試。
 3. 確認正在執行的主程序實際 flags，而非只檢查設定檔。
-4. 查 COSMIC issue #2677 與發行版 `cosmic-comp` 的版本是否已帶入上游修正。
+4. 查 `cosmic-comp` 是否已帶入 #2683，然後仍以 F11 與影片全螢幕實測。
+5. X11 workaround 未生效時，確認是否透過 `/usr/bin/brave` 而非直接執行 `/opt/brave-bin/brave`。

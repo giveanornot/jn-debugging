@@ -589,8 +589,8 @@
     },
     {
       "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
-      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕約 1.5 秒後退出時，以乾淨 profile 與 XWayland flag 區分 extension、profile 與 compositor 問題。",
-      "date": "2026-08-12",
+      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端並以 XWayland flag 維持可用全螢幕。",
+      "date": "2026-08-23",
       "status": "investigating",
       "system": "COSMIC / Chromium",
       "severity": "medium",
