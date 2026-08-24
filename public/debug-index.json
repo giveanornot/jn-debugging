@@ -87,7 +87,7 @@
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
       "description": "Threads search results can look complete while delayed hydration, recycled cards, and a long-running browser call have skipped the required time range.",
-      "date": "2026-07-28",
+      "date": "2026-08-24",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",
