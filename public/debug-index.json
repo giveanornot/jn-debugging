@@ -517,8 +517,8 @@
       "source": "src/content/docs/linux/arch-elan-fingerprint-cosmic-pam.md"
     },
     {
-      "title": "Arch NVIDIA 580xx split packages 版本不一致",
-      "description": "AUR NVIDIA 580xx split packages must be upgraded in one transaction, or a sequential Paru install leaves DKMS pinned to the old utils version.",
+      "title": "Arch NVIDIA 580xx driver/library mismatch：split package 與未重開機",
+      "description": "NVIDIA 更新後出現 driver/library mismatch 時，先分辨 AUR split packages 未對齊，或套件已對齊但仍在使用舊 kernel module。",
       "date": "2026-08-25",
       "status": "fixed",
       "system": "desktop",
@@ -532,7 +532,8 @@
       "aliases": [
         "nvidia driver library mismatch",
         "lib32-nvidia mismatch",
-        "nvidia-580xx"
+        "nvidia-580xx",
+        "nvidia 更新後未重開機"
       ],
       "related": [],
       "slug": "linux/arch-nvidia-580xx-split-package-mismatch",
