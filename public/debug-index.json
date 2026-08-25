@@ -518,8 +518,8 @@
     },
     {
       "title": "Arch NVIDIA 580xx split packages 版本不一致",
-      "description": "AUR NVIDIA split packages must be upgraded in one transaction, or DKMS and 32-bit userspace versions can block each other.",
-      "date": "2026-07-04",
+      "description": "AUR NVIDIA 580xx split packages must be upgraded in one transaction, or a sequential Paru install leaves DKMS pinned to the old utils version.",
+      "date": "2026-08-25",
       "status": "fixed",
       "system": "desktop",
       "severity": "medium",
