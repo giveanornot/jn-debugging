@@ -1,5 +1,5 @@
 {
-  "count": 52,
+  "count": 53,
   "pages": [
     {
       "title": "關於 JN",
@@ -397,6 +397,30 @@
       "slug": "docker/postiz-mcp-backend-hang",
       "url": "/docker/postiz-mcp-backend-hang/",
       "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
+    },
+    {
+      "title": "RSSHub 讀政府 OpenData JSON 遺失文章段落格式",
+      "description": "某些政府 CMS 的 JSON 開放資料會把文章 HTML 壓成純文字；改讀保留轉義 HTML 的 XML，才能讓 RSS 閱讀器保有段落、清單與圖片。",
+      "date": "2026-09-02",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "low",
+      "tags": [
+        "rsshub",
+        "rss",
+        "opendata",
+        "xml",
+        "docker"
+      ],
+      "aliases": [
+        "RSSHub OpenData XML",
+        "RSS description no line breaks",
+        "OpenData JSON HTML stripped"
+      ],
+      "related": [],
+      "slug": "docker/rsshub-opendata-xml-preserve-html",
+      "url": "/docker/rsshub-opendata-xml-preserve-html/",
+      "source": "src/content/docs/docker/rsshub-opendata-xml-preserve-html.md"
     },
     {
       "title": "RSSHub Docker 缺 Chromium 導致 puppeteer-real-browser route 503",
