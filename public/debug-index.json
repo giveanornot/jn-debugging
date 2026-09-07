@@ -1,5 +1,5 @@
 {
-  "count": 53,
+  "count": 54,
   "pages": [
     {
       "title": "關於 JN",
@@ -637,9 +637,9 @@
     },
     {
       "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
-      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端並以 XWayland flag 作為可回復 workaround。",
-      "date": "2026-08-31",
-      "status": "investigating",
+      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端、回退至 XWayland，並在更新後安全驗收原生 Wayland。",
+      "date": "2026-09-07",
+      "status": "fixed",
       "system": "COSMIC / Chromium",
       "severity": "medium",
       "tags": [

@@ -1,7 +1,7 @@
 ---
 title: COSMIC Wayland 下 Chromium 全螢幕立即退出
-description: Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端並以 XWayland flag 作為可回復 workaround。
-date: 2026-08-31
+description: Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端、回退至 XWayland，並在更新後安全驗收原生 Wayland。
+date: 2026-09-07
 tags:
   - linux
   - cosmic
@@ -9,7 +9,7 @@ tags:
   - chromium
   - brave
   - fullscreen
-status: investigating
+status: fixed
 system: COSMIC / Chromium
 severity: medium
 aliases:
@@ -25,7 +25,7 @@ Chromium／Brave 在 COSMIC 原生 Wayland 進入 F11 或影片全螢幕後自�
 
 既有版本可先將瀏覽器暫時切到 XWayland。設定檔存在不代表已套用：Brave 必須經 distro launcher 啟動，並確認主程序與 GPU process 都帶有 `--ozone-platform=x11`。
 
-2026-08 的後續實測中，Brave `1.93.138` 移除 X11 flag 後未再立即重現，故可先回到原生 Wayland；這只表示該版本在此環境看似正常，不能據此推論 COSMIC 或 Chromium 的所有 fullscreen 相容性問題都已修復。
+在一台 Arch + COSMIC Wayland 的 AMD 圖形裝置上，`cosmic-comp 1.7.0-1` 與 Brave `1.94.121` 已完成原生 Wayland 驗收：移除 X11 flag、完整重開後確認 GPU 與 renderer 使用 Wayland，F11 與影片全螢幕均正常。此結論只涵蓋該組合；其他 GPU、瀏覽器版本或 COSMIC 版本仍須重跑相同驗證。
 
 ## 症狀
 
@@ -62,7 +62,7 @@ ps -eo pid,args | rg '/(brave|chromium)( |$)' | rg -v -- '--type='
 
 COSMIC compositor 與 Chromium 原生 Wayland fullscreen 流程存在相容性問題，而非 extension。#2683 所修的是 presentation-feedback starvation；若修正已入套件仍重現，不能再將根因精確歸為那一個缺陷，只能確認原生 Wayland 路徑仍不相容。
 
-## 修正
+## 修正與回退
 
 在 Chromium 或 Brave 的啟動 flags 增加：
 
@@ -79,20 +79,19 @@ setsid /usr/bin/brave </dev/null >/dev/null 2>&1 &
 
 `/usr/bin/brave` 會讀取 `~/.config/brave-flags.conf` 後再執行實際 binary；直接啟動 `/opt/brave-bin/brave` 會繞過這個 wrapper，使程序仍以原生 Wayland 跑起來。瀏覽器內建 restart 也可能沿用舊的 `--ozone-platform=wayland` 命令列。
 
-想移除 workaround 時，先確認發行版套件含 #2683，再暫時移除單一 flag、完整重開瀏覽器，並實測 F11 與影片全螢幕。Brave `1.93.138` 在一次後續實測已看似可用，因此目前可保持 flags 檔不含 X11 flag；任何一項仍會退出，就還原 flag。
+想移除 workaround 時，先確認發行版套件含 #2683，再暫時移除單一 flag、完整重開瀏覽器，並實測 F11 與影片全螢幕。2026-09 的驗收使用 Brave `1.94.121` 與 `cosmic-comp 1.7.0-1` 成功，因此該環境的 flags 檔可不含 X11 flag；任何一項仍會退出，就還原 flag。
 
 ## 驗證
 
-- 以乾淨 profile 的 X11 Chromium 進入並維持 F11、影片全螢幕。
-- 完整重開 Brave 後，以 `ps` 確認主程序與 GPU process 含有 `--ozone-platform=x11`。
 - 若要驗證原生 Wayland，移除 flag、完整重開後確認沒有 Brave XWayland 視窗，再重跑 F11 與影片全螢幕。
+- 本次修復驗收：Brave `1.94.121` 的 GPU process 與 renderer 均顯示 `--ozone-platform=wayland`，且使用者確認 F11、影片全螢幕皆正常。
 - 升級 `cosmic-comp` 後只算前置條件通過；原始全螢幕流程實測成功才可移除 workaround。
-- Brave `1.93.138` 移除 X11 flag 後，使用者未再立即重現；下次更新仍應重跑 F11 與影片全螢幕。
+- 若需回退，以乾淨 profile 的 X11 Chromium 驗證 F11、影片全螢幕，再完整重開 Brave 並確認主程序與 GPU process 含有 `--ozone-platform=x11`。
 
 ## 下次先查
 
 1. 無痕模式是否仍重現。
 2. 以乾淨 profile 加 `--ozone-platform=x11` 測試。
 3. 確認正在執行的主程序實際 flags，而非只檢查設定檔。
-4. 查 `cosmic-comp` 是否已帶入 #2683，然後仍以 F11 與影片全螢幕實測；不可只根據上游 PR 已合併就移除 workaround。
+4. 查 `cosmic-comp` 是否已帶入 #2683，然後仍以 F11 與影片全螢幕實測；不可只根據上游 PR 已合併或其他機器正常就移除 workaround。
 5. X11 workaround 未生效時，確認是否透過 `/usr/bin/brave` 而非直接執行 `/opt/brave-bin/brave`。
