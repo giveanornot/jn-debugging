@@ -86,8 +86,8 @@
     },
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
-      "description": "Threads search results can look complete while delayed hydration, recycled cards, and a long-running browser call have skipped the required time range.",
-      "date": "2026-08-24",
+      "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use accumulated time coverage and a verified result-page bottom instead.",
+      "date": "2026-09-08",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",
@@ -96,13 +96,16 @@
         "browser-automation",
         "virtual-dom",
         "checkpoint",
-        "codex"
+        "codex",
+        "recovery"
       ],
       "aliases": [
         "Threads search incomplete",
         "Threads virtual DOM oldest timestamp",
         "Threads search checkpoint",
-        "browser runner timeout"
+        "browser runner timeout",
+        "Threads no new URL false completion",
+        "Threads recent 7 day search"
       ],
       "related": [],
       "slug": "ai-tools/threads-search-virtual-dom-checkpoint",
