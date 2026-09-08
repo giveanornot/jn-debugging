@@ -1,5 +1,5 @@
 {
-  "count": 54,
+  "count": 55,
   "pages": [
     {
       "title": "關於 JN",
@@ -283,6 +283,31 @@
       "slug": "docker/newsblur-feed-refresh-scheduler",
       "url": "/docker/newsblur-feed-refresh-scheduler/",
       "source": "src/content/docs/docker/newsblur-feed-refresh-scheduler.md"
+    },
+    {
+      "title": "NewsBlur 升級後 HAProxy 因可選 Backend DNS 失敗重啟",
+      "description": "NewsBlur 的 HAProxy 設定新增主機端可選 backend 時，未解析的 host.docker.internal 可能讓整個 proxy 無法啟動。",
+      "date": "2026-09-08",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "haproxy",
+        "docker",
+        "dns",
+        "reverse-proxy"
+      ],
+      "aliases": [
+        "host.docker.internal could not resolve address",
+        "HAProxy Failed to initialize servers addr",
+        "NewsBlur HAProxy restarting",
+        "optional backend DNS failure"
+      ],
+      "related": [],
+      "slug": "docker/newsblur-haproxy-optional-backend-dns",
+      "url": "/docker/newsblur-haproxy-optional-backend-dns/",
+      "source": "src/content/docs/docker/newsblur-haproxy-optional-backend-dns.md"
     },
     {
       "title": "NewsBlur log 爆滿 root disk",
