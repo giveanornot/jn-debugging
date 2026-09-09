@@ -234,9 +234,9 @@
       "source": "src/content/docs/docker/docker-wireguard-full-tunnel-psk-routing.md"
     },
     {
-      "title": "搬遷 HedgeDoc 到 Docker 與 Cosmos 時保留筆記 URL、uploads 與 TLS",
-      "description": "Move HedgeDoc between Docker hosts with a logical PostgreSQL restore, UID-safe upload copy, Cosmos routing, and a direct DNS record that survives dynamic-IP updates.",
-      "date": "2026-07-27",
+      "title": "搬遷或升級 HedgeDoc 時保留筆記、uploads 與 TLS",
+      "description": "Move HedgeDoc or perform a PostgreSQL major upgrade with a logical dump, an empty replacement data directory, UID-safe uploads, and verified public routing.",
+      "date": "2026-09-09",
       "status": "fixed",
       "system": "hedgedoc",
       "severity": "high",
@@ -250,6 +250,8 @@
       ],
       "aliases": [
         "HedgeDoc Docker migration",
+        "HedgeDoc PostgreSQL major upgrade",
+        "PostgreSQL 13 to 17 HedgeDoc",
         "HedgeDoc PostgreSQL restore",
         "HedgeDoc uploads permission denied",
         "Cosmos HedgeDoc route",
