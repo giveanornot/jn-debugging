@@ -1,5 +1,5 @@
 {
-  "count": 55,
+  "count": 56,
   "pages": [
     {
       "title": "關於 JN",
@@ -261,6 +261,30 @@
       "slug": "docker/hedgedoc-postgres-cosmos-migration",
       "url": "/docker/hedgedoc-postgres-cosmos-migration/",
       "source": "src/content/docs/docker/hedgedoc-postgres-cosmos-migration.md"
+    },
+    {
+      "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
+      "description": "NewsBlur 自訂子網域未列入 ALLOWED_SUBDOMAINS 時，匿名首頁會重導回相同 URL，導致瀏覽器 ERR_TOO_MANY_REDIRECTS。",
+      "date": "2026-09-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "docker",
+        "custom-domain",
+        "redirect-loop",
+        "django"
+      ],
+      "aliases": [
+        "ERR_TOO_MANY_REDIRECTS NewsBlur",
+        "NewsBlur custom domain redirect loop",
+        "ALLOWED_SUBDOMAINS"
+      ],
+      "related": [],
+      "slug": "docker/newsblur-custom-domain-redirect-loop",
+      "url": "/docker/newsblur-custom-domain-redirect-loop/",
+      "source": "src/content/docs/docker/newsblur-custom-domain-redirect-loop.md"
     },
     {
       "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
