@@ -1,5 +1,5 @@
 {
-  "count": 57,
+  "count": 58,
   "pages": [
     {
       "title": "關於 JN",
@@ -209,6 +209,31 @@
       "slug": "docker/cosmos-letsencrypt-renewal-stale-domain",
       "url": "/docker/cosmos-letsencrypt-renewal-stale-domain/",
       "source": "src/content/docs/docker/cosmos-letsencrypt-renewal-stale-domain.md"
+    },
+    {
+      "title": "雙機 ddclient 保留舊 A record 而持續更新失敗",
+      "description": "Redundant ddclient instances can keep retrying deleted Cloudflare A records when one host retains a pre-wildcard configuration.",
+      "date": "2026-09-14",
+      "status": "fixed",
+      "system": "ddclient",
+      "severity": "medium",
+      "tags": [
+        "ddclient",
+        "cloudflare",
+        "docker",
+        "dns",
+        "wildcard-dns",
+        "high-availability"
+      ],
+      "aliases": [
+        "ddclient no A record at Cloudflare",
+        "redundant DDNS configuration drift",
+        "Cloudflare wildcard DDNS stale hostname"
+      ],
+      "related": [],
+      "slug": "docker/ddclient-redundant-hosts-stale-records",
+      "url": "/docker/ddclient-redundant-hosts-stale-records/",
+      "source": "src/content/docs/docker/ddclient-redundant-hosts-stale-records.md"
     },
     {
       "title": "Docker WireGuard 全隧道連線後失去網路或管理連線",
