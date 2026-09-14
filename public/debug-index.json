@@ -1,5 +1,5 @@
 {
-  "count": 56,
+  "count": 57,
   "pages": [
     {
       "title": "關於 JN",
@@ -765,6 +765,32 @@
       "slug": "linux/cosmic-nvidia-suspend-race",
       "url": "/linux/cosmic-nvidia-suspend-race/",
       "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
+    },
+    {
+      "title": "PipeWire 把 DroidCam Loopback 選成預設，Focusrite 語音沒有聲音",
+      "description": "DroidCam 載入 snd-aloop 後，若 Focusrite 或其他實體裝置缺席，PipeWire 的預設輸入輸出可能落到虛擬 Loopback；先確認實體卡與實際預設路由。",
+      "date": "2026-09-14",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "pipewire",
+        "wireplumber",
+        "droidcam",
+        "focusrite",
+        "audio"
+      ],
+      "aliases": [
+        "snd-aloop default device",
+        "PipeWire Loopback Analog Stereo",
+        "Focusrite Scarlett 2i2 no sound",
+        "DroidCam Loopback microphone"
+      ],
+      "related": [],
+      "slug": "linux/pipewire-loopback-focusrite-default",
+      "url": "/linux/pipewire-loopback-focusrite-default/",
+      "source": "src/content/docs/linux/pipewire-loopback-focusrite-default.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
