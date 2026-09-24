@@ -408,9 +408,9 @@
       "source": "src/content/docs/docker/newsblur-rss-relative-image.md"
     },
     {
-      "title": "Nextcloud AIO 升級卡在 Starting",
-      "description": "Nextcloud AIO upgrade can appear stuck while containers are healthy; no space left on device during tarball extraction is the real failure mode to check first.",
-      "date": "2026-07-03",
+      "title": "Nextcloud AIO 磁碟壓力與升級卡在 Starting",
+      "description": "Nextcloud AIO may remain healthy while its Docker host is nearly full; distinguish the UI state from disk pressure, reclaim only safe Docker artifacts, and cap logs before upgrading.",
+      "date": "2026-09-24",
       "status": "fixed",
       "system": "nextcloud",
       "severity": "medium",
@@ -423,7 +423,10 @@
       "aliases": [
         "Nextcloud AIO Starting",
         "Nextcloud no space left on device",
-        "curl failure writing output"
+        "curl failure writing output",
+        "Nextcloud disk 96%",
+        "Nextcloud AIO Docker image prune",
+        "Nextcloud journal disk full"
       ],
       "related": [],
       "slug": "docker/nextcloud-aio-no-space-left",
