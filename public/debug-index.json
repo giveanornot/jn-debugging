@@ -1,5 +1,5 @@
 {
-  "count": 58,
+  "count": 59,
   "pages": [
     {
       "title": "關於 JN",
@@ -60,6 +60,29 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
+      "description": "OMP 已更新卻在 dist/cli.js 報 SyntaxError 時，檢查 shebang 實際解析到的 Bun 與不同啟動環境的 PATH。",
+      "date": "2026-09-28",
+      "status": "fixed",
+      "system": "oh-my-pi",
+      "severity": "medium",
+      "tags": [
+        "omp",
+        "bun",
+        "linux",
+        "path"
+      ],
+      "aliases": [
+        "Oh My Pi Unexpected identifier",
+        "OMP Bun version mismatch",
+        "pi-coding-agent cli.js SyntaxError"
+      ],
+      "related": [],
+      "slug": "ai-tools/omp-old-bun-path-syntax-error",
+      "url": "/ai-tools/omp-old-bun-path-syntax-error/",
+      "source": "src/content/docs/ai-tools/omp-old-bun-path-syntax-error.md"
     },
     {
       "title": "OpenClaw 升級後 Codex 模型顯示 unavailable",
