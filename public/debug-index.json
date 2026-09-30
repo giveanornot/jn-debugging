@@ -1,5 +1,5 @@
 {
-  "count": 60,
+  "count": 61,
   "pages": [
     {
       "title": "關於 JN",
@@ -309,6 +309,30 @@
       "slug": "docker/hedgedoc-postgres-cosmos-migration",
       "url": "/docker/hedgedoc-postgres-cosmos-migration/",
       "source": "src/content/docs/docker/hedgedoc-postgres-cosmos-migration.md"
+    },
+    {
+      "title": "n8n 2.x RSS Feed Trigger 沒有輪詢：補齊 minute 並重新發布",
+      "description": "升級到 n8n 2.x 後，舊的 everyHour RSS polling 設定若缺少 minute，會產生無效 cron，工作流雖顯示啟用卻不會自動執行。",
+      "date": "2026-09-30",
+      "status": "fixed",
+      "system": "n8n",
+      "severity": "medium",
+      "tags": [
+        "n8n",
+        "docker",
+        "rss",
+        "scheduler",
+        "newsletter"
+      ],
+      "aliases": [
+        "n8n RSS Feed Trigger not polling",
+        "n8n everyHour missing minute",
+        "n8n workflow active but RSS trigger does not run"
+      ],
+      "related": [],
+      "slug": "docker/n8n-rss-feed-trigger-missing-minute",
+      "url": "/docker/n8n-rss-feed-trigger-missing-minute/",
+      "source": "src/content/docs/docker/n8n-rss-feed-trigger-missing-minute.md"
     },
     {
       "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
