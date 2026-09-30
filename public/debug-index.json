@@ -1,5 +1,5 @@
 {
-  "count": 59,
+  "count": 60,
   "pages": [
     {
       "title": "關於 JN",
@@ -1337,6 +1337,30 @@
       "slug": "web/pwa-service-worker-indexeddb-upgrade",
       "url": "/web/pwa-service-worker-indexeddb-upgrade/",
       "source": "src/content/docs/web/pwa-service-worker-indexeddb-upgrade.md"
+    },
+    {
+      "title": "R2 append-only 同步每次都掃描舊事件，少量變更仍要數十秒",
+      "description": "A local-first PWA can spend most of an incremental R2 sync listing and downloading known events when a device counter has gaps or a completed checkpoint is ignored.",
+      "date": "2026-09-30",
+      "status": "fixed",
+      "system": "local-first-static-publisher",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "cloudflare-r2",
+        "sync",
+        "performance",
+        "indexeddb"
+      ],
+      "aliases": [
+        "R2 incremental sync takes 30 seconds",
+        "R2 event index counter gaps",
+        "R2 同步重讀已知事件"
+      ],
+      "related": [],
+      "slug": "web/r2-append-only-sync-slow-incremental",
+      "url": "/web/r2-append-only-sync-slow-incremental/",
+      "source": "src/content/docs/web/r2-append-only-sync-slow-incremental.md"
     },
     {
       "title": "RSSHub Dcard API 被擋時改抓 JSON-LD",
