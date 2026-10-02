@@ -1,5 +1,5 @@
 {
-  "count": 61,
+  "count": 62,
   "pages": [
     {
       "title": "關於 JN",
@@ -840,6 +840,31 @@
       "slug": "linux/cosmic-nvidia-suspend-race",
       "url": "/linux/cosmic-nvidia-suspend-race/",
       "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
+    },
+    {
+      "title": "JLCONE 在 COSMIC Wayland 無視窗或登入欄位裁切",
+      "description": "JLCONE 的 bundled Electron 在 COSMIC Wayland 中開窗失敗或只顯示登入宣傳圖時，辨識 Xwayland 未映射與 WebContentsView 合成問題，並以每個 App 的 Wayland／軟體合成 launcher 迴避。",
+      "date": "2026-10-02",
+      "status": "investigating",
+      "system": "JLCONE / COSMIC Wayland",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "jlcone",
+        "electron",
+        "cosmic",
+        "wayland"
+      ],
+      "aliases": [
+        "JLCONE blank login screen Linux",
+        "JLCONE login form missing",
+        "JLCONE WebContentsView Wayland",
+        "jlcone-bin COSMIC"
+      ],
+      "related": [],
+      "slug": "linux/jlcone-cosmic-wayland-login-view",
+      "url": "/linux/jlcone-cosmic-wayland-login-view/",
+      "source": "src/content/docs/linux/jlcone-cosmic-wayland-login-view.md"
     },
     {
       "title": "PipeWire 把 DroidCam Loopback 選成預設，Focusrite 語音沒有聲音",
