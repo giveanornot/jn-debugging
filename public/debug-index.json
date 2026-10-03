@@ -1404,7 +1404,9 @@
       "aliases": [
         "R2 incremental sync takes 30 seconds",
         "R2 event index counter gaps",
-        "R2 同步重讀已知事件"
+        "R2 同步重讀已知事件",
+        "發布前要同步好幾次",
+        "R2 freshness check slow"
       ],
       "related": [],
       "slug": "web/r2-append-only-sync-slow-incremental",
