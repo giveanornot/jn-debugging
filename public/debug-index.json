@@ -1,5 +1,5 @@
 {
-  "count": 63,
+  "count": 64,
   "pages": [
     {
       "title": "關於 JN",
@@ -662,6 +662,31 @@
       "slug": "linux/android-quick-share-linux-p2p-bluetooth-fallback",
       "url": "/linux/android-quick-share-linux-p2p-bluetooth-fallback/",
       "source": "src/content/docs/linux/android-quick-share-linux-p2p-bluetooth-fallback.md"
+    },
+    {
+      "title": "Arch AUR 更新要求移除 pipewire-jack：lib32-jack2 建置依賴衝突",
+      "description": "lib32-mpg123 的建置依賴指定 lib32-jack2，間接拉入 jack2；改用通用 lib32-jack provider，保留 PipeWire 並完成建置。",
+      "date": "2026-10-07",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "arch-linux",
+        "aur",
+        "paru",
+        "pipewire",
+        "jack"
+      ],
+      "aliases": [
+        "jack2 and pipewire-jack are in conflict",
+        "Remove pipewire-jack",
+        "lib32-mpg123 makedepends",
+        "lib32-pipewire-jack"
+      ],
+      "related": [],
+      "slug": "linux/arch-aur-lib32-jack2-pipewire-conflict",
+      "url": "/linux/arch-aur-lib32-jack2-pipewire-conflict/",
+      "source": "src/content/docs/linux/arch-aur-lib32-jack2-pipewire-conflict.md"
     },
     {
       "title": "Arch Linux ELAN 指紋辨識在 COSMIC 鎖定畫面失效",
