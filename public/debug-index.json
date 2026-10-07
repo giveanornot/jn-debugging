@@ -1,5 +1,5 @@
 {
-  "count": 62,
+  "count": 63,
   "pages": [
     {
       "title": "關於 JN",
@@ -1265,6 +1265,31 @@
       "slug": "web/instagram-login-platform-app-numeric-user-id",
       "url": "/web/instagram-login-platform-app-numeric-user-id/",
       "source": "src/content/docs/web/instagram-login-platform-app-numeric-user-id.md"
+    },
+    {
+      "title": "Local-first PWA 完整同步後仍無法發布：已刪除貼文的衝突被清單隱藏",
+      "description": "發布檢查可能先花時間掃描舊 R2 事件，完成後又被貼文清單未顯示的 delete/update 衝突阻擋。",
+      "date": "2026-10-07",
+      "status": "fixed",
+      "system": "local-first-static-publisher",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "cloudflare-r2",
+        "sync",
+        "publishing",
+        "ux"
+      ],
+      "aliases": [
+        "正在確認跨裝置狀態",
+        "完整同步後仍不能發布",
+        "deleted tombstone conflict hidden from library",
+        "R2 delete update conflict blocks publish"
+      ],
+      "related": [],
+      "slug": "web/local-first-pwa-deleted-sync-conflict-blocks-publish",
+      "url": "/web/local-first-pwa-deleted-sync-conflict-blocks-publish/",
+      "source": "src/content/docs/web/local-first-pwa-deleted-sync-conflict-blocks-publish.md"
     },
     {
       "title": "Mastodon 關閉公開預覽時 public timeline 回 422",
