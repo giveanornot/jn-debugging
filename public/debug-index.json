@@ -1,5 +1,5 @@
 {
-  "count": 64,
+  "count": 65,
   "pages": [
     {
       "title": "關於 JN",
@@ -865,6 +865,30 @@
       "slug": "linux/cosmic-nvidia-suspend-race",
       "url": "/linux/cosmic-nvidia-suspend-race/",
       "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
+    },
+    {
+      "title": "HiNet GitHub 下載慢：用 WARP 繞路並保留 Tailscale DNS",
+      "description": "以 GitHub release 與 Cloudflare 下載對照辨識特定路徑瓶頸，設定 Linux WARP Traffic only 與 Tailscale 共存。",
+      "date": "2026-10-12",
+      "status": "fixed",
+      "system": "cloudflare-warp",
+      "severity": "medium",
+      "tags": [
+        "hinet",
+        "github",
+        "warp",
+        "tailscale",
+        "network"
+      ],
+      "aliases": [
+        "Twitter 圖片影片慢",
+        "Fastly 下載緩慢",
+        "warp tunnel_only"
+      ],
+      "related": [],
+      "slug": "linux/hinet-github-slow-warp-tailscale",
+      "url": "/linux/hinet-github-slow-warp-tailscale/",
+      "source": "src/content/docs/linux/hinet-github-slow-warp-tailscale.md"
     },
     {
       "title": "JLCONE 在 COSMIC Wayland 無視窗或登入欄位裁切",
