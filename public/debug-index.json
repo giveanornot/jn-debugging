@@ -1,5 +1,5 @@
 {
-  "count": 65,
+  "count": 66,
   "pages": [
     {
       "title": "關於 JN",
@@ -60,6 +60,31 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "Codex Linux 語音不可用：從舊移植版改用官方 Voice chat",
+      "description": "Linux 上看到 Dictation is not available on this device 時，先分清聽寫與完整語音對談，再核對實際 client，透過官方新版與獨立 profile 驗證 Voice chat。",
+      "date": "2026-10-21",
+      "status": "fixed",
+      "system": "codex-desktop",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "chatgpt",
+        "linux",
+        "voice",
+        "arch-linux"
+      ],
+      "aliases": [
+        "Dictation is not available on this device",
+        "Codex Linux Voice chat",
+        "Start new voice chat",
+        "ChatGPT Linux 語音互動"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-linux-voice-chat-official-app",
+      "url": "/ai-tools/codex-linux-voice-chat-official-app/",
+      "source": "src/content/docs/ai-tools/codex-linux-voice-chat-official-app.md"
     },
     {
       "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
