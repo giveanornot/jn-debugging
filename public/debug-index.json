@@ -1,5 +1,5 @@
 {
-  "count": 66,
+  "count": 67,
   "pages": [
     {
       "title": "關於 JN",
@@ -1263,6 +1263,31 @@
       "slug": "web/hugo-stack-v4-gallery",
       "url": "/web/hugo-stack-v4-gallery/",
       "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+    },
+    {
+      "title": "IndiePing 別名整合後連結數下降與 Feed GUID 驗證",
+      "description": "別名管理需要同步查詢、scanner 與 Feed；部署時用來源站拆分自我連結，避免將預期筆數下降誤判為資料遺失。",
+      "date": "2026-10-21",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "medium",
+      "tags": [
+        "indieping",
+        "domain-alias",
+        "rss",
+        "sqlite",
+        "deployment"
+      ],
+      "aliases": [
+        "alias query check scanner inconsistent",
+        "self links counted as backlinks",
+        "Feed GUID changed after alias",
+        "部署 smoke 筆數下降自動回退"
+      ],
+      "related": [],
+      "slug": "web/indieping-alias-self-links-feed-guid",
+      "url": "/web/indieping-alias-self-links-feed-guid/",
+      "source": "src/content/docs/web/indieping-alias-self-links-feed-guid.md"
     },
     {
       "title": "IndiePing RSS parser 與 Node fetch 失敗",
