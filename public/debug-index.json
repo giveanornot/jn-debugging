@@ -1,5 +1,5 @@
 {
-  "count": 68,
+  "count": 69,
   "pages": [
     {
       "title": "關於 JN",
@@ -62,6 +62,31 @@
       "slug": "ai-tools/codex-extension-debug",
       "url": "/ai-tools/codex-extension-debug/",
       "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+    },
+    {
+      "title": "Codex Linux 貼上截圖卡住：切換原生 Wayland",
+      "description": "COSMIC Wayland 上的 Codex 桌面版貼截圖後無回應，檢查剪貼簿與 XWayland 路徑，改用原生 Wayland 並保存啟動日誌。",
+      "date": "2026-10-23",
+      "status": "fixed",
+      "system": "codex-desktop",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "chatgpt",
+        "linux",
+        "cosmic",
+        "wayland",
+        "clipboard"
+      ],
+      "aliases": [
+        "Codex 貼圖片當機",
+        "ChatGPT Linux 貼截圖卡住",
+        "XWayland clipboard freeze"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-linux-screenshot-paste-freeze-wayland",
+      "url": "/ai-tools/codex-linux-screenshot-paste-freeze-wayland/",
+      "source": "src/content/docs/ai-tools/codex-linux-screenshot-paste-freeze-wayland.md"
     },
     {
       "title": "Codex Linux 語音不可用：從舊移植版改用官方 Voice chat",
