@@ -1,5 +1,5 @@
 {
-  "count": 67,
+  "count": 68,
   "pages": [
     {
       "title": "關於 JN",
@@ -574,6 +574,30 @@
       "slug": "docker/postiz-mcp-backend-hang",
       "url": "/docker/postiz-mcp-backend-hang/",
       "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
+    },
+    {
+      "title": "Postiz 重啟後貼文卡 QUEUE，Temporal 沒有 worker",
+      "description": "Postiz orchestrator 啟動時連不上 Temporal，PM2 仍顯示 online；重啟又留下占用 3002 的子程序，須清除殘留程序並驗證 task queue polling。",
+      "date": "2026-10-23",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "temporal",
+        "pm2",
+        "docker",
+        "nodejs"
+      ],
+      "aliases": [
+        "Postiz QUEUE no pollers",
+        "Temporal worker connection refused",
+        "orchestrator EADDRINUSE 3002"
+      ],
+      "related": [],
+      "slug": "docker/postiz-temporal-worker-startup-orphan-process",
+      "url": "/docker/postiz-temporal-worker-startup-orphan-process/",
+      "source": "src/content/docs/docker/postiz-temporal-worker-startup-orphan-process.md"
     },
     {
       "title": "RSSHub 讀政府 OpenData JSON 遺失文章段落格式",
