@@ -40,8 +40,8 @@
     },
     {
       "title": "Browser Extension 連線診斷",
-      "description": "Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。",
-      "date": "2026-08-12",
+      "description": "Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。",
+      "date": "2026-10-23",
       "status": "investigating",
       "system": "desktop",
       "severity": "medium",
@@ -54,7 +54,9 @@
         "extension backend",
         "Chrome native host",
         "No Codex browser client is connected",
-        "Codex Chrome Extension"
+        "Codex Chrome Extension",
+        "Page.navigate timeout",
+        "Computer use"
       ],
       "related": [],
       "slug": "ai-tools/codex-extension-debug",

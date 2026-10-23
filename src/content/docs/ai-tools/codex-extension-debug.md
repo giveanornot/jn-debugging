@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
-description: Browser automation extension backend 連不上 Chrome/Brave 時，先區分 profile、GUI env、extension、native host manifest。
-date: 2026-08-12
+description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
+date: 2026-10-23
 tags:
   - browser-automation
   - chrome
@@ -14,9 +14,13 @@ aliases:
   - Chrome native host
   - No Codex browser client is connected
   - Codex Chrome Extension
+  - Page.navigate timeout
+  - Computer use
 ---
 
 ## 快速結論
+
+若 extension 顯示已連線、可讀空白分頁，卻連一般網站的 `Page.navigate` 都固定逾時，還要檢查 desktop app、MCP browser service 與 native host 的實際版本。本次修復組合是更新 Community app、移除 MCP 設定中的舊版固定值，再由 App 的 **設定 → Computer use** 重新設定 Chrome；三層對齊後導覽與搜尋恢復。
 
 不要把「Chrome 開不起來」直接判定為 extension 壞掉。先分開檢查 profile 選擇、圖形環境變數、extension 安裝狀態、native host manifest，以及啟動器實際選到的瀏覽器。
 
@@ -49,6 +53,10 @@ local AI agent 無法連到 extension backend，browser automation 沒有可用 
 4. 開新 task 後，先讀取一個現有分頁來驗證。
 
 若仍未連上，才回到 profile、native host manifest 與 GUI session env 的排查。
+
+### 已連線但 Page.navigate 持續逾時
+
+另一種失敗模式是 extension 與 native host 均在執行，agent 可建立、讀取或截圖 `about:blank`，但導覽一般網站與登入中的服務都固定約 10 秒逾時。完整重啟 Chrome 仍可重現。這與「完全沒有 browser client」是不同分支。
 
 ## 影響範圍
 
@@ -96,14 +104,28 @@ printf 'HOME=%s\nDISPLAY=%s\nXDG_RUNTIME_DIR=%s\nDBUS_SESSION_BUS_ADDRESS=%s\n' 
 
 最後檢查 profile。不要只看「瀏覽器有開」；要確認打開的是有安裝 extension 的 user data dir。
 
+### 比對 App、MCP 與 native host 版本
+
+本次觀察到以下順序：
+
+1. extension 已啟用、native host manifest 存在，空白頁操作成功；一般網站與搜尋頁導覽都逾時。
+2. Community app 更新至 `2026.10.22.065504`（upstream `26.1016.61520`）。
+3. MCP 的 `NODE_REPL_TRUSTED_SERVICES` 仍指向舊 browser service，`BROWSER_USE_CODEX_APP_VERSION` 仍固定為 `26.1002.52244`；改成目前安裝來源及對應版本後熱載入，導覽仍失敗。
+4. native host registry 仍只有 `26.1002.52244`；App 更新沒有同步刷新這一層。
+5. 使用者從 Community **設定 → Computer use** 重新設定 Chrome 後，registry 才更新至 `26.1016.61520`，導覽恢復。
+
+先從實際安裝來源與目前 MCP 設定定位檔案，再讀 native host manifest／registry 所指向的版本。上述數字是本次案例值，不是往後應固定使用的最新版。不要只憑 extension Connected 判定各層都已更新，也不要手改 registry 冒充完成安裝。
+
 ## 根因
 
-已觀察到兩個可獨立發生的分支：
+已觀察到以下可獨立發生的分支：
 
 - agent 啟動器查詢 Brave profile，但實際可用的 extension 安裝在 Chrome Default profile；這是 browser/profile routing 不一致。
 - extension 和 native host 都已安裝，但 desktop app 的 browser client 尚未和目前 browser session 建立連線；fallback helper 因而回報 `No connection to browser extension`。
 
-目前證據足以排除「Chrome profile 缺 extension 或 native host」這個方向，但尚未在使用者手動開啟正確 Chrome profile 後完成連線驗證。因此把問題保留為 investigating，而非直接宣告已修復。
+- App 更新後，MCP browser service／app version 仍固定舊值，native host 也保留舊版本。更新並重新設定後，本次導覽逾時已修復；因未逐個元件獨立回退測試，無法斷言是哪一個舊元件單獨造成故障。
+
+本頁保留 `investigating`，因較早的 profile routing 分支仍缺獨立驗收；不代表本次導覽逾時仍未修復。
 
 ## 修正
 
@@ -120,6 +142,14 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 實際值依桌面環境調整；不要把這段當成固定可複製設定。重點是讓啟動器、helper 與使用者正在登入的 GUI session 都指向同一個 browser/profile。若啟動器仍查另一個 browser 的 profile，先修正該 routing，再重試 extension 連線。
 
+### 版本落後的修復分支
+
+- **App 層**：透過既有更新機制更新 Community，確認 updater 回到正常狀態。
+- **MCP 設定層**：先備份設定，再將 browser service 路徑及 app version 對齊目前實際安裝版本；信任目錄只保留所需的官方來源，重新載入 MCP。
+- **Native host 層**：若 registry 仍是舊版，由使用者在 App 的 **設定 → Computer use** 重新設定 Chrome，再確認 host 版本與連線狀態。
+
+不要把案例中的套件路徑或版本直接複製到其他安裝；先確認本機發行方式與實際檔案。
+
 ## 驗證
 
 - 啟動器解析到正確 browser 的 profile，且不再出現另一個 browser 的 `Preferences` 路徑錯誤。
@@ -135,6 +165,13 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 只看到 connected 不代表 workflow 已恢復；至少跑一個最小查詢或讀頁測試。
 
+### 本次版本修復的實測
+
+- 重新設定後 native host registry 為 `26.1016.61520`。
+- 一般網站約 1.4 秒完成導覽，並可讀取頁面文字。
+- Threads recent 搜尋頁約 2.2 秒完成導覽，並取得實際貼文 URL／摘要；既有登入仍可使用。
+- 後續實際探索流程可持續導航、搜尋與回查原文，未再出現固定 10 秒的 `Page.navigate` 逾時。
+
 ## 下次先查
 
 先檢查啟動器實際選到的 browser/profile 與 GUI env，再檢查 extension/native host。不要直接重裝整套瀏覽器工具。
@@ -147,3 +184,5 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 4. 確認 agent process 有 GUI env。
 5. 手動開啟同一 profile 後，確認 extension 顯示 Connected。
 6. 再重啟 browser helper，讀取一個既有分頁。
+
+若已 Connected 但只能操作空白頁，最短路徑改為：測一般網站導覽 → 比對 App／MCP service／native host 實際版本 → 修正舊版固定設定 → 必要時由 App 重新設定 Computer use → 再測導覽、讀取及實際搜尋。
