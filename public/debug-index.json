@@ -1,5 +1,5 @@
 {
-  "count": 73,
+  "count": 74,
   "pages": [
     {
       "title": "關於 JN",
@@ -408,6 +408,30 @@
       "slug": "docker/n8n-rss-feed-trigger-missing-minute",
       "url": "/docker/n8n-rss-feed-trigger-missing-minute/",
       "source": "src/content/docs/docker/n8n-rss-feed-trigger-missing-minute.md"
+    },
+    {
+      "title": "n8n RSS 新文章漏寄：無日期項目清空游標，改用成功後記錄日期",
+      "description": "RSS Feed Trigger 遇到尾端無發布日期的頁面，可能反覆把目前時間當基準而漏抓新文；以 Schedule Trigger、RSS Read、有效日期篩選與寄送成功後更新游標修復。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "n8n",
+      "severity": "medium",
+      "tags": [
+        "n8n",
+        "rss",
+        "newsletter",
+        "docker",
+        "smtp"
+      ],
+      "aliases": [
+        "n8n RSS Feed Trigger lastItemDate undefined",
+        "RSS missing pubDate silently skips new items",
+        "n8n workflow active but newsletter not sent"
+      ],
+      "related": [],
+      "slug": "docker/n8n-rss-undated-items-missing-posts",
+      "url": "/docker/n8n-rss-undated-items-missing-posts/",
+      "source": "src/content/docs/docker/n8n-rss-undated-items-missing-posts.md"
     },
     {
       "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
