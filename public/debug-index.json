@@ -1,5 +1,5 @@
 {
-  "count": 69,
+  "count": 71,
   "pages": [
     {
       "title": "關於 JN",
@@ -1341,6 +1341,32 @@
       "source": "src/content/docs/web/indieping-alias-self-links-feed-guid.md"
     },
     {
+      "title": "IndiePing 同一篇反向連結重複：來源合併與收錄防重",
+      "description": "新舊網域共用 RSS 卻各自收錄時，先確認來源身分，再以交易合併歷史文章、連結與通知識別碼，並在核准與掃描入口防止重複。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "medium",
+      "tags": [
+        "indieping",
+        "rss",
+        "sqlite",
+        "domain-alias",
+        "deduplication"
+      ],
+      "aliases": [
+        "duplicate backlink rows",
+        "same RSS registered twice",
+        "IDNA duplicate blog",
+        "重複收錄新舊網域",
+        "保留 Feed GUID 合併文章"
+      ],
+      "related": [],
+      "slug": "web/indieping-duplicate-source-merge",
+      "url": "/web/indieping-duplicate-source-merge/",
+      "source": "src/content/docs/web/indieping-duplicate-source-merge.md"
+    },
+    {
       "title": "IndiePing RSS parser 與 Node fetch 失敗",
       "description": "RSS 欄位型別不符或 Node fetch 逾時時，scanner 與查詢首頁的 IPv4 fallback 診斷與修法。",
       "date": "2026-08-10",
@@ -1390,6 +1416,31 @@
       "slug": "web/indieping-scheduler-disk-full",
       "url": "/web/indieping-scheduler-disk-full/",
       "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+    },
+    {
+      "title": "IndiePing 宣告的 RSS 已失效：驗證、替代 Feed 與 HEAD 405",
+      "description": "網站的 alternate RSS 連結可能已回 404；探索必須先驗證，繼續檢查其他公開 Feed，並區分 HEAD 不支援與真正無 RSS。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "medium",
+      "tags": [
+        "indieping",
+        "rss",
+        "feed-discovery",
+        "http"
+      ],
+      "aliases": [
+        "declared RSS returns 404",
+        "RSS HEAD 405",
+        "alternate feed stale",
+        "首頁正常但 RSS 失效",
+        "Feed endpoint returns HTML"
+      ],
+      "related": [],
+      "slug": "web/indieping-stale-feed-discovery",
+      "url": "/web/indieping-stale-feed-discovery/",
+      "source": "src/content/docs/web/indieping-stale-feed-discovery.md"
     },
     {
       "title": "Instagram Login 拒絕 platform app，或 OAuth user ID 是數字",

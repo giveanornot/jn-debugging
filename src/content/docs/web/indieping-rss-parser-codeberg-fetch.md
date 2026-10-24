@@ -23,6 +23,8 @@ aliases:
 
 ## 快速結論
 
+本文記錄 2026-08 的 parser 與連線問題。現行程式已改用會驗證公開位址、轉址及大小／時間限制的 `safeFetch`，以下舊式 IPv4 fallback 是歷史修法，不應直接搬回現行部署。若首頁正常但宣告的 RSS 已回 404，或遇到 HEAD 405，改看[失效 Feed 探索與驗證](/web/indieping-stale-feed-discovery/)。
+
 IndiePing scanner 寫入新文章時，不能假設 RSS parser 的欄位一定是 SQLite 可綁定的字串；先在 RSS 邊界正規化成 `string | null`，並用具名 SQL 參數寫入。
 
 若 Node built-in `fetch`（Undici）逾時，但 IPv4 的 `curl` 或 `https.get` 成功，對 HTTPS 的 RSS 抓取、首頁 RSS discovery 與 RSS probe 都加入強制 IPv4 的 `https.get` fallback，避免把正常網站誤判為無法連線。
