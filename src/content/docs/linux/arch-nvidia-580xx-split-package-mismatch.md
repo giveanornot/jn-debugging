@@ -1,7 +1,7 @@
 ---
 title: Arch NVIDIA 580xx driver/library mismatch：split package 與未重開機
 description: NVIDIA 更新後出現 driver/library mismatch 時，先分辨 AUR split packages 未對齊，或套件已對齊但仍在使用舊 kernel module。
-date: 2026-08-25
+date: 2026-10-24
 tags:
   - arch-linux
   - nvidia
@@ -90,10 +90,10 @@ split package 的情況不是 DKMS 編譯錯，而是 split packages 被 AUR hel
 
 ## 修正
 
-先讓 Paru 重新建置、並將整組 package 留到同一筆交易：
+先用批次模式將同版 package 留到同一筆交易；只有版本或 cache 可疑時才加 `--rebuild`：
 
 ```bash
-paru -S --batchinstall --rebuild \
+paru -S --batchinstall \
   nvidia-580xx-utils \
   nvidia-580xx-dkms \
   nvidia-580xx-settings \
@@ -106,16 +106,18 @@ paru -S --batchinstall --rebuild \
 paru -Syu --batchinstall
 ```
 
-如果 helper 還是拆 transaction，就用已 build 的 package files 同批安裝：
+如果 helper 還是拆 transaction，就用已 build 的 utils 與 DKMS package files 同批安裝。先確認路徑與 metadata，使用確切檔名；cache 常有多個舊版本，不能把整批萬用字元直接交給 pacman：
 
 ```bash
+pacman -Qip "/path/to/nvidia-580xx-utils-580.196.07-1-x86_64.pkg.tar.zst" \
+  "/path/to/nvidia-580xx-dkms-580.196.07-1-x86_64.pkg.tar.zst"
+
 sudo pacman -U \
-  nvidia-580xx-utils-*.pkg.tar.zst \
-  nvidia-580xx-dkms-*.pkg.tar.zst \
-  nvidia-580xx-settings-*.pkg.tar.zst \
-  libxnvctrl-580xx-*.pkg.tar.zst \
-  lib32-nvidia-580xx-utils-*.pkg.tar.zst
+  "/path/to/nvidia-580xx-utils-580.196.07-1-x86_64.pkg.tar.zst" \
+  "/path/to/nvidia-580xx-dkms-580.196.07-1-x86_64.pkg.tar.zst"
 ```
+
+路徑與版本須換成實際產物；已安裝的 32-bit utils 也要同步版本。設定工具若尚未產生新版 package，可在主套件安裝後建置，再把 settings 與 libxnvctrl 一起安裝。
 
 完成交易後重開機，讓 kernel module 與 userspace 對齊。若套件版本已一致但 runtime mismatch，直接重開機即可。
 
@@ -176,6 +178,10 @@ systemctl --user enable --now reboot-required-notify.service reboot-required-not
 
 ## 驗證
 
+2026-10-24 實例：32-bit utils 已是 `580.196.07-1`，utils／DKMS 還在 `580.178.04-4`。新版 utils 與 DKMS 其實都已 build 完成；同一交易安裝後，settings／libxnvctrl 也同步至新版，`pacman -Dk` 通過，保留的兩個核心都成功安裝 DKMS，mkinitcpio 成功。當下 `/sys/module/nvidia/version` 仍是 `580.178.04`，因此只算安裝完成，重開後的 runtime 驗證仍待完成。
+
+移除舊 DKMS 時若只有某個已不存在的舊核心目錄出現 depmod 警告，要檢查目前保留核心的實際建置結果，不要把所有 DKMS 都判成失敗。
+
 確認套件同版：
 
 ```bash
@@ -187,6 +193,8 @@ pacman -Q nvidia-580xx-utils nvidia-580xx-dkms nvidia-580xx-settings libxnvctrl-
 ```bash
 nvidia-smi
 dkms status
+pacman -Dk
+cat /sys/module/nvidia/version
 ```
 
 確認 `uname -r` 已是預期的新 kernel，`/proc/driver/nvidia/version` 與 `nvidia-smi` 不再顯示 mismatch，再測 Steam、Wine/Vulkan game、GPU app 或 `vulkaninfo`。

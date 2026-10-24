@@ -1,0 +1,145 @@
+diff --git a/cosmic_wm_manager/adapters/backend.py b/cosmic_wm_manager/adapters/backend.py
+index 62058be..2279e72 100644
+--- a/cosmic_wm_manager/adapters/backend.py
++++ b/cosmic_wm_manager/adapters/backend.py
+@@ -13,6 +13,7 @@ class Window(BaseModel):
+     title: str = Field(default="", description="The title of the window")
+     app_id: str = Field(default="", description="The application ID (app_id under Wayland, WM_CLASS under X11)")
+     workspace: int = Field(default=0, description="Index of the workspace the window is on")
++    output: str = Field(default="", description="Monitor containing this window")
+     geometry: WindowGeometry = Field(default_factory=WindowGeometry)
+     is_active: bool = Field(default=False, description="Whether this window is currently focused")
+     process_id: Optional[int] = Field(default=None, description="System process ID if available")
+diff --git a/cosmic_wm_manager/adapters/cosmic.py b/cosmic_wm_manager/adapters/cosmic.py
+index 75f4b73..47d56f1 100644
+--- a/cosmic_wm_manager/adapters/cosmic.py
++++ b/cosmic_wm_manager/adapters/cosmic.py
+@@ -199,6 +199,7 @@ class COSMICWindowBackend(WindowBackend):
+                     title=app.get("title", ""),
+                     app_id=app_id,
+                     workspace=workspace_idx,
++                    output=(app.get("outputs") or [{}])[0].get("name", ""),
+                     is_active=is_active
+                 ))
+             return windows
+@@ -219,8 +220,8 @@ class COSMICWindowBackend(WindowBackend):
+                 output_index = route.get("output_index")
+                 if group_index is not None:
+                     route_args = ["-g", str(group_index)]
+-                elif output_index is not None:
+-                    route_args = ["-o", str(output_index)]
++                if output_index is not None:
++                    route_args += ["-o", str(output_index)]
+             else:
+                 self.console.log(
+                     f"[yellow]⚠ Output '{output_name}' not found in COSMIC topology. "
+diff --git a/cosmic_wm_manager/cli/main.py b/cosmic_wm_manager/cli/main.py
+index 9d1337d..a0f74c6 100644
+--- a/cosmic_wm_manager/cli/main.py
++++ b/cosmic_wm_manager/cli/main.py
+@@ -75,7 +75,7 @@ def _start_profile(path: str, dry_run: bool, timeout: float, debug: bool):
+ 
+     workspace_routes = {}
+     if cfg.monitors:
+-        for w_idx in range(1, 20):
++        for w_idx in {app.workspace for app in cfg.apps}:
+             workspace_routes[w_idx] = cfg.resolve_workspace_output(w_idx)
+ 
+     backend = get_backend(dry_run)
+@@ -109,16 +109,30 @@ def _start_profile(path: str, dry_run: bool, timeout: float, debug: bool):
+         apps_to_launch_configs = []
+         apps_to_reuse = []
+ 
++        pending = []
++        # Reserve exact matches first so a changed browser title cannot claim
++        # a different window which still has an exact saved title.
+         for app_cfg in cfg.apps:
+-            existing_window = _find_existing_window_for_app(
+-                app_cfg,
+-                current_windows,
+-                matcher,
+-                claimed_window_ids,
+-            )
++            existing_window = next((win for win in current_windows
++                if win.id not in claimed_window_ids and app_cfg.match
++                and matcher.matches(win, app_cfg.match)), None)
+             if existing_window is not None:
+                 claimed_window_ids.add(existing_window.id)
+                 apps_to_reuse.append((app_cfg, existing_window))
++            else:
++                pending.append(app_cfg)
++
++        for app_cfg in pending:
++            candidates = [win for win in current_windows
++                if win.id not in claimed_window_ids and app_cfg.match
++                and app_cfg.match.app_id
++                and win.app_id.casefold() == app_cfg.match.app_id.casefold()]
++            output, workspace = workspace_routes.get(app_cfg.workspace, (None, app_cfg.workspace))
++            candidates.sort(key=lambda win: (win.workspace != workspace, output is not None and win.output != output))
++            if candidates:
++                existing_window = candidates[0]
++                claimed_window_ids.add(existing_window.id)
++                apps_to_reuse.append((app_cfg, existing_window))
+             else:
+                 apps_to_launch_configs.append(app_cfg)
+ 
+diff --git a/cosmic_wm_manager/launcher/async_launcher.py b/cosmic_wm_manager/launcher/async_launcher.py
+index 1e66ea3..00f58c2 100644
+--- a/cosmic_wm_manager/launcher/async_launcher.py
++++ b/cosmic_wm_manager/launcher/async_launcher.py
+@@ -2,6 +2,7 @@ import asyncio
+ import os
+ import sys
+ import shlex
++import subprocess
+ import psutil
+ from typing import Optional, Dict, Any
+ from rich.console import Console
+@@ -30,13 +31,14 @@ class AsyncAppLauncher:
+         self.console.log(f"[dim]Spawning process: {expanded_cmd} (Cwd: {cwd})[/dim]")
+         
+         try:
+-            process = await asyncio.create_subprocess_shell(
++            process = subprocess.Popen(
+                 expanded_cmd,
+-                stdout=asyncio.subprocess.DEVNULL,
+-                stderr=asyncio.subprocess.DEVNULL,
+-                stdin=asyncio.subprocess.DEVNULL,
++                shell=True,
++                stdout=subprocess.DEVNULL,
++                stderr=subprocess.DEVNULL,
++                stdin=subprocess.DEVNULL,
+                 cwd=cwd,
+-                preexec_fn=os.setsid if sys.platform != "win32" else None
++                start_new_session=sys.platform != "win32",
+             )
+             
+             await asyncio.sleep(0.05)
+diff --git a/cosmic_wm_manager/retry_engine/poll.py b/cosmic_wm_manager/retry_engine/poll.py
+index a0b84be..ba36ed0 100644
+--- a/cosmic_wm_manager/retry_engine/poll.py
++++ b/cosmic_wm_manager/retry_engine/poll.py
+@@ -70,7 +70,9 @@ class RetryEngine:
+             if win.id not in placed_indices and self.matcher.matches(win, relaxed_rule)
+             and not self._is_transient_window(win)
+         ]
+-        if len(candidates) == 1:
++        if candidates:
++            output, workspace = self._resolve_destination(app)
++            candidates.sort(key=lambda win: (win.workspace != workspace, output is not None and win.output != output))
+             return candidates[0]
+         return None
+ 
+@@ -127,7 +129,11 @@ class RetryEngine:
+                         break
+ 
+                 if matched_window is None:
+-                    matched_window = self._find_fallback_match(current_windows, app, placed_indices)
++                    reserved = {win.id for win in current_windows if any(
++                        idx != app_idx and idx not in matched_apps and other.match
++                        and self.matcher.matches(win, other.match)
++                        for idx, other in apps_to_match)}
++                    matched_window = self._find_fallback_match(current_windows, app, placed_indices | reserved)
+                     used_fallback_match = matched_window is not None
+ 
+                 if matched_window is None:

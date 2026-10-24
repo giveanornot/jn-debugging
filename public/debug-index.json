@@ -1,5 +1,5 @@
 {
-  "count": 71,
+  "count": 73,
   "pages": [
     {
       "title": "關於 JN",
@@ -209,6 +209,29 @@
       "slug": "ai-tools/vscodium-remote-ssh-codex-extension-stale-cache",
       "url": "/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache/",
       "source": "src/content/docs/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache.md"
+    },
+    {
+      "title": "VSCodium Codex 側欄無法載入：Service Worker InvalidStateError",
+      "description": "VSCodium 的 openai.chatgpt Webview 無法註冊 Service Worker 時，先正常退出，再備份並重建正確 profile 的快取。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "codex-ide-extension",
+      "severity": "medium",
+      "tags": [
+        "vscodium",
+        "vscode",
+        "codex",
+        "service-worker"
+      ],
+      "aliases": [
+        "Could not register service worker",
+        "The document is in an invalid state",
+        "openai.chatgpt InvalidStateError"
+      ],
+      "related": [],
+      "slug": "ai-tools/vscodium-webview-service-worker-invalid-state",
+      "url": "/ai-tools/vscodium-webview-service-worker-invalid-state/",
+      "source": "src/content/docs/ai-tools/vscodium-webview-service-worker-invalid-state.md"
     },
     {
       "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
@@ -796,7 +819,7 @@
     {
       "title": "Arch NVIDIA 580xx driver/library mismatch：split package 與未重開機",
       "description": "NVIDIA 更新後出現 driver/library mismatch 時，先分辨 AUR split packages 未對齊，或套件已對齊但仍在使用舊 kernel module。",
-      "date": "2026-08-25",
+      "date": "2026-10-24",
       "status": "fixed",
       "system": "desktop",
       "severity": "medium",
@@ -941,6 +964,30 @@
       "slug": "linux/cosmic-nvidia-suspend-race",
       "url": "/linux/cosmic-nvidia-suspend-race/",
       "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
+    },
+    {
+      "title": "COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正",
+      "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正子程序存活、雙螢幕路由與分頁標題改變造成的多開。",
+      "date": "2026-10-24",
+      "status": "investigating",
+      "system": "cosmic-desktop",
+      "severity": "medium",
+      "tags": [
+        "cosmic",
+        "wayland",
+        "session-restore",
+        "systemd"
+      ],
+      "aliases": [
+        "COSMIC session restore",
+        "cosmic-wm-manager",
+        "cosmic desktop checkpoint",
+        "COSMIC 重開機視窗還原"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-session-checkpoint-restore",
+      "url": "/linux/cosmic-session-checkpoint-restore/",
+      "source": "src/content/docs/linux/cosmic-session-checkpoint-restore.md"
     },
     {
       "title": "HiNet GitHub 下載慢：用 WARP 繞路並保留 Tailscale DNS",
