@@ -1,7 +1,7 @@
 ---
 title: Threads 搜尋被虛擬 DOM 與逾時誤判完成
 description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use accumulated time coverage and a verified result-page bottom instead.
-date: 2026-09-08
+date: 2026-10-25
 tags:
   - threads
   - browser-automation
@@ -23,7 +23,7 @@ aliases:
 
 ## 快速結論
 
-Threads 搜尋頁不應以目前可見卡片、無新 URL 或捲動次數判定完成。初次導覽先等貼文卡片出現；每輪立即把 URL、絕對時間與摘要 append 到檔案，並以整份累積資料的最舊時間是否跨過 checkpoint 判定完成。
+Threads 搜尋頁不應以目前可見卡片、無新 URL 或捲動次數判定完成。初次導覽先等貼文卡片出現；每輪立即把 URL、絕對時間與摘要 append 到檔案，並以整份累積資料中已驗證屬於同一 permalink 的最舊時間是否跨過 checkpoint 判定完成。
 
 透過 extension backend 時，頁面 JavaScript 的 `window.scrollBy()` 成功執行也不代表可見 feed 已捲動。先量實際 scroll position；若不變，改用 browser-level 的 CUA scroll，僅在該層失敗時才 fallback 到 page-context scroll。
 
@@ -71,7 +71,7 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 
 ## 根因
 
-根因有四層：
+已確認的原因包括：
 
 1. 搜尋結果採延遲 hydration，太早抽取會得到空 DOM。
 2. Threads 使用 virtual DOM，卡片會被回收或重排；最後一輪的 visible DOM 不是完整結果集。
@@ -98,9 +98,11 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 移除以連續無新 URL 判定完成的規則。對近期窗口，先確認頁尾，再以 browser-level scroll 追加一次捲動；仍在底部且文件高度不變才標為該窗口的 `completed`。沒有 `coverageSince` 的歷史查詢則標為 `incomplete`。
 - `time_budget_reached`、`batch_limit_reached`、browser timeout 與 Node reset 全部保留 `in_progress`；只有所有 query 都有 terminal manifest、候選篩選完成且 seen cache 更新後才能交付。
 - manifest 加入 `resume.viewport` 作為診斷資料。取不回原 tab 時必須重新導覽並繼續 `in_progress`，不可把 viewport 當成已恢復位置的證據。
-- checkpoint 以同 query 最後一次 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime。
-- 從既有 JSONL 重建 URL union 與最舊時間，避免中斷後重跑或誤判。
+- checkpoint 以同 query、目前抽取資料版本最後一次可信 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime，也不採信缺乏配對證據的舊完成紀錄。
+- 從同資料版本的 JSONL 重建 URL union；只有已驗證同一 permalink 的時間可參與最舊時間計算。引用 URL 缺時間時不宣稱窗口完成，保留為待補查。
 - legacy fallback 將預設按鍵由 `End` 改為 `PageDown`。
+
+時間本身也必須可信：外卡第一個 time 可能被錯配給引用 URL。對應的[引用卡片配對 runbook](/ai-tools/threads-quoted-post-url-time-pairing/) 記錄新版抽取、舊 checkpoint 失效規則與尚待實頁驗收的限制。
 
 ## 驗證
 
@@ -113,6 +115,6 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 1. 初次導覽後先等貼文卡片，不要把空 DOM 當零結果。
 2. 每次 scroll 後量 scroll position 或新貼文數；不要只因 `window.scrollBy()` 沒有錯誤就當作前進。
 3. 檢查每輪 JSONL/event 是否都有 append，而不是只看最後畫面。
-4. 用整份 JSONL 的最舊絕對時間和 checkpoint 比較。
+4. 先確認 permalink／時間／文字配對與資料版本，再用可信結果的最舊絕對時間和 checkpoint 比較。
 5. 分成短批次；timeout、reset 或重複 URL 時保留 `in_progress`，從 JSONL／manifest 續跑。
 6. 若只需近期範圍，確認底部後再捲一次且 `scrollHeight` 未增加；不要把「無新 URL」當成結果耗盡。

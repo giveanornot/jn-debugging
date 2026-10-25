@@ -1,5 +1,5 @@
 {
-  "count": 74,
+  "count": 76,
   "pages": [
     {
       "title": "關於 JN",
@@ -160,9 +160,34 @@
       "source": "src/content/docs/ai-tools/openclaw-codex-model-provider-migration.md"
     },
     {
+      "title": "Threads 引用卡片讓網址、時間與內文錯配",
+      "description": "A Threads extractor can assign the outer card's first timestamp and text to a quoted permalink, falsely satisfying a search checkpoint; bind timestamps to each permalink and reject unverified legacy coverage.",
+      "date": "2026-10-25",
+      "status": "investigating",
+      "system": "browser-automation",
+      "severity": "medium",
+      "tags": [
+        "threads",
+        "browser-automation",
+        "dom",
+        "checkpoint",
+        "data-integrity"
+      ],
+      "aliases": [
+        "Threads quoted post wrong timestamp",
+        "card querySelector time mismatch",
+        "Threads permalink timestamp pairing",
+        "Threads quote false coverage"
+      ],
+      "related": [],
+      "slug": "ai-tools/threads-quoted-post-url-time-pairing",
+      "url": "/ai-tools/threads-quoted-post-url-time-pairing/",
+      "source": "src/content/docs/ai-tools/threads-quoted-post-url-time-pairing.md"
+    },
+    {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
       "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use accumulated time coverage and a verified result-page bottom instead.",
-      "date": "2026-09-08",
+      "date": "2026-10-25",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",
@@ -1087,6 +1112,31 @@
       "slug": "linux/pipewire-loopback-focusrite-default",
       "url": "/linux/pipewire-loopback-focusrite-default/",
       "source": "src/content/docs/linux/pipewire-loopback-focusrite-default.md"
+    },
+    {
+      "title": "Ubuntu 升級後舊 venv 仍綁 Python 3.13",
+      "description": "Rebuild Python 3.13 virtual environments under Python 3.14, preserve the original entry path, and verify real tool behavior before retiring the old runtime.",
+      "date": "2026-10-25",
+      "status": "fixed",
+      "system": "python",
+      "severity": "medium",
+      "tags": [
+        "python",
+        "venv",
+        "ubuntu",
+        "migration",
+        "rollback"
+      ],
+      "aliases": [
+        "Python 3.13 to 3.14 venv migration",
+        "Ubuntu upgrade old Python virtualenv",
+        "venv absolute shebang rollback",
+        "Python virtual environment symlink"
+      ],
+      "related": [],
+      "slug": "linux/python-venv-minor-upgrade-preserve-entrypoint",
+      "url": "/linux/python-venv-minor-upgrade-preserve-entrypoint/",
+      "source": "src/content/docs/linux/python-venv-minor-upgrade-preserve-entrypoint.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
