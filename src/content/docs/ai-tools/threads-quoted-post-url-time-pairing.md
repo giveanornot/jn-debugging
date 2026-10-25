@@ -8,7 +8,7 @@ tags:
   - dom
   - checkpoint
   - data-integrity
-status: investigating
+status: fixed
 system: browser-automation
 severity: medium
 aliases:
@@ -22,7 +22,7 @@ aliases:
 
 抽到不同貼文 URL，不能直接給它們同一張外卡的第一個 time 與整段 innerText。引用與回覆可能共用外層容器，導致網址屬於一篇、時間與文字卻來自另一篇。
 
-本例已修正抽取程式並通過重建 DOM 與搜尋續跑測試；原 Brave 線上 DOM 尚未驗收，因此保留 investigating 狀態。舊結果沒有保存 DOM，不能猜測回填時間或宣稱歷史搜尋覆蓋已修好。
+本例已修正抽取程式，通過十組重建 DOM、搜尋續跑測試與 Chrome extension 實頁抽樣驗證。舊結果沒有保存 DOM，不能猜測回填時間或宣稱歷史搜尋覆蓋已修好。
 
 ## 症狀
 
@@ -94,7 +94,8 @@ const verified = Boolean(value) && !Number.isNaN(Date.parse(value));
 
 - media URL、重複 permalink 與舊網域正規化後再去重，避免無時間的媒體連結先占住結果。
 - 抽取文字時隔離不同 permalink 的引用／回覆分支，避免將整張外卡文字指定給引文。
-- 未標記 article 的引用分支也納入測試；實頁驗收仍需確認這個假設。
+- 未標記 article 的引用分支也納入測試；Chrome 實頁抽樣核對帳號、permalink、文字與時間。
+- browser-client 的 evaluate 可能提供 readonly DOM proxy；改用遍歷與排除其他貼文分支，避免 cloneNode/remove 不支援而中斷。
 
 ### 讓 checkpoint 帶可信來源
 
@@ -103,20 +104,23 @@ const verified = Boolean(value) && !Number.isNaN(Date.parse(value));
 ```json
 {
   "extraction_version": 2,
-  "time_source": "permalink"
+  "time_source": "permalink",
+  "coverage_version": 1
 }
 ```
 
 這是自訂 runner 的資料版本，並非 Threads API 欄位。
 
-- 只有新版且時間來源已驗證的結果能參與最舊時間計算。
+- 只有 extraction_version 2、coverage_version 1 且時間來源已驗證的結果能參與覆蓋計算。
+- recent 結果可同時展示舊主文與新回覆。各 permalink 的 `time` 保留自身日期；另以小型結果群組中最新的 `coverage_time` 判定覆蓋，避免舊主文讓搜尋提前完成。
+- 本例只合併最多四個唯一帶時間 permalink 的小容器，遇到整頁層級即停止；這是保守的 DOM 假設，改版仍須抽樣核對。
 - 已知 URL 有未驗證時間時，不宣稱搜尋窗口已完成；重新取得可靠資料後可補正同一 URL。
 - 沒有新版證據的舊結果與 completed manifest 保留作歷史，不當 checkpoint。
 - 沒有可信 checkpoint 時從最近 24 小時建立新基準；這不等於補完過往歷史。
 
 ## 驗證
 
-九組 DOM 測試通過：原版錯配可重現、新版避免借時間；另包含巢狀引用、沒有時間的引用、media 連結去重、無效時間、舊網域、外站連結與無標記的引用分支。
+十組 DOM 測試通過：原版錯配可重現、新版避免借時間；另包含巢狀引用、沒有時間的引用、media 連結去重、無效時間、舊網域、外站連結與無標記的引用分支。
 
 搜尋 runner 回歸涵蓋：
 
@@ -126,7 +130,7 @@ const verified = Boolean(value) && !Number.isNaN(Date.parse(value));
 - 相同 URL 補正後可恢復可信覆蓋判定。
 - 原有短批次、續跑與近期窗口規則仍通過。
 
-本輪瀏覽器連線不可用，尚未重跑原 Brave 線上頁面。重建 DOM 測試的成功只證明測試涵蓋結構下的修正；不能據此宣稱線上所有卡片結構都已支援。
+Chrome extension 實頁抽樣已確認 readonly 抽取、各 permalink 配對及舊主文／新回覆的覆蓋行為，並完成搜尋與原文核對。新增回歸確認「舊 time＋新 coverage_time」不得提前 completed。這不涵蓋所有卡片結構，也未還原先前 Brave 的歷史 DOM。
 
 ## 下次先查
 
@@ -134,4 +138,4 @@ const verified = Boolean(value) && !Number.isNaN(Date.parse(value));
 2. 比對網址、作者、時間與摘要是否各自歸屬同一貼文。
 3. 缺時間時逐篇補查，不以更多捲動代替配對驗證。
 4. 檢查結果與 manifest 的資料版本，拒絕未驗證的舊 checkpoint。
-5. 線上回歸通過後，再更新本頁狀態；歷史時間仍依可取得的原始證據另行處理。
+5. 區分自身 time 與結果群組 coverage_time；歷史時間仍依可取得的原始證據另行處理。

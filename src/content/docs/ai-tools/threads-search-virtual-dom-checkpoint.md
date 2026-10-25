@@ -1,6 +1,6 @@
 ---
 title: Threads 搜尋被虛擬 DOM 與逾時誤判完成
-description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use accumulated time coverage and a verified result-page bottom instead.
+description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.
 date: 2026-10-25
 tags:
   - threads
@@ -23,13 +23,13 @@ aliases:
 
 ## 快速結論
 
-Threads 搜尋頁不應以目前可見卡片、無新 URL 或捲動次數判定完成。初次導覽先等貼文卡片出現；每輪立即把 URL、絕對時間與摘要 append 到檔案，並以整份累積資料中已驗證屬於同一 permalink 的最舊時間是否跨過 checkpoint 判定完成。
+Threads 搜尋頁不應以目前可見卡片、無新 URL 或捲動次數判定完成。初次導覽先等貼文卡片出現；每輪立即把 URL、絕對時間與摘要 append 到檔案，並以整份累積資料中可信結果群組的最舊 coverage_time 是否跨過 checkpoint 判定完成。各貼文本身的 time 仍須綁定 permalink。
 
 透過 extension backend 時，頁面 JavaScript 的 `window.scrollBy()` 成功執行也不代表可見 feed 已捲動。先量實際 scroll position；若不變，改用 browser-level 的 CUA scroll，僅在該層失敗時才 fallback 到 page-context scroll。
 
 把搜尋拆成短批次，保留同一分頁續跑。這可避開 browser runner 的執行上限，也讓中斷後能從落盤資料恢復。
 
-短批次上限、browser timeout 與 Node reset 都只是恢復 checkpoint，不能成為回覆使用者或把 query 標為完成的理由。若需求只限最近幾天，只有確認頁面已到底、再捲一次仍沒有增加文件高度時，才可把該時間窗口視為已覆蓋；歷史 checkpoint 則仍須保留 `incomplete`。
+短批次上限、browser timeout 與 Node reset 都只是恢復 checkpoint，不能成為回覆使用者或把 query 標為完成的理由。頁底穩定與沒有新 URL 都不能證明時間窗口已覆蓋；未跨 checkpoint 時保留 `in_progress`。已驗證的搜尋失效可明確記錄略過，仍不可稱為完整時間覆蓋。
 
 ## 症狀
 
@@ -67,7 +67,7 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 
 另一個測試讓單次 runner 持續多輪，約 30 秒後執行環境重置；此前每輪已 append 的原始資料仍存在，只有結尾才寫的 manifest 缺失。
 
-後續檢查發現，「連續沒有新 URL」同樣不是可用的停止證據：virtual DOM 可讓可見 URL 重複，或延遲載入仍未完成。改量測 viewport 是否已在文件底部，執行一次小步 browser-level scroll，等待後再比較 `scrollHeight`；只有仍在底部且高度不變才算結果已耗盡。
+後續檢查發現，「連續沒有新 URL」同樣不是可用的停止證據：virtual DOM 可讓可見 URL 重複，或延遲載入仍未完成。改量測 viewport 是否已在文件底部，執行一次小步 browser-level scroll，等待後再比較 `scrollHeight`；即使仍在底部且高度不變，也只能記為停滯診斷，不能當作覆蓋完成。
 
 ## 根因
 
@@ -90,24 +90,25 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 導覽 → 輪詢卡片（250ms，最長 8 秒）
 → 抽取並 append 結果／scratch／event
 → CUA 小幅捲動 560px（失敗才 fallback `window.scrollBy`），等待約 1.1 秒
-→ 最舊「累積」時間 <= checkpoint 才 completed
+→ 最舊「累積」coverage_time <= checkpoint 才 completed
 ```
 
 - 每個 invocation 只跑一個 query batch；每批最多 12 輪、35 秒安全預算。下一批保留同一 tab，以 `navigate: false` 接續。
 - 每批都寫 manifest：未跨 checkpoint 是 `in_progress`，明確收尾才是 `incomplete`；manifest 記錄 `resume.tab_id`、下一輪與批次時間，讓 kernel reset 後接回原頁。
-- 移除以連續無新 URL 判定完成的規則。對近期窗口，先確認頁尾，再以 browser-level scroll 追加一次捲動；仍在底部且文件高度不變才標為該窗口的 `completed`。沒有 `coverageSince` 的歷史查詢則標為 `incomplete`。
+- 移除無新 URL 或頁底穩定即判定 completed 的規則，不論近期窗口或歷史 checkpoint 都必須有可信時間覆蓋。沒有跨過時繼續 `in_progress`，明確收尾另記原因。
+- 新版只有 `tab.ax` 時，用 AX Column body 捲動；圖片覆蓋捲動區時可對已確認的白邊座標輸入，再量測實際前進。
 - `time_budget_reached`、`batch_limit_reached`、browser timeout 與 Node reset 全部保留 `in_progress`；只有所有 query 都有 terminal manifest、候選篩選完成且 seen cache 更新後才能交付。
 - manifest 加入 `resume.viewport` 作為診斷資料。取不回原 tab 時必須重新導覽並繼續 `in_progress`，不可把 viewport 當成已恢復位置的證據。
-- checkpoint 以同 query、目前抽取資料版本最後一次可信 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime，也不採信缺乏配對證據的舊完成紀錄。
-- 從同資料版本的 JSONL 重建 URL union；只有已驗證同一 permalink 的時間可參與最舊時間計算。引用 URL 缺時間時不宣稱窗口完成，保留為待補查。
+- checkpoint 以同 query、extraction_version 2 與 coverage_version 1 最後一次可信 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime，也不採信缺乏配對證據的舊完成紀錄。
+- 從同資料版本的 JSONL 重建 URL union；只有自身時間已驗證且帶 coverage_version 1 的結果可參與計算；舊主文搭配新回覆使用小群組最新 coverage_time，避免以舊主文提前完成。引用 URL 缺時間時不宣稱窗口完成，保留為待補查。
 - legacy fallback 將預設按鍵由 `End` 改為 `PageDown`。
 
-時間本身也必須可信：外卡第一個 time 可能被錯配給引用 URL。對應的[引用卡片配對 runbook](/ai-tools/threads-quoted-post-url-time-pairing/) 記錄新版抽取、舊 checkpoint 失效規則與尚待實頁驗收的限制。
+時間本身也必須可信：外卡第一個 time 可能被錯配給引用 URL。對應的[引用卡片配對 runbook](/ai-tools/threads-quoted-post-url-time-pairing/) 記錄新版抽取、舊 checkpoint 失效規則、實頁驗收與歷史限制。
 
 ## 驗證
 
 - `node --check` 驗證 runner 與 mock test 語法。
-- mock 覆蓋兩批歷史搜尋、時間預算中斷、歷史 checkpoint 在已到底時的 `incomplete`，以及有 `coverageSince` 的近期窗口在已到底時的 `completed`。
+- mock 覆蓋兩批搜尋、時間預算中斷、頁底穩定仍未跨 checkpoint 時不完成，以及舊主文搭配新回覆不得提前完成。
 - 實頁量測確認：page-context scroll 停在原位；CUA scroll 會推進 scroll position，並逐步載入更舊結果。修正後重新執行全部關鍵字與啟用 tag；各 query 皆留下 completed 或 explicit incomplete manifest。
 
 ## 下次先查
@@ -117,4 +118,4 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 3. 檢查每輪 JSONL/event 是否都有 append，而不是只看最後畫面。
 4. 先確認 permalink／時間／文字配對與資料版本，再用可信結果的最舊絕對時間和 checkpoint 比較。
 5. 分成短批次；timeout、reset 或重複 URL 時保留 `in_progress`，從 JSONL／manifest 續跑。
-6. 若只需近期範圍，確認底部後再捲一次且 `scrollHeight` 未增加；不要把「無新 URL」當成結果耗盡。
+6. 頁底穩定只記錄診斷；跨 checkpoint 才 completed。拆詞或洗版造成失效時，保留實頁證據與略過原因，不宣稱時間覆蓋。

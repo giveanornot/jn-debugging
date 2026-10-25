@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-10-23
+date: 2026-10-25
 tags:
   - browser-automation
   - chrome
@@ -21,6 +21,8 @@ aliases:
 ## 快速結論
 
 若 extension 顯示已連線、可讀空白分頁，卻連一般網站的 `Page.navigate` 都固定逾時，還要檢查 desktop app、MCP browser service 與 native host 的實際版本。本次修復組合是更新 Community app、移除 MCP 設定中的舊版固定值，再由 App 的 **設定 → Computer use** 重新設定 Chrome；三層對齊後導覽與搜尋恢復。
+
+若 agent 啟動 Chrome 出現 profile 唯讀與 SUID sandbox helper fatal，先比對本聊天實際套用的沙盒權限與全域預設；全域設定不代表已套用。本案例使用者調整有效權限後，同一啟動命令恢復，沒有重裝 extension 或停用 Chrome sandbox。
 
 不要把「Chrome 開不起來」直接判定為 extension 壞掉。先分開檢查 profile 選擇、圖形環境變數、extension 安裝狀態、native host manifest，以及啟動器實際選到的瀏覽器。
 
@@ -115,6 +117,26 @@ printf 'HOME=%s\nDISPLAY=%s\nXDG_RUNTIME_DIR=%s\nDBUS_SESSION_BUS_ADDRESS=%s\n' 
 5. 使用者從 Community **設定 → Computer use** 重新設定 Chrome 後，registry 才更新至 `26.1016.61520`，導覽恢復。
 
 先從實際安裝來源與目前 MCP 設定定位檔案，再讀 native host manifest／registry 所指向的版本。上述數字是本次案例值，不是往後應固定使用的最新版。不要只憑 extension Connected 判定各層都已更新，也不要手改 registry 冒充完成安裝。
+
+### Agent 沙盒阻擋 Chrome 啟動
+
+此分支的 extension 已安裝／啟用，native host manifest 也通過檢查，但啟動 Chrome 直接 exit 133，關鍵錯誤為：
+
+```text
+Crash Reports/settings.dat: Read-only file system
+SUID sandbox helper ... fatal
+```
+
+檢查 agent 執行環境的 profile 掛載、程序限制與本聊天有效權限：
+
+```bash
+findmnt -T "$HOME/.config/google-chrome" -o TARGET,OPTIONS
+awk '/NoNewPrivs|Seccomp/ {print}' /proc/self/status
+```
+
+本案例全域設定為 danger-full-access，但聊天實際仍是 managed workspace-write；profile 所在掛載唯讀且有 nosuid，程序也受額外限制。這支持「本輪啟動環境阻擋」的判斷，不能由 sandbox 的程序清單推定宿主沒有 Chrome。
+
+使用者調整聊天有效權限後，以相同 GUI session env 啟動成功，extension 連線且搜尋、讀文、捲動均正常。未確認是哪一個 App／managed 設定選用了先前權限；不將此案例泛化成所有 Chrome 啟動失敗都要開放完整權限。應由使用者依信任範圍選擇權限，或從正常桌面啟動，勿以 `--no-sandbox` 繞過。
 
 ## 根因
 

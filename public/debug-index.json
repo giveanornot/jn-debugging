@@ -41,7 +41,7 @@
     {
       "title": "Browser Extension 連線診斷",
       "description": "Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。",
-      "date": "2026-10-23",
+      "date": "2026-10-25",
       "status": "investigating",
       "system": "desktop",
       "severity": "medium",
@@ -163,7 +163,7 @@
       "title": "Threads 引用卡片讓網址、時間與內文錯配",
       "description": "A Threads extractor can assign the outer card's first timestamp and text to a quoted permalink, falsely satisfying a search checkpoint; bind timestamps to each permalink and reject unverified legacy coverage.",
       "date": "2026-10-25",
-      "status": "investigating",
+      "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",
       "tags": [
@@ -186,7 +186,7 @@
     },
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
-      "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use accumulated time coverage and a verified result-page bottom instead.",
+      "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
       "date": "2026-10-25",
       "status": "fixed",
       "system": "browser-automation",
