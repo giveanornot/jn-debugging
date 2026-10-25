@@ -1016,9 +1016,9 @@
     },
     {
       "title": "COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正",
-      "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正子程序存活、雙螢幕路由與分頁標題改變造成的多開。",
-      "date": "2026-10-24",
-      "status": "investigating",
+      "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。",
+      "date": "2026-10-25",
+      "status": "fixed",
       "system": "cosmic-desktop",
       "severity": "medium",
       "tags": [

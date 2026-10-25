@@ -1,13 +1,13 @@
 ---
 title: COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正
-description: 在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正子程序存活、雙螢幕路由與分頁標題改變造成的多開。
-date: 2026-10-24
+description: 在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。
+date: 2026-10-25
 tags:
   - cosmic
   - wayland
   - session-restore
   - systemd
-status: investigating
+status: fixed
 system: cosmic-desktop
 severity: medium
 aliases:
@@ -21,7 +21,7 @@ aliases:
 
 COSMIC `1.10.0` 的這次試用，採用第三方 [cosmic-wm-manager](https://github.com/Izume01/cosmic-ext-wm-manager) 與 [cos-cli](https://github.com/estin/cos-cli)，搭配本機修補和每 30 秒檢查的保存服務。它能重開程式並還原螢幕、工作區；不保存精確視窗大小、平鋪布局、文件內容或終端工作。
 
-已驗證平時增減視窗會更新快照，以及模擬登入時重開缺少的測試視窗、重用既有瀏覽器視窗。**真實登出／重開機仍待驗證**，因此此頁保留 `investigating`，不能當成完整桌面狀態還原的保證。
+平時增減視窗、模擬登入與真實重開機均已驗證。第一次真實重開時，11 個視窗成功重用、重開及歸位，但 LibreOffice Calc 冷啟動約 34 秒，超過原本 30 秒的視窗等待上限，讓服務以 `restore-failed` 停止。將還原等待上限提高到 90 秒、更新不含已關閉 Calc 的快照後，服務恢復 `watching`，下一輪 checkpoint 也持續成功。
 
 只在關機前保存無法涵蓋突然斷電；必須平時把狀態寫到磁碟。30 秒是這次選用的起始間隔，不是效能實測後的最佳值，還原點也只到最近一次成功持久化的快照。
 
@@ -32,6 +32,7 @@ COSMIC `1.10.0` 的這次試用，採用第三方 [cosmic-wm-manager](https://gi
 - 還原指令回報成功，啟動的測試視窗卻在指令結束後消失。
 - 第二螢幕的搬移指令回報成功，但實際未歸位。
 - 瀏覽器分頁標題改變，被當成原視窗不存在，導致多開一個視窗。
+- 真實重開後，多數視窗已歸位，但狀態檔顯示 `restore-failed`，缺少的只有冷啟動較慢的 LibreOffice Calc。
 
 ## 影響範圍
 
@@ -63,6 +64,7 @@ COSMIC `1.10.0` 的這次試用，採用第三方 [cosmic-wm-manager](https://gi
 3. profile 只替 global workspace 1–19 建路由，後面的工作區沒有對應。
 4. `cos-cli move` 只收到 workspace group 時仍可能採預設 output，必須同時傳送 `-g` 與 `-o`。
 5. 多視窗的標題匹配太嚴格；分頁標題改變後，工具可能在尚有足夠同 app 視窗時再次啟動程式。
+6. 登入服務只給應用程式 30 秒產生視窗。LibreOffice Calc 在真實重開後約 34 秒才出現；啟動程序本身正常，但還原器已先逾時，保護機制因此停止後續保存。
 
 這些是本次讀碼和執行結果，不代表其他 upstream 版本仍有相同問題。
 
@@ -77,6 +79,7 @@ COSMIC `1.10.0` 的這次試用，採用第三方 [cosmic-wm-manager](https://gi
 - 搬移時同時指定螢幕與 workspace group。
 - 先保留所有精確標題匹配，再用剩餘 app ID 與位置重用視窗；避免因分頁改名多開。
 - 保留其他仍能精確匹配的視窗，不讓 fallback 搶走它們。
+- 登入還原的視窗等待上限改為 90 秒；外層仍保留 180 秒總時限，避免真的卡住時無限等待。
 
 ### 平時保存與登入還原
 
@@ -132,6 +135,7 @@ XDG autostart `.desktop` 應設定 `OnlyShowIn=COSMIC;`、`Terminal=false`，`Ex
 - 登入先等螢幕就緒，還原並核對歸位後才開始保存。
 - 還原不完整就停止服務，避免把半套桌面覆蓋原快照。
 - 同一 compositor session 的服務重啟，不會重複還原。
+- 對冷啟動 app 的視窗等待時間須高於實測最慢啟動時間；本例以 34 秒實測值改為 90 秒，不要沿用過短的 30 秒預設值。
 
 這些措施不能保證突然斷電時零損失，也沒有保存程式記憶體；它只提供最近一次成功保存的配置。
 
@@ -139,11 +143,14 @@ XDG autostart `.desktop` 應設定 `OnlyShowIn=COSMIC;`、`Terminal=false`，`Ex
 
 本次結果：
 
-- 27 項測試通過，包含多螢幕路由、分頁標題變動、不重複啟動、子程序存活、無變動不寫入、保留 10 份歷史、寫入中斷保留舊檔及不完整還原的保護。
+- 28 項測試通過，包含多螢幕路由、分頁標題變動、不重複啟動、子程序存活、慢速冷啟動等待參數、無變動不寫入、保留 10 份歷史、寫入中斷保留舊檔及不完整還原的保護。
 - 30 秒服務確實保存新增的測試終端機。
 - 停止服務、關閉測試終端機、清除本次測試的 runtime restore marker，再用真實登入 launcher 啟動服務：缺少終端機成功重開，原本兩個瀏覽器視窗沒有增加。
 - 原本 11 個實際工作視窗的螢幕與工作區核對一致；測試視窗已清理，最新快照只含實際工作視窗。
-- 真實重開機、意外斷電，以及所有實際 app 從完全未啟動到還原的流程，仍待驗證。
+- 真實重開後，除了逾時的 Calc 外，其餘 11 個視窗均被找到並歸到預期螢幕／工作區；沒有因瀏覽器標題變動多開視窗。
+- Calc 手動冷啟動約 34 秒後確實產生 `libreoffice-calc` 視窗，排除 launcher 無效；提高等待上限後，原快照的 12 個視窗全部匹配，Calc 位於預期的第二螢幕工作區。
+- 關閉 Calc 後重新擷取 11 視窗快照，服務恢復 `active/running` 與 `watching`；下一輪 30 秒 checkpoint 顯示 `changed: false`、`window_count: 11`，Calc 未殘留在視窗或快照。
+- 尚未以真正意外斷電測試；它仍只能恢復最近一次成功落盤的視窗配置。
 
 查看狀態：
 
@@ -160,6 +167,7 @@ cat ~/.config/cosmic-wm-manager/auto-status.json
 1. 原始 compositor JSON 是否有正確 app ID、螢幕與工作區。
 2. 保存的 launcher 是否正確，是否只因標題改變而多開。
 3. 還原期間是否暫停保存；最新快照是否仍完整。
-4. 實際登入後檢查 service、狀態檔與視窗，再決定是否繼續使用。
+4. 若只缺單一 app，量測從啟動到 compositor 出現視窗的時間，再對照 `--timeout`，不要直接判定 launcher 失敗。
+5. 實際登入後檢查 service、狀態檔與視窗，再決定是否繼續使用。
 
 停用時先 `systemctl --user stop cosmic-desktop-watch.service`，再把對應 autostart `.desktop` 搬到備份位置；快照保留，方便人工恢復。官方完整 Session Restore 的規劃可另參考 [COSMIC roadmap](https://blog.system76.com/blog/post/cosmic-epoch-2-and-3-roadmap)。

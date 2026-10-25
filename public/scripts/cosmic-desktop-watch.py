@@ -28,6 +28,7 @@ STATUS = ROOT / 'auto-status.json'
 SEED = ROOT / 'sessions/initial.yaml'
 CLI = HOME / '.cargo/bin/cos-cli'
 WM = HOME / '.local/bin/cosmic-wm'
+RESTORE_WINDOW_TIMEOUT = 90
 STOP = threading.Event()
 LOG = logging.getLogger('desktop-watch')
 
@@ -174,7 +175,12 @@ def restore(profile):
         raise RuntimeError('Desktop/expected monitors not ready; saved checkpoint retained')
     if stopping():
         raise RuntimeError('Session is stopping; restore cancelled')
-    process = subprocess.Popen([str(WM), 'restore', 'auto-latest', '--timeout', '30'], start_new_session=True)
+    # Cold-starting a large desktop application can exceed 30 seconds directly
+    # after boot. Give healthy but slow applications enough time to map a window.
+    process = subprocess.Popen(
+        [str(WM), 'restore', 'auto-latest', '--timeout', str(RESTORE_WINDOW_TIMEOUT)],
+        start_new_session=True,
+    )
     deadline = time.monotonic() + 180
     try:
         while process.poll() is None:
