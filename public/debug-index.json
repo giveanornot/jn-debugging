@@ -1,5 +1,5 @@
 {
-  "count": 76,
+  "count": 77,
   "pages": [
     {
       "title": "關於 JN",
@@ -112,6 +112,30 @@
       "slug": "ai-tools/codex-linux-voice-chat-official-app",
       "url": "/ai-tools/codex-linux-voice-chat-official-app/",
       "source": "src/content/docs/ai-tools/codex-linux-voice-chat-official-app.md"
+    },
+    {
+      "title": "Codex 手機 Remote 與 SSH 接手對話時出現 active writer",
+      "description": "手機與另一台桌面連到同一主機卻無法接續對話時，核對 app-server 程序與 writer lock，讓桌面 App 和 SSH 共用 Unix socket 後端。",
+      "date": "2026-10-26",
+      "status": "fixed",
+      "system": "codex",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "remote",
+        "ssh",
+        "linux"
+      ],
+      "aliases": [
+        "已在另一個應用程式中開啟",
+        "This is open in another app",
+        "already has an active writer",
+        "Codex thread writer conflict"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-remote-ssh-active-writer",
+      "url": "/ai-tools/codex-remote-ssh-active-writer/",
+      "source": "src/content/docs/ai-tools/codex-remote-ssh-active-writer.md"
     },
     {
       "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
