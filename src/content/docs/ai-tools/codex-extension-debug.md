@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-10-25
+date: 2026-10-26
 tags:
   - browser-automation
   - chrome
@@ -138,6 +138,23 @@ awk '/NoNewPrivs|Seccomp/ {print}' /proc/self/status
 
 使用者調整聊天有效權限後，以相同 GUI session env 啟動成功，extension 連線且搜尋、讀文、捲動均正常。未確認是哪一個 App／managed 設定選用了先前權限；不將此案例泛化成所有 Chrome 啟動失敗都要開放完整權限。應由使用者依信任範圍選擇權限，或從正常桌面啟動，勿以 `--no-sandbox` 繞過。
 
+#### 設定已改，同一回合仍受限制
+
+2026-10-26 再次遇到同樣症狀。使用者在進行中的回合調整權限後，該回合仍維持舊限制；下一個完整回合才實際取得新的有效權限：
+
+| 檢查項目 | 失敗回合 | 恢復回合 |
+| --- | --- | --- |
+| 全域設定 | `danger-full-access` | `danger-full-access` |
+| 聊天有效權限 | managed `workspace-write` | `danger-full-access` |
+| profile 掛載選項 | `ro,nosuid,nodev` | `rw` |
+| `NoNewPrivs` | `1` | `0` |
+| `Seccomp` | `2` | `0` |
+| 同一官方啟動器與 GUI env | profile 唯讀／SUID helper 中止 | Chrome 啟動、extension 連線與搜尋成功 |
+
+這是本案例的前後對照，不是要求其他環境必須停用程序限制。看到使用者說「已調整」時，應先重讀當輪有效權限與實際啟動結果；尚未更新就明示仍在舊回合，不要求使用者反覆修改相同設定。新回合仍需做最小讀頁／搜尋驗證，不能只看到設定值便宣稱恢復。
+
+尚未定位選用舊權限的具名 App／managed 設定來源，也未證實新聊天預設會永久沿用此次權限。再次發生時先比對這組證據，不重裝 extension、不反覆啟動 fallback helper。
+
 ## 根因
 
 已觀察到以下可獨立發生的分支：
@@ -193,6 +210,13 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 - 一般網站約 1.4 秒完成導覽，並可讀取頁面文字。
 - Threads recent 搜尋頁約 2.2 秒完成導覽，並取得實際貼文 URL／摘要；既有登入仍可使用。
 - 後續實際探索流程可持續導航、搜尋與回查原文，未再出現固定 10 秒的 `Page.navigate` 逾時。
+
+### 2026-10-26 權限恢復的實測
+
+- 同一官方 Chrome 啟動器成功，extension 可導覽 Threads、讀取搜尋結果、捲動並保存 URL／摘要。
+- 後續完成 34 組查詢或依實頁雜訊證據略過，取得 1,145 筆原始結果、1,076 個唯一 URL；略過不代表完整歷史時間覆蓋。
+- 能回查原文與帳號互動；暫用分頁收尾後關閉，Chrome 保持開啟。
+- 這證實本輪工作流恢復，未證實全域預設或所有 browser/profile 分支都已修復，因此本頁維持 `investigating`。
 
 ## 下次先查
 

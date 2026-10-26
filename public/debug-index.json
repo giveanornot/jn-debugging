@@ -41,7 +41,7 @@
     {
       "title": "Browser Extension 連線診斷",
       "description": "Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。",
-      "date": "2026-10-25",
+      "date": "2026-10-26",
       "status": "investigating",
       "system": "desktop",
       "severity": "medium",
