@@ -261,7 +261,7 @@
     {
       "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
       "description": "Artalk Docker 升版前以 SQLite online backup 保留可回復資料，釘選版本並核對留言資料與公開前端。",
-      "date": "2026-07-26",
+      "date": "2026-10-26",
       "status": "fixed",
       "system": "artalk",
       "severity": "medium",
