@@ -1,7 +1,7 @@
 ---
 title: COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正
 description: 在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。
-date: 2026-10-25
+date: 2026-10-26
 tags:
   - cosmic
   - wayland
@@ -24,6 +24,8 @@ COSMIC `1.10.0` 的這次試用，採用第三方 [cosmic-wm-manager](https://gi
 平時增減視窗、模擬登入與真實重開機均已驗證。第一次真實重開時，11 個視窗成功重用、重開及歸位，但 LibreOffice Calc 冷啟動約 34 秒，超過原本 30 秒的視窗等待上限，讓服務以 `restore-failed` 停止。將還原等待上限提高到 90 秒、更新不含已關閉 Calc 的快照後，服務恢復 `watching`，下一輪 checkpoint 也持續成功。
 
 只在關機前保存無法涵蓋突然斷電；必須平時把狀態寫到磁碟。30 秒是這次選用的起始間隔，不是效能實測後的最佳值，還原點也只到最近一次成功持久化的快照。
+
+2026-10-26 再次重開後，Discord、Vesktop 與一個 KiCad 視窗沒有歸位。以最新 compositor 狀態逐一搬移後，11 個視窗全部與快照一致；保存服務已增加還原後位置複查與補移。此版已通過同一登入階段的整份還原，尚待下一次自然冷開機驗證。
 
 ## 症狀
 
@@ -126,6 +128,21 @@ exec systemctl --user start cosmic-desktop-watch.service
 
 XDG autostart `.desktop` 應設定 `OnlyShowIn=COSMIC;`、`Terminal=false`，`Exec` 使用這個 launcher 的絕對路徑。儲存 service 後先執行 `systemctl --user daemon-reload`，再執行 launcher 測試。
 
+### 啟動後位置複查（2026-10-26）
+
+本次部分視窗的移動指令已送出，最後位置卻不符快照；ChatGPT 曾等待工作區逾時，之後實際位置正確。不能只根據早期成功或失敗訊息判定整份還原結果。
+
+`cos-cli` 的視窗 index 是當次枚舉位置；啟動／splash 視窗消失會改變後續索引。這是讀碼可確認的風險，但本次未逐筆追蹤每次 handle，不能斷言三個錯位視窗都由它造成，也未證實是 app 自行改位置。
+
+保存腳本的 `reconcile_placements()` 在原還原流程結束後，比較 `(app_id, output, workspace)` 與預期數量：
+
+- 保留已在正確位置的視窗，只把多出在其他位置的同 app 視窗移到缺少的位置。
+- 每移一個視窗就重新讀取 JSON，取得新視窗、螢幕與工作區 index，再確認實際結果。
+- 複查只搬移、不啟動程式；同一 app 同時缺多個不同位置時不猜測配對。
+- 缺窗、歧義或無法搬移仍停止保存並保留快照。複查至多 30 秒；無可安全搬移的候選則提早失敗。
+
+先停止保存服務再手動修位，避免意外記錄半套布局；確認 `KillMode=process` 後再停止，否則預設 cgroup 行為可能連帶關閉被服務啟動的程式。
+
 ### 保存保護
 
 - 每 30 秒檢查，有變才更新 `sessions/auto-latest.yaml`。
@@ -143,7 +160,7 @@ XDG autostart `.desktop` 應設定 `OnlyShowIn=COSMIC;`、`Terminal=false`，`Ex
 
 本次結果：
 
-- 28 項測試通過，包含多螢幕路由、分頁標題變動、不重複啟動、子程序存活、慢速冷啟動等待參數、無變動不寫入、保留 10 份歷史、寫入中斷保留舊檔及不完整還原的保護。
+- 29 項測試通過（10/26 增加逐次搬移後枚舉索引變動的回歸測試），包含多螢幕路由、分頁標題變動、不重複啟動、子程序存活、慢速冷啟動等待參數、無變動不寫入、保留 10 份歷史、寫入中斷保留舊檔及不完整還原的保護。
 - 30 秒服務確實保存新增的測試終端機。
 - 停止服務、關閉測試終端機、清除本次測試的 runtime restore marker，再用真實登入 launcher 啟動服務：缺少終端機成功重開，原本兩個瀏覽器視窗沒有增加。
 - 原本 11 個實際工作視窗的螢幕與工作區核對一致；測試視窗已清理，最新快照只含實際工作視窗。
@@ -151,6 +168,8 @@ XDG autostart `.desktop` 應設定 `OnlyShowIn=COSMIC;`、`Terminal=false`，`Ex
 - Calc 手動冷啟動約 34 秒後確實產生 `libreoffice-calc` 視窗，排除 launcher 無效；提高等待上限後，原快照的 12 個視窗全部匹配，Calc 位於預期的第二螢幕工作區。
 - 關閉 Calc 後重新擷取 11 視窗快照，服務恢復 `active/running` 與 `watching`；下一輪 30 秒 checkpoint 顯示 `changed: false`、`window_count: 11`，Calc 未殘留在視窗或快照。
 - 尚未以真正意外斷電測試；它仍只能恢復最近一次成功落盤的視窗配置。
+
+2026-10-26：手動修復 Discord、Vesktop 與 KiCad 後，以完整原快照重新執行還原，11 個視窗位置全部一致，服務回到 `watching`，後續 checkpoint 為 `changed: false`、`window_count: 11`。這次同一登入階段的重跑未新增視窗；新增複查邏輯的冷開機驗證仍待自然重開時進行，不將單元測試當成冷啟動驗收。
 
 查看狀態：
 

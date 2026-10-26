@@ -1,5 +1,5 @@
 {
-  "count": 77,
+  "count": 78,
   "pages": [
     {
       "title": "關於 JN",
@@ -1014,6 +1014,30 @@
       "source": "src/content/docs/linux/cosmic-fcitx-unlock-wayland-context.md"
     },
     {
+      "title": "COSMIC 桌面凍結：NVIDIA 核心鎖阻塞與重開機恢復",
+      "description": "COSMIC、面板與多個 GPU 程式同時卡在 NVIDIA rwlock；保存快照與紀錄後重開機恢復，保留尚未定位的觸發原因。",
+      "date": "2026-10-26",
+      "status": "investigating",
+      "system": "cosmic-desktop",
+      "severity": "high",
+      "tags": [
+        "cosmic",
+        "nvidia",
+        "linux",
+        "gpu-hang"
+      ],
+      "aliases": [
+        "os_acquire_rwlock_read",
+        "os_acquire_mutex",
+        "COSMIC 桌面當掉",
+        "Failed to map NvKmsKapiMemory"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-nvidia-runtime-lockup",
+      "url": "/linux/cosmic-nvidia-runtime-lockup/",
+      "source": "src/content/docs/linux/cosmic-nvidia-runtime-lockup.md"
+    },
+    {
       "title": "COSMIC Wayland 搭 NVIDIA 時休眠失敗或卡死",
       "description": "COSMIC 合成器尚未停止渲染時，NVIDIA suspend helper 接管 DRM，可能造成 Xid、nvidia-sleep.sh 卡死與 systemd-suspend 失敗。",
       "date": "2026-08-19",
@@ -1041,7 +1065,7 @@
     {
       "title": "COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正",
       "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。",
-      "date": "2026-10-25",
+      "date": "2026-10-26",
       "status": "fixed",
       "system": "cosmic-desktop",
       "severity": "medium",

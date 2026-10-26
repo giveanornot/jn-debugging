@@ -155,6 +155,57 @@ def actual_placements(raw):
                    for win in raw['apps'] if len(win.get('outputs', [])) == 1 and len(win.get('workspaces', [])) == 1)
 
 
+
+def reconcile_placements(profile, timeout=30):
+    """Repair late startup moves using fresh indices; never launch applications.
+
+    CLI success only confirms a request was sent. Splash windows may disappear,
+    shifting enumeration indices, and apps may move themselves after mapping.
+    Keep correctly placed windows and move only surplus windows to missing slots.
+    Ambiguous same-app destinations are left for manual review.
+    """
+    expected = placements(profile)
+    deadline = time.monotonic() + timeout
+    while not stopping():
+        raw = state()
+        actual = actual_placements(raw)
+        missing = expected - actual
+        if not missing:
+            return
+        if time.monotonic() >= deadline:
+            break
+        surplus = actual - expected
+        moved = False
+        for (appid, output, workspace), count in missing.items():
+            destinations = {(o, w) for (a, o, w) in missing if a == appid}
+            if len(destinations) != 1:
+                continue
+            candidates = [win for win in raw['apps']
+                          if win['app_id'] == appid
+                          and len(win.get('outputs', [])) == 1
+                          and len(win.get('workspaces', [])) == 1
+                          and surplus[(appid, win['outputs'][0]['name'],
+                                       int(win['workspaces'][0]['workspace']))] > 0]
+            if not candidates:
+                continue
+            group = next((g for g in raw['workspace_groups'] if output in g['outputs']), None)
+            out = next((o for o in raw['outputs'] if o['name'] == output), None)
+            target = next((w for w in group['workspaces'] if int(w['name']) == workspace), None) if group else None
+            if target is None or out is None:
+                continue
+            win = candidates[0]
+            subprocess.run([str(CLI), 'move', '-i', str(win['index']),
+                            '-w', str(target['index']), '-g', str(group['index']),
+                            '-o', str(out['index'])], capture_output=True, check=True, timeout=8)
+            LOG.info('Rechecked placement: %s -> %s workspace %s', appid, output, workspace)
+            moved = True
+            break  # Refresh indices and counts after every move.
+        if not moved:
+            break
+        STOP.wait(.5)
+    raise RuntimeError(f'Restore incomplete: {dict(expected - actual)}; automatic saving remains stopped')
+
+
 def restore(profile):
     expected_outputs = {mon['output'] for mon in profile['monitors']}
     deadline = time.monotonic() + 90
@@ -175,8 +226,9 @@ def restore(profile):
         raise RuntimeError('Desktop/expected monitors not ready; saved checkpoint retained')
     if stopping():
         raise RuntimeError('Session is stopping; restore cancelled')
-    # Cold-starting a large desktop application can exceed 30 seconds directly
-    # after boot. Give healthy but slow applications enough time to map a window.
+    # Cold-starting LibreOffice after boot took about 34 seconds on Desktop-2023.
+    # Keep the poll timeout above that observed startup time so a healthy, slow
+    # application does not disable checkpointing for the whole login session.
     process = subprocess.Popen(
         [str(WM), 'restore', 'auto-latest', '--timeout', str(RESTORE_WINDOW_TIMEOUT)],
         start_new_session=True,
@@ -196,10 +248,7 @@ def restore(profile):
             except subprocess.TimeoutExpired:
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait()
-    expected = placements(profile)
-    actual = actual_placements(state())
-    if expected - actual:
-        raise RuntimeError(f'Restore incomplete: {dict(expected - actual)}; automatic saving remains stopped')
+    reconcile_placements(profile)
 
 
 def main():
