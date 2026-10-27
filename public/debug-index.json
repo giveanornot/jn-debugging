@@ -1,5 +1,5 @@
 {
-  "count": 79,
+  "count": 82,
   "pages": [
     {
       "title": "關於 JN",
@@ -1463,6 +1463,27 @@
       "source": "src/content/docs/web/good-posse-threads-instagram-publish-assets.md"
     },
     {
+      "title": "HTML pattern 的連字號在 v 模式造成 Invalid character class",
+      "description": "Slug 與網站名稱欄位使用舊式字元集合，導致瀏覽器忽略 pattern；須跳脫字面連字號並驗證真正的 DOM 欄位。",
+      "date": "2026-10-27",
+      "status": "fixed",
+      "system": "web",
+      "severity": "low",
+      "tags": [
+        "html",
+        "regex",
+        "form-validation"
+      ],
+      "aliases": [
+        "Pattern attribute value is not a valid regular expression",
+        "Invalid character class"
+      ],
+      "related": [],
+      "slug": "web/html-pattern-v-flag-hyphen",
+      "url": "/web/html-pattern-v-flag-hyphen/",
+      "source": "src/content/docs/web/html-pattern-v-flag-hyphen.md"
+    },
+    {
       "title": "Hugo Stack 在停用 JavaScript 時保留手機導覽與基本功能",
       "description": "Hugo Stack 的手機選單預設隱藏且依賴 JavaScript 展開；以 no-js 初始狀態和 HTML fallback 保留可用導覽。",
       "date": "2026-07-29",
@@ -1732,6 +1753,28 @@
       "source": "src/content/docs/web/pwa-android-back-history.md"
     },
     {
+      "title": "PWA 的 CSP 擋住字型、Cloudflare 腳本與 srcdoc 預覽",
+      "description": "將 CSP 錯誤分成內嵌字型、CDN 注入與預覽腳本，並用實際操作避免只消除 Console 訊息卻留下假網址分享。",
+      "date": "2026-10-27",
+      "status": "fixed",
+      "system": "web",
+      "severity": "medium",
+      "tags": [
+        "pwa",
+        "csp",
+        "cloudflare",
+        "iframe"
+      ],
+      "aliases": [
+        "Loading the font violates Content Security Policy",
+        "about srcdoc inline script blocked"
+      ],
+      "related": [],
+      "slug": "web/pwa-csp-fonts-srcdoc-preview",
+      "url": "/web/pwa-csp-fonts-srcdoc-preview/",
+      "source": "src/content/docs/web/pwa-csp-fonts-srcdoc-preview.md"
+    },
+    {
       "title": "PWA editor 日期正確但發布後全變成今天",
       "description": "A local-first static publisher can display a default publish date without persisting it, causing a later full-site deployment to stamp every post with deployment time.",
       "date": "2026-07-29",
@@ -1932,6 +1975,29 @@
       "slug": "web/threads-oauth-redirect-uri-user-id",
       "url": "/web/threads-oauth-redirect-uri-user-id/",
       "source": "src/content/docs/web/threads-oauth-redirect-uri-user-id.md"
+    },
+    {
+      "title": "Wrangler 遠端登入改用裝置授權，避免 localhost 回呼失敗",
+      "description": "在 SSH、Remote 或 container 執行 Wrangler 時，使用 device flow 由另一台裝置完成授權，不依賴遠端桌面或 localhost callback。",
+      "date": "2026-10-27",
+      "status": "fixed",
+      "system": "wrangler",
+      "severity": "medium",
+      "tags": [
+        "cloudflare",
+        "wrangler",
+        "oauth",
+        "remote"
+      ],
+      "aliases": [
+        "Wrangler auth token expired remote",
+        "localhost 8976 callback",
+        "wrangler login device"
+      ],
+      "related": [],
+      "slug": "web/wrangler-remote-device-login",
+      "url": "/web/wrangler-remote-device-login/",
+      "source": "src/content/docs/web/wrangler-remote-device-login.md"
     }
   ]
 }
