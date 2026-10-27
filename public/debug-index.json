@@ -1,5 +1,5 @@
 {
-  "count": 78,
+  "count": 79,
   "pages": [
     {
       "title": "關於 JN",
@@ -674,6 +674,30 @@
       "slug": "docker/postiz-delete-temporal-workflow",
       "url": "/docker/postiz-delete-temporal-workflow/",
       "source": "src/content/docs/docker/postiz-delete-temporal-workflow.md"
+    },
+    {
+      "title": "Postiz fork 升級後取得手機版面，保留 Plurk 與回復路徑",
+      "description": "從 Postiz v2.24.0 升到 v2.25.3，處理 Plurk refresh 與已移除 PostHog 的 cherry-pick 衝突，核對資料及 Temporal worker，並避開舊版 Prisma db-push 的回復風險。",
+      "date": "2026-10-27",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "medium",
+      "tags": [
+        "postiz",
+        "docker",
+        "temporal",
+        "prisma",
+        "git"
+      ],
+      "aliases": [
+        "Postiz mobile responsive upgrade",
+        "Postiz Plurk cherry-pick conflict",
+        "Postiz rollback Prisma db push"
+      ],
+      "related": [],
+      "slug": "docker/postiz-fork-upgrade-responsive-layout",
+      "url": "/docker/postiz-fork-upgrade-responsive-layout/",
+      "source": "src/content/docs/docker/postiz-fork-upgrade-responsive-layout.md"
     },
     {
       "title": "Postiz MCP 造成 backend hang",
