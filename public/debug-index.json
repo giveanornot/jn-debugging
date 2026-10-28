@@ -1,5 +1,5 @@
 {
-  "count": 82,
+  "count": 83,
   "pages": [
     {
       "title": "關於 JN",
@@ -1209,6 +1209,27 @@
       "slug": "linux/python-venv-minor-upgrade-preserve-entrypoint",
       "url": "/linux/python-venv-minor-upgrade-preserve-entrypoint/",
       "source": "src/content/docs/linux/python-venv-minor-upgrade-preserve-entrypoint.md"
+    },
+    {
+      "title": "Remmina VNC 透過 SSH 隧道連線失敗",
+      "description": "檢查 Remmina SSH 伺服器、金鑰驗證與遠端 VNC 監聽埠，區分連線建立和桌面畫面驗收。",
+      "date": "2026-10-28",
+      "status": "investigating",
+      "system": "remmina",
+      "severity": "low",
+      "tags": [
+        "remmina",
+        "ssh",
+        "vnc"
+      ],
+      "aliases": [
+        "Remmina SSH tunnel authentication failed",
+        "x11vnc SSH tunnel"
+      ],
+      "related": [],
+      "slug": "linux/remmina-vnc-ssh-tunnel-auth",
+      "url": "/linux/remmina-vnc-ssh-tunnel-auth/",
+      "source": "src/content/docs/linux/remmina-vnc-ssh-tunnel-auth.md"
     },
     {
       "title": "Rime/Fcitx 設定被重設",
