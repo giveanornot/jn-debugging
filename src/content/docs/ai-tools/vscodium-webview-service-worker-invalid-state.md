@@ -96,3 +96,9 @@ codium
 2. 儲存工作、正常退出，再試一次。
 3. 備份後只重建正確 profile 的 Service Worker。
 4. 重測原側欄畫面，仍失敗才沿當次日誌追查。
+
+## 另一種症狀：側欄 renderer 等待逾時
+
+另一台 Linux／COSMIC 筆電的 VSCodium `1.143.17232`、Codex 擴充套件 `26.1021.22027` 顯示「Codex could not start」與「The extension could not start its user interface」。Codex output 記錄 `renderer_ready_timeout`、`receivedWebviewMessage=false`，但 app-server 初始化成功；沒有觀察到上述 `InvalidStateError`，不能直接認定兩者同因。
+
+這次使用者存檔並完整退出 VSCodium，確認程序結束後重新開啟原專案；使用者確認 Codex 側欄恢復。沒有清除 Service Worker 或修改設定，根因未確認，也未測試聊天收發。下次遇到此訊息先查看 Codex output 和 renderer log，存檔後完整重開並重測；若仍失敗，再依當次具體錯誤追查，不先搬移快取。
