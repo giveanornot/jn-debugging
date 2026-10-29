@@ -1040,7 +1040,7 @@
     {
       "title": "COSMIC 桌面凍結：NVIDIA 核心鎖阻塞與重開機恢復",
       "description": "COSMIC、面板與多個 GPU 程式同時卡在 NVIDIA rwlock；保存快照與紀錄後重開機恢復，保留尚未定位的觸發原因。",
-      "date": "2026-10-26",
+      "date": "2026-10-29",
       "status": "investigating",
       "system": "cosmic-desktop",
       "severity": "high",
@@ -1054,7 +1054,9 @@
         "os_acquire_rwlock_read",
         "os_acquire_mutex",
         "COSMIC 桌面當掉",
-        "Failed to map NvKmsKapiMemory"
+        "Failed to map NvKmsKapiMemory",
+        "NVIDIA 5762513",
+        "Module nvidia_drm is in use"
       ],
       "related": [],
       "slug": "linux/cosmic-nvidia-runtime-lockup",

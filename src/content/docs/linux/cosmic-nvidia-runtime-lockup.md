@@ -1,7 +1,7 @@
 ---
 title: COSMIC 桌面凍結：NVIDIA 核心鎖阻塞與重開機恢復
 description: COSMIC、面板與多個 GPU 程式同時卡在 NVIDIA rwlock；保存快照與紀錄後重開機恢復，保留尚未定位的觸發原因。
-date: 2026-10-26
+date: 2026-10-29
 tags:
   - cosmic
   - nvidia
@@ -15,6 +15,8 @@ aliases:
   - os_acquire_mutex
   - COSMIC 桌面當掉
   - Failed to map NvKmsKapiMemory
+  - NVIDIA 5762513
+  - Module nvidia_drm is in use
 ---
 
 ## 快速結論
@@ -55,7 +57,7 @@ journalctl -k -b --since '-20 min' --no-pager \
 cat /proc/driver/nvidia/version
 ```
 
-本例記憶體仍有約 18 GiB 可用，user systemd 沒有 failed unit；高 load 同時伴隨多個不可中斷等待程序，不能只當成 CPU 忙碌。核心紀錄先出現 PAT memory type 衝突與 NVIDIA 映射失敗，接著 Brave 的 Media thread 觸發 invalid opcode；數分鐘後出現多個程序等待 NVIDIA 鎖的警告。
+2026-10-26 首次紀錄中，記憶體仍有約 18 GiB 可用，user systemd 沒有 failed unit；高 load 同時伴隨多個不可中斷等待程序，不能只當成 CPU 忙碌。核心紀錄先出現 PAT memory type 衝突與 NVIDIA 映射失敗，接著 Brave 的 Media thread 觸發 invalid opcode；數分鐘後出現多個程序等待 NVIDIA 鎖的警告。
 
 進一步讀取堆疊：
 
@@ -66,11 +68,23 @@ sudo cat /proc/<nv_queue-pid>/stack
 
 本例 Brave GPU process 與 `nv_queue` 都在 NVIDIA `os_acquire_mutex` 路徑等待。避免反覆呼叫 GPU 診斷而新增卡住程序；若使用 `nvidia-smi`，加短 timeout，逾時仍不保證可以強制中止核心等待。
 
+2026-10-29 同一組軟硬體再次凍結。19:14:22 先出現 PAT memory type conflict 與 `Failed to ioremap_wc NvKmsKapiMemory`，接著桌面 AI app 的 GPU channel 報 Xid 31，再出現跨程序 Xid 32／56。最早被記錄出錯的程序不能直接視為觸發根因。主執行緒看似 idle 時，compositor 的顯示執行緒仍可能在 NVIDIA 核心鎖等待；排查時須同時查看執行緒。
+
+```bash
+ps -eLo pid,tid,ppid,stat,comm,wchan:36
+```
+
 ## 根因
 
 可確認的故障層是 NVIDIA 核心同步鎖阻塞，導致 compositor 與多個 GPU client 無法繼續。journal 指出的鎖擁有者是 `likely owned`，不是已完成的鎖相依關係證明。
 
 記憶體映射失敗與 Brave Media trap 在阻塞之前發生，但目前只有時間順序證據。沒有重現或 driver 內部追蹤，不能斷言由 Brave、某個網頁或特定操作觸發，也不能套用其他 GPU／open driver 的 issue 作為本例根因。
+
+### 上游已知問題與本例的關係
+
+NVIDIA 在 2025-12-22 為 Wayland 記憶體映射失敗建立內部 bug `5762513`，2026-06-24 回覆已在實驗室重現，並請使用者測試 BIOS Resizable BAR；這是特定重現條件下的結果，不能當作所有同類凍結的通用修復。[官方回覆](https://forums.developer.nvidia.com/t/bug-report-wayland-only-dmaallocmapping-gm107-va-mapping-failures-does-not-reproduce-on-x11/353598/17)
+
+該串另有專有驅動 580、GTX 1060、COSMIC／KWin 的第一手回報，同樣記錄 NvKmsKapiMemory 映射失敗、跨程序 Xid 32／56 與媒體 renderer 崩潰。但回報者缺少內部 VA allocation 的直接錯誤，仍在詢問是否屬於同一 bug；本例也尚未確認同源。[相近舊顯卡案例](https://forums.developer.nvidia.com/t/bug-report-wayland-only-dmaallocmapping-gm107-va-mapping-failures-does-not-reproduce-on-x11/353598/22)
 
 ## 修正
 
@@ -84,12 +98,33 @@ sudo cat /proc/<nv_queue-pid>/stack
 sudo systemctl reboot
 ```
 
+### 不重開機救援的實際限制
+
+2026-10-29 嘗試保留登入階段，切換 VT 再返回桌面；返回時 greeter 的 VT release handshake 也卡住，完成交接後畫面仍未恢復，compositor 主執行緒進入 NVIDIA rwlock 等待。這次 VT 切換無效，不列為此類故障的推薦修法。
+
+取得結束登入階段、可能遺失未儲存內容的同意後，由獨立 systemd 救援程序停止顯示管理器與圖形工作階段，終止 GPU clients，再嘗試正常卸載 NVIDIA modules。compositor／XWayland 仍卡在核心，卸載回報：
+
+```text
+modprobe: FATAL: Module nvidia_drm is in use.
+```
+
+因此沒有成功重載驅動；重新啟動顯示管理器的指令雖成功，也不代表畫面恢復。最後由使用者自行重開機。沒有執行強制模組卸載或 PCI reset。這是一次失敗的救援紀錄，不是可保證不重開機恢復的程序。
+
+### 預防選項與尚未驗證的界線
+
+- 停用 Chromium／Electron 整體硬體加速可作對照實驗；有上游使用者以 `--disable-gpu` 避開可重現的網頁崩潰，不能外推為本機已修復。只停用影片硬體解碼不等於停用整體 GPU 路徑。[測試回報](https://forums.developer.nvidia.com/t/bug-report-wayland-only-dmaallocmapping-gm107-va-mapping-failures-does-not-reproduce-on-x11/353598/13)
+- 改用 X11 桌面可作另一組對照，尚未在本機實測。
+- 本機 GTX 970 的 PCI capability 未列 Resizable BAR，不能直接套用上游 BIOS workaround。
+- 本次選擇驅動、核心及程式硬體加速維持現況，正常使用觀察一週；上述預防選項都未套用，沒有新增定時檢查。
+
 ## 驗證
 
 - 重開後 `nvidia-smi --query-gpu=name,driver_version --format=csv,noheader` 正常回應 GTX 970／`580.196.07`。
 - `cos-cli info --json` 恢復回應。
-- 重開後三個視窗仍未歸位；另依[桌面快照還原流程](/linux/cosmic-session-checkpoint-restore/)修復，最終 11 個視窗的螢幕與工作區與快照一致，保存服務回到 `watching`。
+- 2026-10-26 重開後三個視窗仍未歸位；另依[桌面快照還原流程](/linux/cosmic-session-checkpoint-restore/)修復，最終 11 個視窗的螢幕與工作區與快照一致，保存服務回到 `watching`。
 - 新登入階段的檢查未見新的同類阻塞警告；沒有足夠長期觀察或重現證據宣稱根治。
+
+2026-10-29 再次重開後，桌面還原服務因一個編輯器視窗未完成還原而停在 `restore-failed`，自動保存暫停；尚未修復，不能沿用先前 `watching` 的驗收結論。桌面能登入、GPU 查詢可回應、視窗配置成功還原，需分開驗證。
 
 ## 下次先查
 
