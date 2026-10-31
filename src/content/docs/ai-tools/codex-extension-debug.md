@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-10-26
+date: 2026-10-31
 tags:
   - browser-automation
   - chrome
@@ -106,6 +106,28 @@ printf 'HOME=%s\nDISPLAY=%s\nXDG_RUNTIME_DIR=%s\nDBUS_SESSION_BUS_ADDRESS=%s\n' 
 
 最後檢查 profile。不要只看「瀏覽器有開」；要確認打開的是有安裝 extension 的 user data dir。
 
+### Chrome 未執行，啟動器缺少 DISPLAY
+
+extension 已安裝且啟用、native host manifest 正確，仍可能沒有可連線的 Chrome。2026-10-31 案例中，官方 running check 回報未執行；授權後使用 plugin 啟動器卻得到：
+
+```text
+Missing X server or $DISPLAY
+The platform failed to initialize. Exiting.
+```
+
+這表示此次 Chrome 啟動失敗在圖形環境層，不能推定 extension 損壞。先確認現有桌面與 user manager 所知的環境：
+
+```bash
+ls -la /tmp/.X11-unix
+systemctl --user show-environment | rg '^(DISPLAY|XAUTHORITY|XDG_RUNTIME_DIR)='
+```
+
+本例已有 X11 socket，user manager 提供 `DISPLAY=:0.0` 與現有使用者的 `XAUTHORITY`。僅把查到的兩個值傳給官方 Chrome plugin 的 `scripts/open-chrome-window.js --browser chrome`，沿用已安裝 extension 的原 profile，Chrome 與 browser-client 即恢復。
+
+不要猜 display number、整批 `eval` user manager 環境、變更 HOME、改 profile 或以 `--no-sandbox` 繞過。啟動仍須依當輪 plugin 規定取得使用者授權；本例已有授權，不需再次詢問。Wayland 環境須另依實際桌面定位，不套用此 X11 值。
+
+本輪根檔案系統曾滿載並出現 `ENOSPC`／Goal `disk I/O error`，清除可重新下載的更新包後恢復寫入，稍後又擴容。磁碟與 GUI 啟動問題分開驗證；沒有證據顯示磁碟清理直接修好了 extension。較早出現的 `Debugger unattached`／導覽逾時也未定位單一根因。
+
 ### 比對 App、MCP 與 native host 版本
 
 本次觀察到以下順序：
@@ -174,7 +196,6 @@ awk '/NoNewPrivs|Seccomp/ {print}' /proc/self/status
 
 ```bash
 export CODEX_CHROME_USER_DATA_DIR="$HOME/.config/google-chrome"
-export HOME="$HOME"
 export DISPLAY="${DISPLAY:-:0}"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ```
@@ -210,6 +231,14 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 - 一般網站約 1.4 秒完成導覽，並可讀取頁面文字。
 - Threads recent 搜尋頁約 2.2 秒完成導覽，並取得實際貼文 URL／摘要；既有登入仍可使用。
 - 後續實際探索流程可持續導航、搜尋與回查原文，未再出現固定 10 秒的 `Page.navigate` 逾時。
+
+### 2026-10-31 GUI 環境恢復的實測
+
+- 原 profile 的 extension、native host manifest 均通過檢查；running check 原本回報 Chrome 未執行。
+- 官方啟動器缺 DISPLAY 時失敗，沿用 user manager 的現有 DISPLAY／XAUTHORITY 後啟動成功。
+- browser-client 可以建立分頁、讀取 Threads recent 搜尋、逐批捲動與保存 JSONL，後續可回查原文。
+- 本輪最終 32 組皆實際查詢，12 組時間覆蓋完成、20 組依實頁雜訊留下明確不完整原因；搜尋品質限制不等同瀏覽器仍故障。
+- 僅驗證本次啟動與工作流，未驗證重新登入／重開機後 agent 自動繼承 GUI env，維持 investigating。
 
 ### 2026-10-26 權限恢復的實測
 
