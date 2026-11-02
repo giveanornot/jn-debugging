@@ -1,5 +1,5 @@
 {
-  "count": 83,
+  "count": 84,
   "pages": [
     {
       "title": "關於 JN",
@@ -601,6 +601,29 @@
       "slug": "docker/newsblur-rss-relative-image",
       "url": "/docker/newsblur-rss-relative-image/",
       "source": "src/content/docs/docker/newsblur-rss-relative-image.md"
+    },
+    {
+      "title": "Nextcloud AIO 自訂映像跨版升級時 Permission denied",
+      "description": "A custom Nextcloud AIO image can fail its intermediate major-version upgrade when the extracted application tree has the wrong ownership or a test override disappears during rsync.",
+      "date": "2026-11-02",
+      "status": "fixed",
+      "system": "nextcloud",
+      "severity": "high",
+      "tags": [
+        "nextcloud",
+        "aio",
+        "docker",
+        "upgrade"
+      ],
+      "aliases": [
+        "Nextcloud AIO mv Permission denied",
+        "Nextcloud AIO custom image ownership",
+        "Nextcloud AIO upgrade rsync config removed"
+      ],
+      "related": [],
+      "slug": "docker/nextcloud-aio-custom-image-major-upgrade",
+      "url": "/docker/nextcloud-aio-custom-image-major-upgrade/",
+      "source": "src/content/docs/docker/nextcloud-aio-custom-image-major-upgrade.md"
     },
     {
       "title": "Nextcloud AIO 磁碟壓力與升級卡在 Starting",
