@@ -1,5 +1,5 @@
 {
-  "count": 86,
+  "count": 87,
   "pages": [
     {
       "title": "關於 JN",
@@ -1183,6 +1183,30 @@
       "slug": "linux/jlcone-cosmic-wayland-login-view",
       "url": "/linux/jlcone-cosmic-wayland-login-view/",
       "source": "src/content/docs/linux/jlcone-cosmic-wayland-login-view.md"
+    },
+    {
+      "title": "MK870 在 Linux 連上 sharkfin，卻讀不到原廠改鍵",
+      "description": "ROYUAN MK870 能以 WebHID 連線並讀出鍵位表，不代表推測配列與 FL 原廠改鍵完全相容；以 USB 身分、原始設定檔和讀取快照保留證據。",
+      "date": "2026-11-03",
+      "status": "investigating",
+      "system": "sharkfin",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "keyboard",
+        "mk870",
+        "sharkfin",
+        "webhid"
+      ],
+      "aliases": [
+        "FL ESPORTS Linux",
+        "YC500 keymap readback",
+        "Caps Lock remap missing"
+      ],
+      "related": [],
+      "slug": "linux/mk870-sharkfin-keymap-readback",
+      "url": "/linux/mk870-sharkfin-keymap-readback/",
+      "source": "src/content/docs/linux/mk870-sharkfin-keymap-readback.md"
     },
     {
       "title": "PipeWire 把 DroidCam Loopback 選成預設，Focusrite 語音沒有聲音",
