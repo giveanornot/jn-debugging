@@ -1,5 +1,5 @@
 {
-  "count": 85,
+  "count": 86,
   "pages": [
     {
       "title": "關於 JN",
@@ -2067,6 +2067,29 @@
       "slug": "web/wrangler-remote-device-login",
       "url": "/web/wrangler-remote-device-login/",
       "source": "src/content/docs/web/wrangler-remote-device-login.md"
+    },
+    {
+      "title": "YouTube 首頁空白：UnDistracted 隱藏推薦區",
+      "description": "首頁導覽正常、推薦影片卻整片空白時，比對新舊分頁的 DOM 與 computed style，確認是否為 UnDistracted 殘留的隱藏規則。",
+      "date": "2026-11-03",
+      "status": "investigating",
+      "system": "youtube",
+      "severity": "low",
+      "tags": [
+        "youtube",
+        "brave",
+        "browser-extension",
+        "css"
+      ],
+      "aliases": [
+        "YouTube home blank",
+        "undistracted-style",
+        "Hide Feed"
+      ],
+      "related": [],
+      "slug": "web/youtube-home-hidden-undistracted",
+      "url": "/web/youtube-home-hidden-undistracted/",
+      "source": "src/content/docs/web/youtube-home-hidden-undistracted.md"
     }
   ]
 }
