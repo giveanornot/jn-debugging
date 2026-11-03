@@ -1,5 +1,5 @@
 {
-  "count": 84,
+  "count": 85,
   "pages": [
     {
       "title": "關於 JN",
@@ -1625,6 +1625,29 @@
       "slug": "web/indieping-duplicate-source-merge",
       "url": "/web/indieping-duplicate-source-merge/",
       "source": "src/content/docs/web/indieping-duplicate-source-merge.md"
+    },
+    {
+      "title": "IndiePing RSS 超過 8 MiB：保留有界抓取並調整 Feed 限額",
+      "description": "Feed 回 HTTP 200 卻報 Response exceeds byte limit 時，量測解碼後大小並用同一 parser 重現；只調整 RSS 額度，保留其他抓取、解壓縮與 SSRF 限制。",
+      "date": "2026-11-03",
+      "status": "fixed",
+      "system": "indieping",
+      "severity": "medium",
+      "tags": [
+        "indieping",
+        "rss",
+        "streaming",
+        "response-size"
+      ],
+      "aliases": [
+        "Response exceeds byte limit",
+        "RSS larger than 8 MiB",
+        "Feed HTTP 200 但掃描失敗"
+      ],
+      "related": [],
+      "slug": "web/indieping-rss-byte-limit",
+      "url": "/web/indieping-rss-byte-limit/",
+      "source": "src/content/docs/web/indieping-rss-byte-limit.md"
     },
     {
       "title": "IndiePing RSS parser 與 Node fetch 失敗",

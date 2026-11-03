@@ -93,6 +93,14 @@ RSS 探索原本找到宣告的 `href` 就回傳，沒有驗證該端點是否�
 - 另外 12 個來源在本機／正式主機檢查後仍無可用 Feed，保留故障原因與資料，未假稱全部修好。
 - 來源去重的處理詳見[同一篇反向連結重複：來源合併與收錄防重](/web/indieping-duplicate-source-merge/)。
 
+## 後續案例：Content-Type 是 XML，內容卻是 HTML 轉址
+
+2026-11-03 重查一個來源，保存的 `/feed.xml` 回 200、Content-Type 也標成 XML，實際內容卻只有 HTML `meta refresh` 與 canonical，指向 `/atom.xml`。現行 scanner 不執行 HTML 轉址；parser 因而報 Unexpected close tag。
+
+在正式主機直接讀取 HTML 明示的 `/atom.xml`，沿用既有 transport/parser 可得 330 篇。這是資料層 Feed URL 更正，沒有新增自動執行任意 HTML refresh 的功能。該 Feed 同時是另一筆舊來源的最終網址，必須先完成[來源合併](/web/indieping-duplicate-source-merge/)，不能把兩筆來源各自改成同一 Feed。
+
+若回應真的是有效 Feed，卻因位元組額度失敗，另見 [RSS 超過 8 MiB](/web/indieping-rss-byte-limit/)。
+
 ## 下次先查
 
 1. 目前端點實際回什麼 status、Content-Type 和內容？是否只是 HTML 或驗證頁？
