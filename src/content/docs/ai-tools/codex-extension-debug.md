@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-10-31
+date: 2026-11-03
 tags:
   - browser-automation
   - chrome
@@ -59,6 +59,12 @@ local AI agent 無法連到 extension backend，browser automation 沒有可用 
 ### 已連線但 Page.navigate 持續逾時
 
 另一種失敗模式是 extension 與 native host 均在執行，agent 可建立、讀取或截圖 `about:blank`，但導覽一般網站與登入中的服務都固定約 10 秒逾時。完整重啟 Chrome 仍可重現。這與「完全沒有 browser client」是不同分支。
+
+### 版本一致仍可能無法導覽
+
+另一次案例中，profile 可寫、extension 已啟用，native host manifest 檢查通過，App 設定的版本與 native host 指向版本一致；extension 能建立分頁，`Page.navigate` 對一般網頁與 Threads 搜尋仍逾時。重啟 Chrome 後仍逾時。使用者後來調整環境，下一次實測能開啟 Threads 搜尋並讀到結果；本次沒有取得調整細節，無法判定根因或歸因於特定重設操作。
+
+版本一致與顯示 Connected 只證明部分連線正常。以實際導覽、搜尋頁載入與可讀貼文驗收；不要在未取得證據時宣稱 native host 損壞，或把過去成功的重設操作視為本次已執行。
 
 ## 影響範圍
 
