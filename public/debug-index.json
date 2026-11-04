@@ -1,5 +1,5 @@
 {
-  "count": 87,
+  "count": 88,
   "pages": [
     {
       "title": "關於 JN",
@@ -1822,6 +1822,30 @@
       "slug": "web/mastodon-public-timeline-app-token",
       "url": "/web/mastodon-public-timeline-app-token/",
       "source": "src/content/docs/web/mastodon-public-timeline-app-token.md"
+    },
+    {
+      "title": "電子報標題 emoji 換行：內文圖片樣式套到圖示",
+      "description": "n8n 電子報標題中的 emoji 獨占一行、色塊被撐高時，檢查郵件端圖片替換與過廣的內文 img 樣式。",
+      "date": "2026-11-04",
+      "status": "fixed",
+      "system": "html-email",
+      "severity": "low",
+      "tags": [
+        "n8n",
+        "newsletter",
+        "gmail",
+        "css",
+        "emoji"
+      ],
+      "aliases": [
+        "newsletter emoji image display block",
+        "Gmail 標題 emoji 換行",
+        "電子報標題留白過大"
+      ],
+      "related": [],
+      "slug": "web/newsletter-heading-emoji-image-block",
+      "url": "/web/newsletter-heading-emoji-image-block/",
+      "source": "src/content/docs/web/newsletter-heading-emoji-image-block.md"
     },
     {
       "title": "Android PWA 返回鍵直接關閉 browser",
