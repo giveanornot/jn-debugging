@@ -1,5 +1,5 @@
 {
-  "count": 88,
+  "count": 89,
   "pages": [
     {
       "title": "關於 JN",
@@ -1371,6 +1371,28 @@
       "slug": "linux/wine-nmservice-race-crash",
       "url": "/linux/wine-nmservice-race-crash/",
       "source": "src/content/docs/linux/wine-nmservice-race-crash.md"
+    },
+    {
+      "title": "Artalk 關鍵字 filter 不會拒收留言，預設待審時如何處理",
+      "description": "釐清 Artalk 2.10.1 的關鍵字待審與替換模式，避免把空字串替換誤認為拒收，並保留全體留言待審設定。",
+      "date": "2026-11-04",
+      "status": "fixed",
+      "system": "artalk",
+      "severity": "low",
+      "tags": [
+        "artalk",
+        "moderation",
+        "configuration"
+      ],
+      "aliases": [
+        "Artalk keyword filter",
+        "Set to pending when match",
+        "Artalk replace_to 空字串"
+      ],
+      "related": [],
+      "slug": "web/artalk-keyword-filter-pending-replace",
+      "url": "/web/artalk-keyword-filter-pending-replace/",
+      "source": "src/content/docs/web/artalk-keyword-filter-pending-replace.md"
     },
     {
       "title": "Astro Starlight 文件站的 Article schema 與逐頁 Open Graph 圖",
