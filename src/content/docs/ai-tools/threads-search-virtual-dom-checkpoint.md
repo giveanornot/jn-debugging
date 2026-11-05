@@ -1,7 +1,7 @@
 ---
 title: Threads 搜尋被虛擬 DOM 與逾時誤判完成
 description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.
-date: 2026-10-25
+date: 2026-11-05
 tags:
   - threads
   - browser-automation
@@ -69,6 +69,12 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 
 後續檢查發現，「連續沒有新 URL」同樣不是可用的停止證據：virtual DOM 可讓可見 URL 重複，或延遲載入仍未完成。改量測 viewport 是否已在文件底部，執行一次小步 browser-level scroll，等待後再比較 `scrollHeight`；即使仍在底部且高度不變，也只能記為停滯診斷，不能當作覆蓋完成。
 
+### 後續實頁發現的漏文路徑
+
+對整頁大的AX Column body捲動，會先將容器命中點移入畫面；同一畫面一次跳9324px，而可見feed點只移474px。舊AX diff省略container index時，又可能降回無效的page-context scroll。兩種路徑都會讓較短耗時掩蓋漏文。
+
+頁底額外捲動後，即使document高度不變，也可能晚到新卡片；若先判定耗盡再抽取，該卡片會漏存。另有搜尋詞最初空DOM、重新開頁才取得11筆的案例，空DOM不能當無結果。
+
 ## 根因
 
 已確認的原因包括：
@@ -96,8 +102,8 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 每個 invocation 只跑一個 query batch；每批最多 12 輪、35 秒安全預算。下一批保留同一 tab，以 `navigate: false` 接續。
 - 每批都寫 manifest：未跨 checkpoint 是 `in_progress`，明確收尾才是 `incomplete`；manifest 記錄 `resume.tab_id`、下一輪與批次時間，讓 kernel reset 後接回原頁。
 - 移除無新 URL 或頁底穩定即判定 completed 的規則，不論近期窗口或歷史 checkpoint 都必須有可信時間覆蓋。沒有跨過時繼續 `in_progress`，明確收尾另記原因。
-- 新版只有 `tab.ax` 時，用 AX Column body 捲動；圖片覆蓋捲動區時可對已確認的白邊座標輸入，再量測實際前進。
-- `time_budget_reached`、`batch_limit_reached`、browser timeout 與 Node reset 全部保留 `in_progress`；只有所有 query 都有 terminal manifest、候選篩選完成且 seen cache 更新後才能交付。
+- 新版只有`tab.ax`時，對實際可見清單區捲動，不以整頁大的Column body為target；座標依目前viewport確認，並量實際位移，不能把本案例固定座標當各尺寸通用值。
+- `time_budget_reached`、`batch_limit_reached`與Node reset都是續跑點；控制或載入失敗另記error並先診斷、明確retry，不標成功。只有所有query均有具體終態、篩選與seen更新完成才交付。
 - manifest 加入 `resume.viewport` 作為診斷資料。取不回原 tab 時必須重新導覽並繼續 `in_progress`，不可把 viewport 當成已恢復位置的證據。
 - checkpoint 以同 query、extraction_version 2 與 coverage_version 1 最後一次可信 `completed` 的 `completed_at` 決定，不使用共享 results JSONL 的 mtime，也不採信缺乏配對證據的舊完成紀錄。
 - 從同資料版本的 JSONL 重建 URL union；只有自身時間已驗證且帶 coverage_version 1 的結果可參與計算；舊主文搭配新回覆使用小群組最新 coverage_time，避免以舊主文提前完成。引用 URL 缺時間時不宣稱窗口完成，保留為待補查。
@@ -105,11 +111,30 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 
 時間本身也必須可信：外卡第一個 time 可能被錯配給引用 URL。對應的[引用卡片配對 runbook](/ai-tools/threads-quoted-post-url-time-pairing/) 記錄新版抽取、舊 checkpoint 失效規則、實頁驗收與歷史限制。
 
+### 續跑、空頁與證據版本
+
+- 每次就緒探測與捲動後立即保存卡片，包含頁底額外probe。重建coverage時，後來的引文缺時間不可覆寫同permalink已補驗的time。
+- 同分頁相鄰兩批各自實測頁底、額外捲動仍到底且文件高度／URL union／最舊時間／checkpoint／viewport相同，才可`incomplete: confirmed_results_exhausted_before_checkpoint`，仍不推進成功checkpoint；新導覽重置確認。
+- 分辨results、loading、明確empty、login_required、page_error、unknown；空DOM與載入逾時記可重試error，不走耗盡分支。明確empty也須兩批同頁同訊息確認，才incomplete。捲動途中空頁或有載入訊號也不能確認耗盡。
+- 持久化佇列提供指定incomplete重查入口，保存原checkpoint、raw與前次原因後重新導覽，不直接改JSON。完成者不重跑，錯誤者先診斷再retry。
+- 佇列記來源模組指紋。版本不同先阻擋，再依實際改動選preserve或rebuild，均先備份。捲動／抽取證據失效時追加撤銷標記、新coverage epoch，保留raw與原checkpoint，不以舊coverage完成新遍歷。
+- 污染必須有實頁證據，明確incomplete。品質紀錄逐筆人工標相關／無關／待確認，保留分母與時間窗內外數量；變體共用原詞凍結checkpoint但獨立狀態，不覆蓋原詞缺口。
+
 ## 驗證
 
 - `node --check` 驗證 runner 與 mock test 語法。
 - mock 覆蓋兩批搜尋、時間預算中斷、頁底穩定仍未跨 checkpoint 時不完成，以及舊主文搭配新回覆不得提前完成。
 - 實頁量測確認：page-context scroll 停在原位；CUA scroll 會推進 scroll position，並逐步載入更舊結果。修正後重新執行全部關鍵字與啟用 tag；各 query 皆留下 completed 或 explicit incomplete manifest。
+
+### 2026-11-05續驗
+
+- runner、session、頁面狀態與十個DOM配對案例通過；包括初次探測卡片保存、頁底晚到卡片、捲動中空頁、已驗時間保留、版本阻擋／備份、重查與舊coverage撤銷。
+- 修正前的當日跳頁coverage先作廢、保留備份，再重建遍歷證據。原32詞最終9詞跨checkpoint、23詞有明確缺口；沒有把23詞稱作歷史已補齊。
+- 實頁空白分頁得到results_not_loaded，沒有被當無結果；指定重查保留同一checkpoint與既有資料。正式raw、events、manifest與seen在後續schema遷移前後雜湊一致。
+- 四詞ABBA在相同checkpoint與1.1秒等待下，單分頁兩次取得39／51組query＋URL，雙分頁兩次各35組。單分頁自己也變動，不能證明等量加速，也不能直接歸因雙分頁漏文；預設維持單分頁。
+- 窄主題補搜中，原詞5筆全無關，具體鍵盤型號13筆有12筆主題相關、1筆待確認；但11筆是checkpoint以前的舊文，時間窗內只有1相關／1待確認。這不證明台灣互動價值、整體召回率或覆蓋所有同類產品。
+
+跨時間邊界是本工具的驗收條件；平台可能延遲、改排或漏送，不能由此保證全平台貼文已完整取得。搜尋品質與效能實驗資料另行保存，不混入正式seen。
 
 ## 下次先查
 

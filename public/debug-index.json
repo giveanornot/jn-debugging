@@ -212,7 +212,7 @@
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
       "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
-      "date": "2026-10-25",
+      "date": "2026-11-05",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",

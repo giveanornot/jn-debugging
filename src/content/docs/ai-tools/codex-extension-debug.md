@@ -21,7 +21,9 @@ aliases:
 
 ## 快速結論
 
-若 extension 顯示已連線、可讀空白分頁，卻連一般網站的 `Page.navigate` 都固定逾時，還要檢查 desktop app、MCP browser service 與 native host 的實際版本。本次修復組合是更新 Community app、移除 MCP 設定中的舊版固定值，再由 App 的 **設定 → Computer use** 重新設定 Chrome；三層對齊後導覽與搜尋恢復。
+若可建立／列出分頁，但導覽、AX、readonly evaluate與關頁立即報`timeoutMs` TypeError，本例已確認是舊browser service未傳新版extension要求的networkPolicy。升級對應官方runtime、重新載入MCP後，原失敗操作全部恢復；不是靠重裝extension或放寬網路政策。
+
+若 extension 顯示已連線、可讀空白分頁，卻連一般網站的 `Page.navigate` 都固定逾時，還要檢查 desktop app、MCP browser service 與 native host 的實際版本。較早一次導覽逾時的修復組合是更新 Community app、移除 MCP 設定中的舊版固定值，再由 App 的 **設定 → Computer use** 重新設定 Chrome；三層對齊後導覽與搜尋恢復。
 
 若 agent 啟動 Chrome 出現 profile 唯讀與 SUID sandbox helper fatal，先比對本聊天實際套用的沙盒權限與全域預設；全域設定不代表已套用。本案例使用者調整有效權限後，同一啟動命令恢復，沒有重裝 extension 或停用 Chrome sandbox。
 
@@ -69,19 +71,25 @@ local AI agent 無法連到 extension backend，browser automation 沒有可用 
 
 ### 可列分頁，但頁面控制立即報 timeoutMs TypeError
 
-另一個尚未修復的案例中，使用者調整執行權限後，profile 掛載已是 `rw`，`NoNewPrivs=0`、`Seccomp=0`。官方啟動器起初缺少 DISPLAY，沿用實際 user manager 提供的 DISPLAY／XAUTHORITY 後成功開啟 Chrome；extension 已連線，可建立和列出空白分頁。
-
-但接著的導覽、AX 讀取、readonly evaluate，甚至關閉實驗分頁，都立即得到：
+2026-11-05同一案例已完成根因定位與修復。profile為`rw`、`NoNewPrivs=0`、`Seccomp=0`，Chrome及extension已連線，可建立與列出空白分頁；導覽、AX、readonly evaluate與關頁卻立即得到：
 
 ```text
 Cannot read properties of undefined (reading 'timeoutMs')
 ```
 
-既有 bundled browser-client 與當輪另一個官方瀏覽器介面的帶 URL 開頁都失敗。這是「連線／分頁管理部分成功，頁面控制仍不可用」的證據，不能算搜尋流程已恢復；也與等待數秒後才發生的 `Page.navigate` timeout 分開記錄。
+對照實際載入元件後發現：
 
-目前只定位到控制呼叫失敗，尚無足夠堆疊或元件對照可判定是哪一層未正確處理參數。未修改 App、native host 或登入資料，未取得修復後實頁驗收；不要據此重裝 extension、反覆重啟 Chrome，或把它當成 Threads 搜尋結果問題。
+| 元件 | 案例版本／行為 |
+| --- | --- |
+| 舊官方browser service | 26.1016.61520，attach僅送`{tabId}` |
+| 已安裝extension | 1.26.1102.11740，attach讀取`networkPolicy.timeoutMs` |
+| 更新後官方service | 26.1029.61003，先讀政策再送`{tabId, networkPolicy}` |
 
-後續先用同一個專用分頁驗證一次導覽與讀頁；成功後才恢復效能測試。頁面控制故障期間產生的模擬加速數字，不能當成真實瀏覽器的加速成果。
+缺少policy的精確驗證前綴可在隔離環境重現同一TypeError，不需操作Chrome或網路。列／建分頁不經過attach路徑，所以部分管理操作可用，不能證明頁面控制正常。
+
+更新官方signed stable來源與維護中的Community builder，備份後移除MCP中的舊service／版本固定值，重新載入MCP程序，導覽、AX、貼文抽取、可見清單捲動與關頁均成功。未改extension、native host registry或登入資料，也未注入允許政策。
+
+上述版本是案例值，不是未來應固定安裝的最新版。較早的有效權限／profile唯讀問題仍是另一分支；本例沒有定位所有新聊天選用權限的來源。
 
 ## 影響範圍
 
@@ -209,7 +217,7 @@ awk '/NoNewPrivs|Seccomp/ {print}' /proc/self/status
 
 - App 更新後，MCP browser service／app version 仍固定舊值，native host 也保留舊版本。更新並重新設定後，本次導覽逾時已修復；因未逐個元件獨立回退測試，無法斷言是哪一個舊元件單獨造成故障。
 
-本頁保留 `investigating`：部分歷史導覽逾時案例已恢復，但較早的 profile routing 分支缺獨立驗收，且後續出現的 `timeoutMs` TypeError 仍未定位與修復。不同分支須各自驗收。
+本頁保留 `investigating`：部分歷史導覽逾時案例已恢復，但較早的 profile routing 分支缺獨立驗收，且部分歷史逾時與有效權限來源仍未釐清。`timeoutMs` TypeError分支已由協定對照、隔離重現與升級後實頁驗證修復；不外推所有分支均已修復。
 
 ## 修正
 
@@ -232,6 +240,14 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 - **Native host 層**：若 registry 仍是舊版，由使用者在 App 的 **設定 → Computer use** 重新設定 Chrome，再確認 host 版本與連線狀態。
 
 不要把案例中的套件路徑或版本直接複製到其他安裝；先確認本機發行方式與實際檔案。
+
+### timeoutMs協定分支的修正層
+
+- 先核對目前工具程序實際載入的service，不只看磁碟上已安裝的版本。
+- 對齊官方runtime與extension協定。本例舊Community updater因required patch漂移而建置失敗，改採維護中的builder建置已驗簽的官方套件，保留舊app供回復。
+- MCP自訂launcher從安裝metadata讀版本與service路徑，避免日後更新仍固定舊版。備份設定後重新載入MCP；只重設JavaScript執行環境不會更新MCP程序的環境變數。
+- 本例Community host所需同版plugin runtime cache由已驗官方bundle原樣補齊；不混用任意版本、不修改native host或放寬policy。
+- 每次恢復都驗導覽→讀頁→抽取→小步捲動→關頁，再回到原工作流程。
 
 ## 驗證
 
@@ -270,7 +286,16 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 - 能回查原文與帳號互動；暫用分頁收尾後關閉，Chrome 保持開啟。
 - 這證實本輪工作流恢復，未證實全域預設或所有 browser/profile 分支都已修復，因此本頁維持 `investigating`。
 
+### 2026-11-05協定修復的實測
+
+- 缺networkPolicy可重現立即TypeError；新官方service的attach負載含政策。
+- 實頁goto、AX、readonly抽取、可見feed捲動、close全部通過；原32詞均留終態，9詞跨時間邊界、23詞保留搜尋污染／頁底／時間缺漏原因。
+- 原工作流程及四詞實頁ABBA均未再發生控制錯誤。ABBA的URL集合不等，不能據此宣稱雙分頁加速。
+- 沒有把搜尋內容污染視為瀏覽器仍斷線，也沒有宣稱新聊天的有效權限問題永久消失。
+
 ## 下次先查
+
+若是控制操作立即報`timeoutMs` TypeError，先比對實際service／extension協定與attach參數，再驗升級後的原流程；不要先反覆重啟或重裝。若是等待數秒後才導覽逾時，或browser根本未啟動，再依下列分層流程排查。
 
 先檢查啟動器實際選到的 browser/profile 與 GUI env，再檢查 extension/native host。不要直接重裝整套瀏覽器工具。
 
