@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-11-03
+date: 2026-11-05
 tags:
   - browser-automation
   - chrome
@@ -16,6 +16,7 @@ aliases:
   - Codex Chrome Extension
   - Page.navigate timeout
   - Computer use
+  - Cannot read properties of undefined reading timeoutMs
 ---
 
 ## 快速結論
@@ -65,6 +66,22 @@ local AI agent 無法連到 extension backend，browser automation 沒有可用 
 另一次案例中，profile 可寫、extension 已啟用，native host manifest 檢查通過，App 設定的版本與 native host 指向版本一致；extension 能建立分頁，`Page.navigate` 對一般網頁與 Threads 搜尋仍逾時。重啟 Chrome 後仍逾時。使用者後來調整環境，下一次實測能開啟 Threads 搜尋並讀到結果；本次沒有取得調整細節，無法判定根因或歸因於特定重設操作。
 
 版本一致與顯示 Connected 只證明部分連線正常。以實際導覽、搜尋頁載入與可讀貼文驗收；不要在未取得證據時宣稱 native host 損壞，或把過去成功的重設操作視為本次已執行。
+
+### 可列分頁，但頁面控制立即報 timeoutMs TypeError
+
+另一個尚未修復的案例中，使用者調整執行權限後，profile 掛載已是 `rw`，`NoNewPrivs=0`、`Seccomp=0`。官方啟動器起初缺少 DISPLAY，沿用實際 user manager 提供的 DISPLAY／XAUTHORITY 後成功開啟 Chrome；extension 已連線，可建立和列出空白分頁。
+
+但接著的導覽、AX 讀取、readonly evaluate，甚至關閉實驗分頁，都立即得到：
+
+```text
+Cannot read properties of undefined (reading 'timeoutMs')
+```
+
+既有 bundled browser-client 與當輪另一個官方瀏覽器介面的帶 URL 開頁都失敗。這是「連線／分頁管理部分成功，頁面控制仍不可用」的證據，不能算搜尋流程已恢復；也與等待數秒後才發生的 `Page.navigate` timeout 分開記錄。
+
+目前只定位到控制呼叫失敗，尚無足夠堆疊或元件對照可判定是哪一層未正確處理參數。未修改 App、native host 或登入資料，未取得修復後實頁驗收；不要據此重裝 extension、反覆重啟 Chrome，或把它當成 Threads 搜尋結果問題。
+
+後續先用同一個專用分頁驗證一次導覽與讀頁；成功後才恢復效能測試。頁面控制故障期間產生的模擬加速數字，不能當成真實瀏覽器的加速成果。
 
 ## 影響範圍
 
@@ -192,7 +209,7 @@ awk '/NoNewPrivs|Seccomp/ {print}' /proc/self/status
 
 - App 更新後，MCP browser service／app version 仍固定舊值，native host 也保留舊版本。更新並重新設定後，本次導覽逾時已修復；因未逐個元件獨立回退測試，無法斷言是哪一個舊元件單獨造成故障。
 
-本頁保留 `investigating`，因較早的 profile routing 分支仍缺獨立驗收；不代表本次導覽逾時仍未修復。
+本頁保留 `investigating`：部分歷史導覽逾時案例已恢復，但較早的 profile routing 分支缺獨立驗收，且後續出現的 `timeoutMs` TypeError 仍未定位與修復。不同分支須各自驗收。
 
 ## 修正
 

@@ -41,7 +41,7 @@
     {
       "title": "Browser Extension 連線診斷",
       "description": "Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。",
-      "date": "2026-11-03",
+      "date": "2026-11-05",
       "status": "investigating",
       "system": "desktop",
       "severity": "medium",
@@ -56,7 +56,8 @@
         "No Codex browser client is connected",
         "Codex Chrome Extension",
         "Page.navigate timeout",
-        "Computer use"
+        "Computer use",
+        "Cannot read properties of undefined reading timeoutMs"
       ],
       "related": [],
       "slug": "ai-tools/codex-extension-debug",
