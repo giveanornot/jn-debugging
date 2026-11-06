@@ -1,5 +1,5 @@
 {
-  "count": 89,
+  "count": 90,
   "pages": [
     {
       "title": "關於 JN",
@@ -1008,6 +1008,28 @@
       "slug": "linux/brave-update-separate-instance",
       "url": "/linux/brave-update-separate-instance/",
       "source": "src/content/docs/linux/brave-update-separate-instance.md"
+    },
+    {
+      "title": "Codex 社群版建置失敗：舊套件與最新 signed stable 不一致",
+      "description": "Distinguish a pinned old Codex Linux package from a corrupt download when the community installer verifies only the latest signed stable release.",
+      "date": "2026-11-06",
+      "status": "wontfix",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "codex",
+        "arch-linux",
+        "aur",
+        "package-verification"
+      ],
+      "aliases": [
+        "Local package does not match the current signed stable release",
+        "codex-desktop-linux size mismatch"
+      ],
+      "related": [],
+      "slug": "linux/codex-community-pinned-package-stable-mismatch",
+      "url": "/linux/codex-community-pinned-package-stable-mismatch/",
+      "source": "src/content/docs/linux/codex-community-pinned-package-stable-mismatch.md"
     },
     {
       "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
