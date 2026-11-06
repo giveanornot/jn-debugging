@@ -1,5 +1,5 @@
 {
-  "count": 90,
+  "count": 91,
   "pages": [
     {
       "title": "關於 JN",
@@ -1157,6 +1157,31 @@
       "slug": "linux/cosmic-session-checkpoint-restore",
       "url": "/linux/cosmic-session-checkpoint-restore/",
       "source": "src/content/docs/linux/cosmic-session-checkpoint-restore.md"
+    },
+    {
+      "title": "指紋登入後 Brave 空白與 Discord 啟動卡住",
+      "description": "Brave 頁面持續空白、Discord 卡在啟動時，檢查 GNOME Login Keyring 是否鎖定及解鎖提示是否被遮住。",
+      "date": "2026-11-06",
+      "status": "fixed",
+      "system": "GNOME Keyring / Brave / Discord",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "brave",
+        "discord",
+        "gnome-keyring",
+        "fingerprint",
+        "cosmic"
+      ],
+      "aliases": [
+        "Brave blank pages locked keyring",
+        "Discord loading fingerprint login keyring",
+        "Unlock Login Keyring 視窗被遮住"
+      ],
+      "related": [],
+      "slug": "linux/gnome-keyring-locked-brave-discord",
+      "url": "/linux/gnome-keyring-locked-brave-discord/",
+      "source": "src/content/docs/linux/gnome-keyring-locked-brave-discord.md"
     },
     {
       "title": "HiNet GitHub 下載慢：用 WARP 繞路並保留 Tailscale DNS",
