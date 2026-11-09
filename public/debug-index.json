@@ -1,5 +1,5 @@
 {
-  "count": 91,
+  "count": 92,
   "pages": [
     {
       "title": "關於 JN",
@@ -1396,6 +1396,29 @@
       "slug": "linux/ubuntu-sudo-rs-setuid-broken",
       "url": "/linux/ubuntu-sudo-rs-setuid-broken/",
       "source": "src/content/docs/linux/ubuntu-sudo-rs-setuid-broken.md"
+    },
+    {
+      "title": "COSMIC Wayland 顏文字選取後無法貼上",
+      "description": "Splatmoji 與 rofimoji 選單正常但無法輸入時，檢查 Wayland 剪貼簿、模擬按鍵和實際貼上結果。",
+      "date": "2026-11-10",
+      "status": "fixed",
+      "system": "rofimoji",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "rofimoji",
+        "clipboard"
+      ],
+      "aliases": [
+        "kaomoji picker paste fails",
+        "splatmoji wayland paste"
+      ],
+      "related": [],
+      "slug": "linux/wayland-rofimoji-kaomoji-paste",
+      "url": "/linux/wayland-rofimoji-kaomoji-paste/",
+      "source": "src/content/docs/linux/wayland-rofimoji-kaomoji-paste.md"
     },
     {
       "title": "Wine 下 KartRider 進入賽事時 NMService.exe 崩潰",
