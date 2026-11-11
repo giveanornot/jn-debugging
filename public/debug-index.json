@@ -1,5 +1,5 @@
 {
-  "count": 92,
+  "count": 94,
   "pages": [
     {
       "title": "關於 JN",
@@ -484,6 +484,31 @@
       "source": "src/content/docs/docker/n8n-rss-undated-items-missing-posts.md"
     },
     {
+      "title": "NewsBlur 失連訂閱：核對新 RSS 並保留原訂閱",
+      "description": "NewsBlur 的 feed exception 與 page exception 需分開檢查；先確認搬家與 RSS 內容，再備份歷史、更新原訂閱並實際重抓。",
+      "date": "2026-11-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "rss",
+        "feed-discovery"
+      ],
+      "aliases": [
+        "NewsBlur broken feed address",
+        "NewsBlur Unsafe URL DNS",
+        "RSS 換網址"
+      ],
+      "related": [
+        "docker/newsblur-feed-refresh-scheduler",
+        "docker/newsblur-refresh-trims-story-history"
+      ],
+      "slug": "docker/newsblur-broken-feed-address",
+      "url": "/docker/newsblur-broken-feed-address/",
+      "source": "src/content/docs/docker/newsblur-broken-feed-address.md"
+    },
+    {
       "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
       "description": "NewsBlur 自訂子網域未列入 ALLOWED_SUBDOMAINS 時，匿名首頁會重導回相同 URL，導致瀏覽器 ERR_TOO_MANY_REDIRECTS。",
       "date": "2026-09-11",
@@ -578,6 +603,31 @@
       "slug": "docker/newsblur-log-disk-full",
       "url": "/docker/newsblur-log-disk-full/",
       "source": "src/content/docs/docker/newsblur-log-disk-full.md"
+    },
+    {
+      "title": "NewsBlur 重抓成功卻只剩 10 篇：舊文裁切與補回",
+      "description": "Feed.update 新增文章會觸發 trim_feed；本次長期未閱讀來源被縮至 10 篇，從隔離還原的備份只補缺漏文章並核對 BSON。",
+      "date": "2026-11-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "mongodb",
+        "backup",
+        "data-recovery"
+      ],
+      "aliases": [
+        "NewsBlur refresh deletes old stories",
+        "NewsBlur trimming down to 10",
+        "NewsBlur trim_feed history recovery"
+      ],
+      "related": [
+        "docker/newsblur-broken-feed-address"
+      ],
+      "slug": "docker/newsblur-refresh-trims-story-history",
+      "url": "/docker/newsblur-refresh-trims-story-history/",
+      "source": "src/content/docs/docker/newsblur-refresh-trims-story-history.md"
     },
     {
       "title": "NewsBlur RSS 相對圖片破圖",
