@@ -1,5 +1,5 @@
 {
-  "count": 94,
+  "count": 95,
   "pages": [
     {
       "title": "關於 JN",
@@ -137,6 +137,30 @@
       "slug": "ai-tools/codex-remote-ssh-active-writer",
       "url": "/ai-tools/codex-remote-ssh-active-writer/",
       "source": "src/content/docs/ai-tools/codex-remote-ssh-active-writer.md"
+    },
+    {
+      "title": "Codex 共用後端缺少封存等 Desktop MCP 工具",
+      "description": "Desktop 有工具但共用 app-server 的聊天看不到時，分查插件與內層 MCP 啟用狀態、IPC 環境及指定 thread 的工具清單。",
+      "date": "2026-11-13",
+      "status": "fixed",
+      "system": "codex",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "mcp",
+        "linux",
+        "remote"
+      ],
+      "aliases": [
+        "set_thread_archived missing",
+        "codex_app runtimeStatus disabled",
+        "CODEX_APP_TOOLS_PIPE_PATH",
+        "Desktop 工具橋接"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-shared-backend-desktop-mcp-missing",
+      "url": "/ai-tools/codex-shared-backend-desktop-mcp-missing/",
+      "source": "src/content/docs/ai-tools/codex-shared-backend-desktop-mcp-missing.md"
     },
     {
       "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
