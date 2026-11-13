@@ -68,7 +68,7 @@ codex app-server generate-json-schema --experimental --out /tmp/codex-schema
 
 [可攜啟動器](/scripts/codex-desktop-tools-bridge.py) 每次啟動會：
 
-- 僅接受同一使用者、指定 Desktop app-server 執行檔提供的 IPC。
+- 僅接受同一使用者、指定 Desktop app-server 提供的 IPC，或由 Desktop 主執行檔實際持有的原生 socket；共用 WebSocket 模式可能沒有本機 stdio 子程序。
 - 確認路徑為同使用者擁有的 Unix socket。
 - 多個程序若共用同一 socket 則去重；不同 socket 同時存在時拒絕歧義。
 - 設定當次 `CODEX_APP_TOOLS_PIPE_PATH`，執行已安裝官方 `launch_codex_app_tools_mcp` 與 `server.mjs`。
@@ -95,21 +95,37 @@ omit_tools_from = ["deferred"]
 python3 /absolute/path/to/codex-desktop-tools-bridge.py --refresh
 ```
 
-`--refresh` 等待原生 IPC 後呼叫重載 API，使用 Python `websockets` 套件；一般 MCP 啟動只用標準函式庫。這一步讓新的 Desktop socket 在啟動後重新接入共用後端，不將某次暫時 socket 寫入長期設定。
+`--refresh` 不只等待 socket 出現，還會啟動隔離官方 MCP，實際等 `tools/list` 回傳非空工具清單，再呼叫重載 API。畫面尚未就緒時曾出現 `The Codex app renderer is unavailable`，太早重載會留下工具探索逾時；等完整工具提供端就緒後重載才能自動恢復。此模式使用 Python `websockets` 套件；一般 MCP 啟動只用標準函式庫。
+
+### 重啟時的 CLI 版本陷阱
+
+實際重開 Desktop 發現啟動入口將 `CODEX_CLI_PATH` 指向舊版 `0.160.1`。新桌面要求的 `app-server --print-startup-config --startup-client-info` 參數在舊版不存在：舊 CLI 回傳 exit 2、`unexpected argument`；套件內附 `0.166.0-alpha.6` 則回傳 `appServerVersion` 與 `configRequirements`。畫面只顯示啟動政策讀取失敗，不能直接歸因網路或組織限制。
+
+讓 Desktop 的啟動檢查使用套件內附 CLI，同時保留原共用 daemon：
+
+```bash
+export CODEX_CLI_PATH="/opt/codex-desktop/resources/codex"
+export CODEX_APP_SERVER_WS_URL="ws+unix://localhost${shared_socket}:/rpc"
+exec /usr/bin/codex-desktop "$@"
+```
+
+`CODEX_CLI_PATH` 用於新版 Desktop 的啟動檢查，不代表必須重啟現有共用 daemon。兩端後續 API 仍需依版本驗證。
+
+Electron 可能清理 `/proc/<pid>/environ`，空白欄位不能證明原本未設定 WebSocket。應以新程序的實際 Unix socket peer inode、共用 daemon PID，以及日誌的 `transport=websocket`／`connected` 交叉確認。
 
 回復時還原備份的 MCP 設定與啟動入口，再呼叫重載 API。不要刪聊天或鎖檔。
 
 ## 驗證
 
 - 啟動入口 `bash -n` 通過。
-- 5 個連線選擇測試通過：同 socket 去重、歧義拒絕、其他執行檔拒絕、失效／非 socket 拒絕、其他使用者拒絕。
+- 6 個連線選擇測試通過：原5項加上無 stdio 子程序時，從 Desktop 實際持有的 socket 找到橋接。
 - 指定目前 thread 的狀態為 `codex_desktop connected`，列出 55 工具且含封存工具。
 - 模型當輪能看見工具，實際讀取呼叫成功。
 - 對原已封存聊天做冪等 `archived:true`，介面成功且封存旗標維持 1。這不是完整的未封存→封存狀態切換測試。
 - 原 MCP 工具數維持、共用 daemon PID 未變；未將單純程序存活當成跨裝置驗收。
-- 真實 Desktop 重開與整機冷開機，在初次修復驗證時仍未完成。
+- 真實 Desktop 重開已驗收：新 GUI PID、新原生 socket、共用 WebSocket peer inode均核對；啟動入口自動等待55工具就緒並重載，重開後55工具及封存工具恢復，共用 daemon PID維持。整機冷開機仍未驗。
 
-另有一個容易混淆的測試：對仍在進行、原本未封存的聊天呼叫 `archived:false`，回報 `already has an active writer`；直接呼叫同一共用後端的 `thread/unarchive` 也得到相同錯誤。這個解除封存案例不能直接當成橋接連錯後端，也不能解釋過往所有封存逾時。
+另有一個容易混淆的測試：對仍在進行、原本未封存的聊天呼叫 `archived:false`，回報 `already has an active writer`；直接呼叫同一共用後端的 `thread/unarchive` 也得到相同錯誤。這個解除封存案例不能直接當成橋接連錯後端，也不能解釋過往所有封存逾時。後續真正對進行中的目前聊天執行封存也曾回報相同錯誤，因此冪等測試不足以宣稱實際結束流程已驗收；需要重跑原流程並確認狀態。
 
 ## 下次先查
 
