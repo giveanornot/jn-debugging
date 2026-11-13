@@ -1,5 +1,5 @@
 {
-  "count": 96,
+  "count": 97,
   "pages": [
     {
       "title": "關於 JN",
@@ -1153,6 +1153,29 @@
       "slug": "linux/cosmic-chromium-wayland-fullscreen-exit",
       "url": "/linux/cosmic-chromium-wayland-fullscreen-exit/",
       "source": "src/content/docs/linux/cosmic-chromium-wayland-fullscreen-exit.md"
+    },
+    {
+      "title": "COSMIC 切工作區後按住 Meta 卻輸入數字",
+      "description": "從 Discord 訊息框切到 ChatGPT 後，第二次按數字變成文字輸入。用 Fcitx5 服務停用測試縮小範圍。",
+      "date": "2026-11-13",
+      "status": "investigating",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "fcitx",
+        "keyboard"
+      ],
+      "aliases": [
+        "Super number workspace switch types digits",
+        "Fcitx5 Meta modifier lost after workspace switch"
+      ],
+      "related": [],
+      "slug": "linux/cosmic-fcitx-meta-workspace-switch",
+      "url": "/linux/cosmic-fcitx-meta-workspace-switch/",
+      "source": "src/content/docs/linux/cosmic-fcitx-meta-workspace-switch.md"
     },
     {
       "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
