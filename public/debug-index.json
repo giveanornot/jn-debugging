@@ -1,5 +1,5 @@
 {
-  "count": 95,
+  "count": 96,
   "pages": [
     {
       "title": "關於 JN",
@@ -209,6 +209,29 @@
       "source": "src/content/docs/ai-tools/openclaw-codex-model-provider-migration.md"
     },
     {
+      "title": "Plurk 搜尋把錯誤回應當成空結果",
+      "description": "Plurk search clients must record each query's HTTP and response status before treating an empty result as a valid response.",
+      "date": "2026-11-13",
+      "status": "fixed",
+      "system": "plurk-search",
+      "severity": "medium",
+      "tags": [
+        "plurk",
+        "api",
+        "search",
+        "rate-limit",
+        "python"
+      ],
+      "aliases": [
+        "Plurk search empty rate limit",
+        "Plurk API error mistaken for no results"
+      ],
+      "related": [],
+      "slug": "ai-tools/plurk-search-empty-http-error",
+      "url": "/ai-tools/plurk-search-empty-http-error/",
+      "source": "src/content/docs/ai-tools/plurk-search-empty-http-error.md"
+    },
+    {
       "title": "Threads 引用卡片讓網址、時間與內文錯配",
       "description": "A Threads extractor can assign the outer card's first timestamp and text to a quoted permalink, falsely satisfying a search checkpoint; bind timestamps to each permalink and reject unverified legacy coverage.",
       "date": "2026-10-25",
@@ -236,7 +259,7 @@
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
       "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
-      "date": "2026-11-05",
+      "date": "2026-11-13",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",

@@ -1,7 +1,7 @@
 ---
 title: Threads 搜尋被虛擬 DOM 與逾時誤判完成
 description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.
-date: 2026-11-05
+date: 2026-11-13
 tags:
   - threads
   - browser-automation
@@ -120,6 +120,12 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 佇列記來源模組指紋。版本不同先阻擋，再依實際改動選preserve或rebuild，均先備份。捲動／抽取證據失效時追加撤銷標記、新coverage epoch，保留raw與原checkpoint，不以舊coverage完成新遍歷。
 - 污染必須有實頁證據，明確incomplete。品質紀錄逐筆人工標相關／無關／待確認，保留分母與時間窗內外數量；變體共用原詞凍結checkpoint但獨立狀態，不覆蓋原詞缺口。
 
+### 精確比對的限制
+
+2026-11-13 實頁測試，在 Advanced search 啟用 Exact match 後重新選 Recent：中文自組鍵盤及具體型號的可見樣本，比一般搜尋少了拆詞帶來的商品與無關結果。但 Publii 仍命中同拼字的外語廣告；結果群組也可能附帶不含搜尋詞的上下文。這是少量可見樣本，不代表完整時間覆蓋或全部結果相關。
+
+套用進階條件可能回到 Top；必須重新選 Recent 並確認實際 URL 含 `exact_match=true` 與 `filter=recent`。只在實頁有改善證據時把它登記為獨立變體，共用原詞 checkpoint，不能覆寫原詞的 incomplete，也不能由找到舊貼文推定近期沒有結果。
+
 ## 驗證
 
 - `node --check` 驗證 runner 與 mock test 語法。
@@ -133,6 +139,7 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 實頁空白分頁得到results_not_loaded，沒有被當無結果；指定重查保留同一checkpoint與既有資料。正式raw、events、manifest與seen在後續schema遷移前後雜湊一致。
 - 四詞ABBA在相同checkpoint與1.1秒等待下，單分頁兩次取得39／51組query＋URL，雙分頁兩次各35組。單分頁自己也變動，不能證明等量加速，也不能直接歸因雙分頁漏文；預設維持單分頁。
 - 窄主題補搜中，原詞5筆全無關，具體鍵盤型號13筆有12筆主題相關、1筆待確認；但11筆是checkpoint以前的舊文，時間窗內只有1相關／1待確認。這不證明台灣互動價值、整體召回率或覆蓋所有同類產品。
+- 2026-11-13 單頁小樣本確認 Exact match 的開關與 Recent 可並用；鍵盤詞有改善，Publii 仍有同拼字雜訊。未執行完整變體遍歷或補齊歷史缺口。
 
 跨時間邊界是本工具的驗收條件；平台可能延遲、改排或漏送，不能由此保證全平台貼文已完整取得。搜尋品質與效能實驗資料另行保存，不混入正式seen。
 
