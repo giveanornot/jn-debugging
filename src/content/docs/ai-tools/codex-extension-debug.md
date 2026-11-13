@@ -1,7 +1,7 @@
 ---
 title: Browser Extension 連線診斷
 description: Chrome/Brave extension 連線或 Page.navigate 逾時時，分開檢查 profile、GUI env、App、MCP browser service 與 native host 版本。
-date: 2026-11-05
+date: 2026-11-13
 tags:
   - browser-automation
   - chrome
@@ -90,6 +90,14 @@ Cannot read properties of undefined (reading 'timeoutMs')
 更新官方signed stable來源與維護中的Community builder，備份後移除MCP中的舊service／版本固定值，重新載入MCP程序，導覽、AX、貼文抽取、可見清單捲動與關頁均成功。未改extension、native host registry或登入資料，也未注入允許政策。
 
 上述版本是案例值，不是未來應固定安裝的最新版。較早的有效權限／profile唯讀問題仍是另一分支；本例沒有定位所有新聊天選用權限的來源。
+
+### manifest 檢查通過，但 host 執行檔缺失
+
+一次案例中，Chrome extension 已安裝並啟用，native host manifest 的名稱及 origins 也通過檢查，但 browser backend 仍不可用。檢查器沒有驗證 manifest 的 `path` 指向的檔案是否存在：該路徑經 `latest` 指向同版 plugin cache，而快取缺少 `extension-host`。重裝瀏覽器 extension 沒有補齊這份桌面端檔案。
+
+檢查 manifest 的實際目標是否存在且可執行；不要輸出憑證或 profile 內容。先依當前產品的安裝與修復流程處理。此案例在使用者明確要求直接修復後，將本機已安裝的**相同版本**官方 bundle 中 host 原樣補入快取，並比對 SHA-256；沒有修改 manifest、帳號或權限。這是該環境的操作紀錄，不是通用安裝指令，版本或來源不明時不要混用。
+
+補回後 extension 已連線，Threads 可導覽、讀取頁面、執行唯讀 DOM 查詢、發出捲動及關頁；兩個搜尋的內容遭無關結果淹沒，未證實搜尋品質或完整覆蓋。先前補快取時排除 host，可解釋缺檔，但 `latest` 為何變動尚不明；更新後的持久性未驗證。
 
 ## 影響範圍
 
@@ -303,7 +311,7 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 1. 確認啟動器用哪個 browser binary 與 profile 路徑。
 2. 確認該 profile 有 extension。
-3. 確認 native host manifest 存在。
+3. 確認 native host manifest 存在，並檢查其 `path` 的執行檔實際存在且可執行。
 4. 確認 agent process 有 GUI env。
 5. 手動開啟同一 profile 後，確認 extension 顯示 Connected。
 6. 再重啟 browser helper，讀取一個既有分頁。
