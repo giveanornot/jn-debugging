@@ -195,3 +195,15 @@ RSSHub container healthy 但 browser route 503 時，先看 route 需要哪種 b
 3. `docker exec ... cat /app/.env`
 4. 確認 image 是否用 `PUPPETEER_SKIP_DOWNLOAD=0` build
 5. root container 啟動 Chromium 時檢查 `--no-sandbox`
+
+## 建置時找不到 ZIP 解壓工具
+
+開啟 Chromium 下載後，若 `chromium-downloader` 階段出現 `Extraction failed: no zip archiver is available`，先確認錯誤發生在安裝瀏覽器的階段。這次 Chrome 壓縮檔已下載，但該階段沒有可用的解壓工具。
+
+在同一個下載階段的 AMD64 條件分支內，在呼叫 Puppeteer 安裝命令之前加上：
+
+```dockerfile
+apt-get update && apt-get install -yq --no-install-recommends unzip && \
+```
+
+重新建置後，先用臨時容器檢查 `/healthz` 和新路由。切換正式容器後，再實測依賴 Chromium 的路由。這次正式 Dcard feed 回 200 並有 13 筆，Docker healthcheck 也達到 healthy。

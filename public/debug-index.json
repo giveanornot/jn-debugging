@@ -1,5 +1,5 @@
 {
-  "count": 99,
+  "count": 100,
   "pages": [
     {
       "title": "關於 JN",
@@ -450,6 +450,26 @@
       "slug": "docker/ddclient-redundant-hosts-stale-records",
       "url": "/docker/ddclient-redundant-hosts-stale-records/",
       "source": "src/content/docs/docker/ddclient-redundant-hosts-stale-records.md"
+    },
+    {
+      "title": "Docker Compose up --wait 遇到 No such container",
+      "description": "容器在 Compose 等待期間被替換時，透過服務名稱重新檢查映像與健康狀態。",
+      "date": "2026-11-16",
+      "status": "fixed",
+      "system": "docker",
+      "severity": "low",
+      "tags": [
+        "docker",
+        "docker-compose",
+        "healthcheck"
+      ],
+      "aliases": [
+        "No such container during compose up --wait"
+      ],
+      "related": [],
+      "slug": "docker/docker-compose-wait-container-replaced",
+      "url": "/docker/docker-compose-wait-container-replaced/",
+      "source": "src/content/docs/docker/docker-compose-wait-container-replaced.md"
     },
     {
       "title": "Docker WireGuard 全隧道連線後失去網路或管理連線",
