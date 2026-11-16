@@ -1,5 +1,5 @@
 {
-  "count": 97,
+  "count": 98,
   "pages": [
     {
       "title": "關於 JN",
@@ -1469,6 +1469,28 @@
       "slug": "linux/rime-fcitx-reset",
       "url": "/linux/rime-fcitx-reset/",
       "source": "src/content/docs/linux/rime-fcitx-reset.md"
+    },
+    {
+      "title": "RP2040 Pro Micro GP26–GP29 上拉失效與 Vial 回到 BOOTSEL",
+      "description": "排查 HW-467AB 相容控制器的 ADC_AVDD 供電異常、矩陣誤觸和 Vial 重啟。",
+      "date": "2026-11-16",
+      "status": "investigating",
+      "system": "RP2040",
+      "severity": "medium",
+      "tags": [
+        "rp2040",
+        "vial",
+        "qmk",
+        "keyboard"
+      ],
+      "aliases": [
+        "HW-467AB GP26 GP27 GP28 GP29 pull-up",
+        "Lily58 Vial RPI-RP2 開機後重新出現"
+      ],
+      "related": [],
+      "slug": "linux/rp2040-promicro-adc-avdd-matrix",
+      "url": "/linux/rp2040-promicro-adc-avdd-matrix/",
+      "source": "src/content/docs/linux/rp2040-promicro-adc-avdd-matrix.md"
     },
     {
       "title": "Stardew Valley Linux 多人連線卡住",
