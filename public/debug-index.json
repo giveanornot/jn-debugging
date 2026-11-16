@@ -1,5 +1,5 @@
 {
-  "count": 98,
+  "count": 99,
   "pages": [
     {
       "title": "關於 JN",
@@ -161,6 +161,27 @@
       "slug": "ai-tools/codex-shared-backend-desktop-mcp-missing",
       "url": "/ai-tools/codex-shared-backend-desktop-mcp-missing/",
       "source": "src/content/docs/ai-tools/codex-shared-backend-desktop-mcp-missing.md"
+    },
+    {
+      "title": "Codex SSH 聊天無法連上瀏覽器驗證主機",
+      "description": "比較 Desktop 本機聊天與 SSH 共用後端，定位 cua_repl 缺少瀏覽器驗證資訊的環節。",
+      "date": "2026-11-16",
+      "status": "investigating",
+      "system": "Codex Desktop",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "ssh",
+        "browser"
+      ],
+      "aliases": [
+        "The browser access host is unavailable",
+        "BROWSER_USE_ACCESS_EXECUTOR_ID"
+      ],
+      "related": [],
+      "slug": "ai-tools/codex-ssh-browser-access-host-unavailable",
+      "url": "/ai-tools/codex-ssh-browser-access-host-unavailable/",
+      "source": "src/content/docs/ai-tools/codex-ssh-browser-access-host-unavailable.md"
     },
     {
       "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
