@@ -18,7 +18,7 @@
     {
       "title": "Codex Desktop Linux 找不到 CLI",
       "description": "Codex Desktop Linux reboot 後找不到 CLI 時，同時檢查 launcher path、runtime cache 與磁碟空間。",
-      "date": "2026-07-12",
+      "date": "2026-11-19",
       "status": "fixed",
       "system": "codex-desktop",
       "severity": "medium",
