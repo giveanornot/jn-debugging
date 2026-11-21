@@ -1,5 +1,5 @@
 {
-  "count": 100,
+  "count": 103,
   "pages": [
     {
       "title": "關於 JN",
@@ -374,6 +374,29 @@
       "source": "src/content/docs/docker/artalk-docker-upgrade-sqlite-backup.md"
     },
     {
+      "title": "ClickHouse 升級驗證：CPU 指令集與 JSON 整數假差異",
+      "description": "ClickHouse 隔離升級可能先遇到虛擬CPU缺指令集，再因JSON整數序列化預設差異誤判資料變動。",
+      "date": "2026-11-21",
+      "status": "fixed",
+      "system": "clickhouse",
+      "severity": "high",
+      "tags": [
+        "clickhouse",
+        "plausible",
+        "cpu",
+        "migration"
+      ],
+      "aliases": [
+        "ClickHouse Illegal instruction AVX2 VM",
+        "output_format_json_quote_64bit_integers",
+        "ClickHouse migration row hash mismatch"
+      ],
+      "related": [],
+      "slug": "docker/clickhouse-upgrade-cpu-json-validation",
+      "url": "/docker/clickhouse-upgrade-cpu-json-validation/",
+      "source": "src/content/docs/docker/clickhouse-upgrade-cpu-json-validation.md"
+    },
+    {
       "title": "Cosmos 431：跨子網域 Cookie 讓 Request Header Fields Too Large",
       "description": "A shared parent-domain cookie can make an unrelated subdomain exceed Cosmos Server's request-header limit and return HTTP 431.",
       "date": "2026-08-02",
@@ -395,6 +418,29 @@
       "slug": "docker/cosmos-431-cross-subdomain-cookies",
       "url": "/docker/cosmos-431-cross-subdomain-cookies/",
       "source": "src/content/docs/docker/cosmos-431-cross-subdomain-cookies.md"
+    },
+    {
+      "title": "Cosmos HTTP1 正常、HTTP2 連線關閉：共用 Server 啟動競態",
+      "description": "Cosmos 的 plain HTTP 與 TLS handoff 共用 Go HTTP Server，初始化次序可能讓 h2 協商成功卻沒有 HTTP2 handler。",
+      "date": "2026-11-21",
+      "status": "fixed",
+      "system": "cosmos-server",
+      "severity": "high",
+      "tags": [
+        "cosmos",
+        "golang",
+        "http2",
+        "startup-race"
+      ],
+      "aliases": [
+        "ERR_CONNECTION_CLOSED Cosmos",
+        "curl 16 HTTP2 framing layer",
+        "nextProtoOnce ServeTLS Serve"
+      ],
+      "related": [],
+      "slug": "docker/cosmos-http2-startup-nextproto-race",
+      "url": "/docker/cosmos-http2-startup-nextproto-race/",
+      "source": "src/content/docs/docker/cosmos-http2-startup-nextproto-race.md"
     },
     {
       "title": "Cosmos Let’s Encrypt 合併憑證因舊網域續期失敗",
@@ -619,6 +665,30 @@
       "slug": "docker/newsblur-custom-domain-redirect-loop",
       "url": "/docker/newsblur-custom-domain-redirect-loop/",
       "source": "src/content/docs/docker/newsblur-custom-domain-redirect-loop.md"
+    },
+    {
+      "title": "NewsBlur 升 Django 5：轉換舊 Session 並保留登入",
+      "description": "升級 NewsBlur Python、Django、Celery 時，需在舊 runtime 轉換伺服器端 Pickle Session，並分開驗證 SQL、登入、API與背景任務。",
+      "date": "2026-11-21",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "django",
+        "session",
+        "redis",
+        "migration"
+      ],
+      "aliases": [
+        "Django PickleSerializer removed",
+        "NewsBlur Python 3.13 Django 5.2",
+        "Redis session JSON migration"
+      ],
+      "related": [],
+      "slug": "docker/newsblur-django5-session-json-migration",
+      "url": "/docker/newsblur-django5-session-json-migration/",
+      "source": "src/content/docs/docker/newsblur-django5-session-json-migration.md"
     },
     {
       "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
