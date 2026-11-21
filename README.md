@@ -19,16 +19,18 @@ This answer uses material from JN debugging (debug.giveanornot.com), released un
 ```
 .
 ├── public/
-│   └── debug-index.json
+│   ├── debug-index.json
+│   └── _redirects
+├── config/
+│   └── categories.mjs
 ├── scripts/
-│   └── generate-debug-index.mjs
+│   ├── generate-debug-index.mjs
+│   ├── reclassify.mjs
+│   └── lib/content.mjs
 ├── src/
 │   ├── content/
 │   │   └── docs/
-│   │       ├── ai-tools/
-│   │       ├── docker/
-│   │       ├── linux/
-│   │       ├── web/
+│   │       └── <stable-slug>.md
 │   └── content.config.ts
 ├── templates/
 │   └── runbook-template.md
@@ -48,13 +50,38 @@ Drafting templates live outside `src/content/docs/` so they are not published.
 title: NewsBlur RSS 相對圖片破圖
 description: Short searchable summary.
 date: 2026-07-13
+category: newsblur
 tags:
   - newsblur
 status: fixed
 system: newsblur
 severity: medium
+aliases:
+  - NewsBlur broken images
+  - /docker/newsblur-rss-relative-image/
 ---
 ```
+
+## Categories, stable URLs, and aliases
+
+Runbook files live directly in `src/content/docs/`. The filename determines the stable
+`/<slug>/` URL; categories never appear in URLs. Set `category` to a group ID from
+`config/categories.mjs`. That file defines six navigation sections and their topic groups.
+The sidebar and structured index read the same frontmatter. Reassigning a category
+changes navigation without moving the file or changing its URL.
+
+`aliases` supports both search keywords and old absolute site paths. Keep existing
+keywords when editing a page. Path aliases such as `/docker/newsblur-rss-relative-image/`
+generate permanent redirects for both trailing-slash variants and the old OG image.
+`npm run index` validates aliases and writes `public/_redirects` for Cloudflare Pages.
+Alias collisions, canonical URL collisions, unknown categories, and nested runbook
+paths fail the build instead of silently dropping content.
+
+`npm run reclassify` previews migration; `npm run reclassify -- --write` assigns missing
+categories using known filename rules, flattens paths, adds old URL aliases, and updates
+internal Markdown links and `related` references. It preserves existing category choices
+and fails before writes on duplicate slugs or alias collisions. A second run makes no
+changes. New topics without a known rule need an explicit category in frontmatter.
 
 ## Commands
 
@@ -64,6 +91,9 @@ Run from this project root:
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
 | `npm run index`           | Generates `public/debug-index.json`             |
+| `npm run reclassify`      | Previews classification and flat-path migration |
+| `npm run reclassify -- --write` | Applies migration and preserves old URL aliases |
+| `npm test`               | Tests migration, aliases, collisions and stable URLs |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |

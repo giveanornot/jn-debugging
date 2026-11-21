@@ -2,6 +2,7 @@
 title: Example Service 問題摘要
 description: One searchable sentence that explains the failure mode.
 date: YYYY-MM-DD
+category: newsblur
 tags:
   - service-name
 status: fixed

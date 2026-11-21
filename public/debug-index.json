@@ -11,9 +11,342 @@
       "tags": [],
       "aliases": [],
       "related": [],
+      "category": null,
+      "section": null,
       "slug": "about",
       "url": "/about/",
       "source": "src/content/docs/about.md"
+    },
+    {
+      "title": "Android Quick Share 在 Linux 找不到裝置時的 P2P 與藍牙替代方案",
+      "description": "When Android Quick Share cannot discover a Linux desktop, distinguish LAN-only clients from Wi-Fi P2P limits and fall back to Bluetooth OBEX transfer.",
+      "date": "2026-08-11",
+      "status": "investigating",
+      "system": "linux-desktop",
+      "severity": "low",
+      "tags": [
+        "android",
+        "quick-share",
+        "bluetooth",
+        "linux-desktop",
+        "networkmanager"
+      ],
+      "aliases": [
+        "rquickshare same Wi-Fi",
+        "Linux Quick Share device not found",
+        "Android Quick Share Bluetooth fallback",
+        "nearby Fast Initiation scanning failed",
+        "/linux/android-quick-share-linux-p2p-bluetooth-fallback/"
+      ],
+      "related": [],
+      "category": "apps",
+      "section": "desktop",
+      "slug": "android-quick-share-linux-p2p-bluetooth-fallback",
+      "url": "/android-quick-share-linux-p2p-bluetooth-fallback/",
+      "source": "src/content/docs/android-quick-share-linux-p2p-bluetooth-fallback.md"
+    },
+    {
+      "title": "Arch AUR 更新要求移除 pipewire-jack：lib32-jack2 建置依賴衝突",
+      "description": "lib32-mpg123 的建置依賴指定 lib32-jack2，間接拉入 jack2；改用通用 lib32-jack provider，保留 PipeWire 並完成建置。",
+      "date": "2026-10-07",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "arch-linux",
+        "aur",
+        "paru",
+        "pipewire",
+        "jack"
+      ],
+      "aliases": [
+        "jack2 and pipewire-jack are in conflict",
+        "Remove pipewire-jack",
+        "lib32-mpg123 makedepends",
+        "lib32-pipewire-jack",
+        "/linux/arch-aur-lib32-jack2-pipewire-conflict/"
+      ],
+      "related": [],
+      "category": "packages",
+      "section": "desktop",
+      "slug": "arch-aur-lib32-jack2-pipewire-conflict",
+      "url": "/arch-aur-lib32-jack2-pipewire-conflict/",
+      "source": "src/content/docs/arch-aur-lib32-jack2-pipewire-conflict.md"
+    },
+    {
+      "title": "Arch Linux ELAN 指紋辨識在 COSMIC 鎖定畫面失效",
+      "description": "ELAN 04f3:0c4b 已註冊卻無法解鎖時，依序確認專用驅動、實際比對結果，以及 COSMIC 與 Bitwarden 各自使用的 PAM service。",
+      "date": "2026-08-12",
+      "status": "fixed",
+      "system": "Linux desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "fingerprint",
+        "fprintd",
+        "cosmic",
+        "pam",
+        "bitwarden",
+        "polkit"
+      ],
+      "aliases": [
+        "ELAN 04f3:0c4b fprintd",
+        "COSMIC fingerprint unlock",
+        "pam_fprintd COSMIC lock screen",
+        "COSMIC fingerprint timeout password fallback",
+        "pam_fprintd timeout=-1",
+        "Bitwarden system authentication fingerprint",
+        "/linux/arch-elan-fingerprint-cosmic-pam/"
+      ],
+      "related": [],
+      "category": "session",
+      "section": "desktop",
+      "slug": "arch-elan-fingerprint-cosmic-pam",
+      "url": "/arch-elan-fingerprint-cosmic-pam/",
+      "source": "src/content/docs/arch-elan-fingerprint-cosmic-pam.md"
+    },
+    {
+      "title": "Arch NVIDIA 580xx driver/library mismatch：split package 與未重開機",
+      "description": "NVIDIA 更新後出現 driver/library mismatch 時，先分辨 AUR split packages 未對齊，或套件已對齊但仍在使用舊 kernel module。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "nvidia",
+        "aur",
+        "steam"
+      ],
+      "aliases": [
+        "nvidia driver library mismatch",
+        "lib32-nvidia mismatch",
+        "nvidia-580xx",
+        "nvidia 更新後未重開機",
+        "/linux/arch-nvidia-580xx-split-package-mismatch/"
+      ],
+      "related": [],
+      "category": "session",
+      "section": "desktop",
+      "slug": "arch-nvidia-580xx-split-package-mismatch",
+      "url": "/arch-nvidia-580xx-split-package-mismatch/",
+      "source": "src/content/docs/arch-nvidia-580xx-split-package-mismatch.md"
+    },
+    {
+      "title": "Arch paru AUR RPC EOF 與 Chaotic-AUR geo mirror timeout",
+      "description": "Diagnose paru AUR RPC unexpected EOF separately from a Chaotic-AUR geo mirror timeout, then restore reliable package upgrade checks.",
+      "date": "2026-08-03",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "paru",
+        "aur",
+        "chaotic-aur",
+        "networkmanager"
+      ],
+      "aliases": [
+        "paru unexpected EOF",
+        "aur rpc EOF",
+        "chaotic-aur mirror timeout",
+        "/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/"
+      ],
+      "related": [],
+      "category": "packages",
+      "section": "desktop",
+      "slug": "arch-paru-aur-rpc-eof-chaotic-mirror-timeout",
+      "url": "/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/",
+      "source": "src/content/docs/arch-paru-aur-rpc-eof-chaotic-mirror-timeout.md"
+    },
+    {
+      "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
+      "description": "Artalk Docker 升版前以 SQLite online backup 保留可回復資料，釘選版本並核對留言資料與公開前端。",
+      "date": "2026-10-26",
+      "status": "fixed",
+      "system": "artalk",
+      "severity": "medium",
+      "tags": [
+        "artalk",
+        "docker",
+        "sqlite",
+        "deployment"
+      ],
+      "aliases": [
+        "Artalk Docker upgrade",
+        "Artalk SQLite backup",
+        "/docker/artalk-docker-upgrade-sqlite-backup/"
+      ],
+      "related": [],
+      "category": "artalk",
+      "section": "services",
+      "slug": "artalk-docker-upgrade-sqlite-backup",
+      "url": "/artalk-docker-upgrade-sqlite-backup/",
+      "source": "src/content/docs/artalk-docker-upgrade-sqlite-backup.md"
+    },
+    {
+      "title": "Artalk 關鍵字 filter 不會拒收留言，預設待審時如何處理",
+      "description": "釐清 Artalk 2.10.1 的關鍵字待審與替換模式，避免把空字串替換誤認為拒收，並保留全體留言待審設定。",
+      "date": "2026-11-04",
+      "status": "fixed",
+      "system": "artalk",
+      "severity": "low",
+      "tags": [
+        "artalk",
+        "moderation",
+        "configuration"
+      ],
+      "aliases": [
+        "Artalk keyword filter",
+        "Set to pending when match",
+        "Artalk replace_to 空字串",
+        "/web/artalk-keyword-filter-pending-replace/"
+      ],
+      "related": [],
+      "category": "artalk",
+      "section": "services",
+      "slug": "artalk-keyword-filter-pending-replace",
+      "url": "/artalk-keyword-filter-pending-replace/",
+      "source": "src/content/docs/artalk-keyword-filter-pending-replace.md"
+    },
+    {
+      "title": "Astro Starlight 文件站的 Article schema 與逐頁 Open Graph 圖",
+      "description": "A Starlight documentation site is crawlable but its Article markup and shared social image are incomplete; emit Google-compatible Article data and prerender a representative image per page.",
+      "date": "2026-08-12",
+      "status": "fixed",
+      "system": "astro-starlight",
+      "severity": "low",
+      "tags": [
+        "astro",
+        "starlight",
+        "seo",
+        "json-ld",
+        "open-graph",
+        "social-image"
+      ],
+      "aliases": [
+        "Starlight SEO metadata",
+        "TechArticle Google Article schema",
+        "Open Graph per-page image",
+        "Twitter image alt",
+        "Astro static OG image",
+        "/web/astro-starlight-article-schema-og-image/"
+      ],
+      "related": [],
+      "category": "static-sites",
+      "section": "web",
+      "slug": "astro-starlight-article-schema-og-image",
+      "url": "/astro-starlight-article-schema-og-image/",
+      "source": "src/content/docs/astro-starlight-article-schema-og-image.md"
+    },
+    {
+      "title": "Brave 更新後外部連結開成另一個瀏覽器實例",
+      "description": "Brave 長時間未重啟時，套件更新後由系統 URL handler 開啟的連結可能啟動新版程序，而非交給舊版視窗。",
+      "date": "2026-08-04",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "low",
+      "tags": [
+        "brave",
+        "browser",
+        "linux-desktop",
+        "package-update"
+      ],
+      "aliases": [
+        "Brave 外部連結另開視窗",
+        "Brave 不是同一個實例",
+        "Brave update separate process",
+        "xdg-open Brave",
+        "/linux/brave-update-separate-instance/"
+      ],
+      "related": [],
+      "category": "apps",
+      "section": "desktop",
+      "slug": "brave-update-separate-instance",
+      "url": "/brave-update-separate-instance/",
+      "source": "src/content/docs/brave-update-separate-instance.md"
+    },
+    {
+      "title": "ClickHouse 升級驗證：CPU 指令集與 JSON 整數假差異",
+      "description": "ClickHouse 隔離升級可能先遇到虛擬CPU缺指令集，再因JSON整數序列化預設差異誤判資料變動。",
+      "date": "2026-11-21",
+      "status": "fixed",
+      "system": "clickhouse",
+      "severity": "high",
+      "tags": [
+        "clickhouse",
+        "plausible",
+        "cpu",
+        "migration"
+      ],
+      "aliases": [
+        "ClickHouse Illegal instruction AVX2 VM",
+        "output_format_json_quote_64bit_integers",
+        "ClickHouse migration row hash mismatch",
+        "/docker/clickhouse-upgrade-cpu-json-validation/"
+      ],
+      "related": [],
+      "category": "database",
+      "section": "server",
+      "slug": "clickhouse-upgrade-cpu-json-validation",
+      "url": "/clickhouse-upgrade-cpu-json-validation/",
+      "source": "src/content/docs/clickhouse-upgrade-cpu-json-validation.md"
+    },
+    {
+      "title": "Cloudflare Pages Direct Upload 的 upload-token 回 405",
+      "description": "A Pages Direct Upload client gets HTTP 405 when it POSTs to upload-token; the current Wrangler flow obtains that JWT with GET, then POSTs assets and deployments separately.",
+      "date": "2026-07-16",
+      "status": "fixed",
+      "system": "cloudflare-pages",
+      "severity": "medium",
+      "tags": [
+        "cloudflare",
+        "pages",
+        "direct-upload",
+        "oauth",
+        "cors"
+      ],
+      "aliases": [
+        "Pages upload-token 405",
+        "Cloudflare Pages Direct Upload JWT",
+        "GET upload-token",
+        "Pages assets check-missing",
+        "Pages asset hash BLAKE3",
+        "Wrangler asset hash",
+        "localhost CORS relay",
+        "/web/cloudflare-pages-upload-token-405/"
+      ],
+      "related": [],
+      "category": "cloudflare",
+      "section": "web",
+      "slug": "cloudflare-pages-upload-token-405",
+      "url": "/cloudflare-pages-upload-token-405/",
+      "source": "src/content/docs/cloudflare-pages-upload-token-405.md"
+    },
+    {
+      "title": "Codex 社群版建置失敗：舊套件與最新 signed stable 不一致",
+      "description": "Distinguish a pinned old Codex Linux package from a corrupt download when the community installer verifies only the latest signed stable release.",
+      "date": "2026-11-06",
+      "status": "wontfix",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "codex",
+        "arch-linux",
+        "aur",
+        "package-verification"
+      ],
+      "aliases": [
+        "Local package does not match the current signed stable release",
+        "codex-desktop-linux size mismatch",
+        "/linux/codex-community-pinned-package-stable-mismatch/"
+      ],
+      "related": [],
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-community-pinned-package-stable-mismatch",
+      "url": "/codex-community-pinned-package-stable-mismatch/",
+      "source": "src/content/docs/codex-community-pinned-package-stable-mismatch.md"
     },
     {
       "title": "Codex Desktop Linux 找不到 CLI",
@@ -31,12 +364,15 @@
       "aliases": [
         "Unable to locate the Codex CLI binary",
         "Codex CLI initialized",
-        "Codex runtime cache"
+        "Codex runtime cache",
+        "/ai-tools/codex-desktop-cli-runtime-cache/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-desktop-cli-runtime-cache",
-      "url": "/ai-tools/codex-desktop-cli-runtime-cache/",
-      "source": "src/content/docs/ai-tools/codex-desktop-cli-runtime-cache.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-desktop-cli-runtime-cache",
+      "url": "/codex-desktop-cli-runtime-cache/",
+      "source": "src/content/docs/codex-desktop-cli-runtime-cache.md"
     },
     {
       "title": "Browser Extension 連線診斷",
@@ -57,12 +393,15 @@
         "Codex Chrome Extension",
         "Page.navigate timeout",
         "Computer use",
-        "Cannot read properties of undefined reading timeoutMs"
+        "Cannot read properties of undefined reading timeoutMs",
+        "/ai-tools/codex-extension-debug/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-extension-debug",
-      "url": "/ai-tools/codex-extension-debug/",
-      "source": "src/content/docs/ai-tools/codex-extension-debug.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-extension-debug",
+      "url": "/codex-extension-debug/",
+      "source": "src/content/docs/codex-extension-debug.md"
     },
     {
       "title": "Codex Linux 貼上截圖卡住：切換原生 Wayland",
@@ -82,12 +421,15 @@
       "aliases": [
         "Codex 貼圖片當機",
         "ChatGPT Linux 貼截圖卡住",
-        "XWayland clipboard freeze"
+        "XWayland clipboard freeze",
+        "/ai-tools/codex-linux-screenshot-paste-freeze-wayland/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-linux-screenshot-paste-freeze-wayland",
-      "url": "/ai-tools/codex-linux-screenshot-paste-freeze-wayland/",
-      "source": "src/content/docs/ai-tools/codex-linux-screenshot-paste-freeze-wayland.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-linux-screenshot-paste-freeze-wayland",
+      "url": "/codex-linux-screenshot-paste-freeze-wayland/",
+      "source": "src/content/docs/codex-linux-screenshot-paste-freeze-wayland.md"
     },
     {
       "title": "Codex Linux 語音不可用：從舊移植版改用官方 Voice chat",
@@ -107,12 +449,15 @@
         "Dictation is not available on this device",
         "Codex Linux Voice chat",
         "Start new voice chat",
-        "ChatGPT Linux 語音互動"
+        "ChatGPT Linux 語音互動",
+        "/ai-tools/codex-linux-voice-chat-official-app/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-linux-voice-chat-official-app",
-      "url": "/ai-tools/codex-linux-voice-chat-official-app/",
-      "source": "src/content/docs/ai-tools/codex-linux-voice-chat-official-app.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-linux-voice-chat-official-app",
+      "url": "/codex-linux-voice-chat-official-app/",
+      "source": "src/content/docs/codex-linux-voice-chat-official-app.md"
     },
     {
       "title": "Codex 手機 Remote 與 SSH 接手對話時出現 active writer",
@@ -131,12 +476,15 @@
         "已在另一個應用程式中開啟",
         "This is open in another app",
         "already has an active writer",
-        "Codex thread writer conflict"
+        "Codex thread writer conflict",
+        "/ai-tools/codex-remote-ssh-active-writer/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-remote-ssh-active-writer",
-      "url": "/ai-tools/codex-remote-ssh-active-writer/",
-      "source": "src/content/docs/ai-tools/codex-remote-ssh-active-writer.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-remote-ssh-active-writer",
+      "url": "/codex-remote-ssh-active-writer/",
+      "source": "src/content/docs/codex-remote-ssh-active-writer.md"
     },
     {
       "title": "Codex 共用後端缺少封存等 Desktop MCP 工具",
@@ -155,12 +503,15 @@
         "set_thread_archived missing",
         "codex_app runtimeStatus disabled",
         "CODEX_APP_TOOLS_PIPE_PATH",
-        "Desktop 工具橋接"
+        "Desktop 工具橋接",
+        "/ai-tools/codex-shared-backend-desktop-mcp-missing/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-shared-backend-desktop-mcp-missing",
-      "url": "/ai-tools/codex-shared-backend-desktop-mcp-missing/",
-      "source": "src/content/docs/ai-tools/codex-shared-backend-desktop-mcp-missing.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-shared-backend-desktop-mcp-missing",
+      "url": "/codex-shared-backend-desktop-mcp-missing/",
+      "source": "src/content/docs/codex-shared-backend-desktop-mcp-missing.md"
     },
     {
       "title": "Codex SSH 聊天無法連上瀏覽器驗證主機",
@@ -176,225 +527,183 @@
       ],
       "aliases": [
         "The browser access host is unavailable",
-        "BROWSER_USE_ACCESS_EXECUTOR_ID"
+        "BROWSER_USE_ACCESS_EXECUTOR_ID",
+        "/ai-tools/codex-ssh-browser-access-host-unavailable/"
       ],
       "related": [],
-      "slug": "ai-tools/codex-ssh-browser-access-host-unavailable",
-      "url": "/ai-tools/codex-ssh-browser-access-host-unavailable/",
-      "source": "src/content/docs/ai-tools/codex-ssh-browser-access-host-unavailable.md"
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-ssh-browser-access-host-unavailable",
+      "url": "/codex-ssh-browser-access-host-unavailable/",
+      "source": "src/content/docs/codex-ssh-browser-access-host-unavailable.md"
     },
     {
-      "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
-      "description": "OMP 已更新卻在 dist/cli.js 報 SyntaxError 時，檢查 shebang 實際解析到的 Bun 與不同啟動環境的 PATH。",
-      "date": "2026-09-28",
+      "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
+      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端、回退至 XWayland，並在更新後安全驗收原生 Wayland。",
+      "date": "2026-09-07",
       "status": "fixed",
-      "system": "oh-my-pi",
+      "system": "COSMIC / Chromium",
       "severity": "medium",
       "tags": [
-        "omp",
-        "bun",
         "linux",
-        "path"
+        "cosmic",
+        "wayland",
+        "chromium",
+        "brave",
+        "fullscreen"
       ],
       "aliases": [
-        "Oh My Pi Unexpected identifier",
-        "OMP Bun version mismatch",
-        "pi-coding-agent cli.js SyntaxError"
+        "Chromium fullscreen exits COSMIC",
+        "Brave 全螢幕自動退出",
+        "ozone-platform x11 fullscreen",
+        "cosmic-comp 2677",
+        "/linux/cosmic-chromium-wayland-fullscreen-exit/"
       ],
       "related": [],
-      "slug": "ai-tools/omp-old-bun-path-syntax-error",
-      "url": "/ai-tools/omp-old-bun-path-syntax-error/",
-      "source": "src/content/docs/ai-tools/omp-old-bun-path-syntax-error.md"
+      "category": "session",
+      "section": "desktop",
+      "slug": "cosmic-chromium-wayland-fullscreen-exit",
+      "url": "/cosmic-chromium-wayland-fullscreen-exit/",
+      "source": "src/content/docs/cosmic-chromium-wayland-fullscreen-exit.md"
     },
     {
-      "title": "OpenClaw 升級後 Codex 模型顯示 unavailable",
-      "description": "OpenClaw 升級後，因 Node runtime 或舊 openai-codex provider 殘留而無法使用 Codex 模型時的排查與修復。",
+      "title": "COSMIC 切工作區後按住 Meta 卻輸入數字",
+      "description": "從 Discord 訊息框切到 ChatGPT 後，第二次按數字變成文字輸入。用 Fcitx5 服務停用測試縮小範圍。",
+      "date": "2026-11-13",
+      "status": "investigating",
+      "system": "desktop",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "fcitx",
+        "keyboard"
+      ],
+      "aliases": [
+        "Super number workspace switch types digits",
+        "Fcitx5 Meta modifier lost after workspace switch",
+        "/linux/cosmic-fcitx-meta-workspace-switch/"
+      ],
+      "related": [],
+      "category": "input",
+      "section": "desktop",
+      "slug": "cosmic-fcitx-meta-workspace-switch",
+      "url": "/cosmic-fcitx-meta-workspace-switch/",
+      "source": "src/content/docs/cosmic-fcitx-meta-workspace-switch.md"
+    },
+    {
+      "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
+      "description": "COSMIC lock/unlock can leave a focused Wayland input context stuck so Fcitx5 SetCurrentIM returns success but the current input method stays keyboard-us.",
       "date": "2026-07-31",
       "status": "fixed",
-      "system": "openclaw",
+      "system": "desktop",
       "severity": "medium",
       "tags": [
-        "openclaw",
-        "codex",
-        "openai",
-        "nodejs"
+        "linux",
+        "cosmic",
+        "wayland",
+        "fcitx",
+        "rime",
+        "input-method"
       ],
       "aliases": [
-        "Configured model is unavailable from the provider",
-        "Unknown model openai-codex",
-        "OpenClaw Codex model unavailable"
+        "cosmic fcitx unlock",
+        "fcitx SetCurrentIM keyboard-us",
+        "wayland_v2 input context",
+        "rime cannot switch after unlock",
+        "/linux/cosmic-fcitx-unlock-wayland-context/"
       ],
       "related": [],
-      "slug": "ai-tools/openclaw-codex-model-provider-migration",
-      "url": "/ai-tools/openclaw-codex-model-provider-migration/",
-      "source": "src/content/docs/ai-tools/openclaw-codex-model-provider-migration.md"
+      "category": "input",
+      "section": "desktop",
+      "slug": "cosmic-fcitx-unlock-wayland-context",
+      "url": "/cosmic-fcitx-unlock-wayland-context/",
+      "source": "src/content/docs/cosmic-fcitx-unlock-wayland-context.md"
     },
     {
-      "title": "Plurk 搜尋把錯誤回應當成空結果",
-      "description": "Plurk search clients must record each query's HTTP and response status before treating an empty result as a valid response.",
-      "date": "2026-11-13",
-      "status": "fixed",
-      "system": "plurk-search",
-      "severity": "medium",
-      "tags": [
-        "plurk",
-        "api",
-        "search",
-        "rate-limit",
-        "python"
-      ],
-      "aliases": [
-        "Plurk search empty rate limit",
-        "Plurk API error mistaken for no results"
-      ],
-      "related": [],
-      "slug": "ai-tools/plurk-search-empty-http-error",
-      "url": "/ai-tools/plurk-search-empty-http-error/",
-      "source": "src/content/docs/ai-tools/plurk-search-empty-http-error.md"
-    },
-    {
-      "title": "Threads 引用卡片讓網址、時間與內文錯配",
-      "description": "A Threads extractor can assign the outer card's first timestamp and text to a quoted permalink, falsely satisfying a search checkpoint; bind timestamps to each permalink and reject unverified legacy coverage.",
-      "date": "2026-10-25",
-      "status": "fixed",
-      "system": "browser-automation",
-      "severity": "medium",
-      "tags": [
-        "threads",
-        "browser-automation",
-        "dom",
-        "checkpoint",
-        "data-integrity"
-      ],
-      "aliases": [
-        "Threads quoted post wrong timestamp",
-        "card querySelector time mismatch",
-        "Threads permalink timestamp pairing",
-        "Threads quote false coverage"
-      ],
-      "related": [],
-      "slug": "ai-tools/threads-quoted-post-url-time-pairing",
-      "url": "/ai-tools/threads-quoted-post-url-time-pairing/",
-      "source": "src/content/docs/ai-tools/threads-quoted-post-url-time-pairing.md"
-    },
-    {
-      "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
-      "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
-      "date": "2026-11-13",
-      "status": "fixed",
-      "system": "browser-automation",
-      "severity": "medium",
-      "tags": [
-        "threads",
-        "browser-automation",
-        "virtual-dom",
-        "checkpoint",
-        "codex",
-        "recovery"
-      ],
-      "aliases": [
-        "Threads search incomplete",
-        "Threads virtual DOM oldest timestamp",
-        "Threads search checkpoint",
-        "browser runner timeout",
-        "Threads no new URL false completion",
-        "Threads recent 7 day search"
-      ],
-      "related": [],
-      "slug": "ai-tools/threads-search-virtual-dom-checkpoint",
-      "url": "/ai-tools/threads-search-virtual-dom-checkpoint/",
-      "source": "src/content/docs/ai-tools/threads-search-virtual-dom-checkpoint.md"
-    },
-    {
-      "title": "VSCodium Remote SSH 的 Codex extension 卡在送出中",
-      "description": "Codex 在 VSCodium Remote SSH 無限轉圈時，檢查遠端 extension host 是否仍載入舊版 extension 與 stale webview cache。",
-      "date": "2026-07-31",
-      "status": "fixed",
-      "system": "codex-ide-extension",
-      "severity": "medium",
-      "tags": [
-        "codex",
-        "vscodium",
-        "vscode",
-        "remote-ssh"
-      ],
-      "aliases": [
-        "Codex extension infinite spinner",
-        "VSCodium Remote SSH Codex",
-        "openai.chatgpt stale extension"
-      ],
-      "related": [],
-      "slug": "ai-tools/vscodium-remote-ssh-codex-extension-stale-cache",
-      "url": "/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache/",
-      "source": "src/content/docs/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache.md"
-    },
-    {
-      "title": "VSCodium Codex 側欄無法載入：Service Worker InvalidStateError",
-      "description": "VSCodium 的 openai.chatgpt Webview 無法註冊 Service Worker 時，先正常退出，再備份並重建正確 profile 的快取。",
-      "date": "2026-10-24",
-      "status": "fixed",
-      "system": "codex-ide-extension",
-      "severity": "medium",
-      "tags": [
-        "vscodium",
-        "vscode",
-        "codex",
-        "service-worker"
-      ],
-      "aliases": [
-        "Could not register service worker",
-        "The document is in an invalid state",
-        "openai.chatgpt InvalidStateError"
-      ],
-      "related": [],
-      "slug": "ai-tools/vscodium-webview-service-worker-invalid-state",
-      "url": "/ai-tools/vscodium-webview-service-worker-invalid-state/",
-      "source": "src/content/docs/ai-tools/vscodium-webview-service-worker-invalid-state.md"
-    },
-    {
-      "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
-      "description": "Artalk Docker 升版前以 SQLite online backup 保留可回復資料，釘選版本並核對留言資料與公開前端。",
-      "date": "2026-10-26",
-      "status": "fixed",
-      "system": "artalk",
-      "severity": "medium",
-      "tags": [
-        "artalk",
-        "docker",
-        "sqlite",
-        "deployment"
-      ],
-      "aliases": [
-        "Artalk Docker upgrade",
-        "Artalk SQLite backup"
-      ],
-      "related": [],
-      "slug": "docker/artalk-docker-upgrade-sqlite-backup",
-      "url": "/docker/artalk-docker-upgrade-sqlite-backup/",
-      "source": "src/content/docs/docker/artalk-docker-upgrade-sqlite-backup.md"
-    },
-    {
-      "title": "ClickHouse 升級驗證：CPU 指令集與 JSON 整數假差異",
-      "description": "ClickHouse 隔離升級可能先遇到虛擬CPU缺指令集，再因JSON整數序列化預設差異誤判資料變動。",
-      "date": "2026-11-21",
-      "status": "fixed",
-      "system": "clickhouse",
+      "title": "COSMIC 桌面凍結：NVIDIA 核心鎖阻塞與重開機恢復",
+      "description": "COSMIC、面板與多個 GPU 程式同時卡在 NVIDIA rwlock；保存快照與紀錄後重開機恢復，保留尚未定位的觸發原因。",
+      "date": "2026-10-29",
+      "status": "investigating",
+      "system": "cosmic-desktop",
       "severity": "high",
       "tags": [
-        "clickhouse",
-        "plausible",
-        "cpu",
-        "migration"
+        "cosmic",
+        "nvidia",
+        "linux",
+        "gpu-hang"
       ],
       "aliases": [
-        "ClickHouse Illegal instruction AVX2 VM",
-        "output_format_json_quote_64bit_integers",
-        "ClickHouse migration row hash mismatch"
+        "os_acquire_rwlock_read",
+        "os_acquire_mutex",
+        "COSMIC 桌面當掉",
+        "Failed to map NvKmsKapiMemory",
+        "NVIDIA 5762513",
+        "Module nvidia_drm is in use",
+        "/linux/cosmic-nvidia-runtime-lockup/"
       ],
       "related": [],
-      "slug": "docker/clickhouse-upgrade-cpu-json-validation",
-      "url": "/docker/clickhouse-upgrade-cpu-json-validation/",
-      "source": "src/content/docs/docker/clickhouse-upgrade-cpu-json-validation.md"
+      "category": "session",
+      "section": "desktop",
+      "slug": "cosmic-nvidia-runtime-lockup",
+      "url": "/cosmic-nvidia-runtime-lockup/",
+      "source": "src/content/docs/cosmic-nvidia-runtime-lockup.md"
+    },
+    {
+      "title": "COSMIC Wayland 搭 NVIDIA 時休眠失敗或卡死",
+      "description": "COSMIC 合成器尚未停止渲染時，NVIDIA suspend helper 接管 DRM，可能造成 Xid、nvidia-sleep.sh 卡死與 systemd-suspend 失敗。",
+      "date": "2026-08-19",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "high",
+      "tags": [
+        "arch-linux",
+        "cosmic",
+        "nvidia",
+        "wayland",
+        "suspend"
+      ],
+      "aliases": [
+        "COSMIC NVIDIA suspend failed",
+        "nvidia-sleep.sh stuck",
+        "NVRM Xid 158 suspend",
+        "systemd-suspend cosmic-comp DRM access error",
+        "/linux/cosmic-nvidia-suspend-race/"
+      ],
+      "related": [],
+      "category": "session",
+      "section": "desktop",
+      "slug": "cosmic-nvidia-suspend-race",
+      "url": "/cosmic-nvidia-suspend-race/",
+      "source": "src/content/docs/cosmic-nvidia-suspend-race.md"
+    },
+    {
+      "title": "COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正",
+      "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。",
+      "date": "2026-10-26",
+      "status": "fixed",
+      "system": "cosmic-desktop",
+      "severity": "medium",
+      "tags": [
+        "cosmic",
+        "wayland",
+        "session-restore",
+        "systemd"
+      ],
+      "aliases": [
+        "COSMIC session restore",
+        "cosmic-wm-manager",
+        "cosmic desktop checkpoint",
+        "COSMIC 重開機視窗還原",
+        "/linux/cosmic-session-checkpoint-restore/"
+      ],
+      "related": [],
+      "category": "session",
+      "section": "desktop",
+      "slug": "cosmic-session-checkpoint-restore",
+      "url": "/cosmic-session-checkpoint-restore/",
+      "source": "src/content/docs/cosmic-session-checkpoint-restore.md"
     },
     {
       "title": "Cosmos 431：跨子網域 Cookie 讓 Request Header Fields Too Large",
@@ -412,12 +721,15 @@
       "aliases": [
         "Request Header Fields Too Large",
         "HTTP 431 Cosmos",
-        "cross subdomain cookie"
+        "cross subdomain cookie",
+        "/docker/cosmos-431-cross-subdomain-cookies/"
       ],
       "related": [],
-      "slug": "docker/cosmos-431-cross-subdomain-cookies",
-      "url": "/docker/cosmos-431-cross-subdomain-cookies/",
-      "source": "src/content/docs/docker/cosmos-431-cross-subdomain-cookies.md"
+      "category": "proxy",
+      "section": "server",
+      "slug": "cosmos-431-cross-subdomain-cookies",
+      "url": "/cosmos-431-cross-subdomain-cookies/",
+      "source": "src/content/docs/cosmos-431-cross-subdomain-cookies.md"
     },
     {
       "title": "Cosmos HTTP1 正常、HTTP2 連線關閉：共用 Server 啟動競態",
@@ -435,12 +747,15 @@
       "aliases": [
         "ERR_CONNECTION_CLOSED Cosmos",
         "curl 16 HTTP2 framing layer",
-        "nextProtoOnce ServeTLS Serve"
+        "nextProtoOnce ServeTLS Serve",
+        "/docker/cosmos-http2-startup-nextproto-race/"
       ],
       "related": [],
-      "slug": "docker/cosmos-http2-startup-nextproto-race",
-      "url": "/docker/cosmos-http2-startup-nextproto-race/",
-      "source": "src/content/docs/docker/cosmos-http2-startup-nextproto-race.md"
+      "category": "proxy",
+      "section": "server",
+      "slug": "cosmos-http2-startup-nextproto-race",
+      "url": "/cosmos-http2-startup-nextproto-race/",
+      "source": "src/content/docs/cosmos-http2-startup-nextproto-race.md"
     },
     {
       "title": "Cosmos Let’s Encrypt 合併憑證因舊網域續期失敗",
@@ -465,12 +780,15 @@
         "Cosmos acme-tls ALPN failed",
         "bundled SAN certificate renewal",
         "Cosmos DNS-01 wildcard certificate",
-        "Certificate Transparency subdomain enumeration"
+        "Certificate Transparency subdomain enumeration",
+        "/docker/cosmos-letsencrypt-renewal-stale-domain/"
       ],
       "related": [],
-      "slug": "docker/cosmos-letsencrypt-renewal-stale-domain",
-      "url": "/docker/cosmos-letsencrypt-renewal-stale-domain/",
-      "source": "src/content/docs/docker/cosmos-letsencrypt-renewal-stale-domain.md"
+      "category": "proxy",
+      "section": "server",
+      "slug": "cosmos-letsencrypt-renewal-stale-domain",
+      "url": "/cosmos-letsencrypt-renewal-stale-domain/",
+      "source": "src/content/docs/cosmos-letsencrypt-renewal-stale-domain.md"
     },
     {
       "title": "雙機 ddclient 保留舊 A record 而持續更新失敗",
@@ -490,12 +808,15 @@
       "aliases": [
         "ddclient no A record at Cloudflare",
         "redundant DDNS configuration drift",
-        "Cloudflare wildcard DDNS stale hostname"
+        "Cloudflare wildcard DDNS stale hostname",
+        "/docker/ddclient-redundant-hosts-stale-records/"
       ],
       "related": [],
-      "slug": "docker/ddclient-redundant-hosts-stale-records",
-      "url": "/docker/ddclient-redundant-hosts-stale-records/",
-      "source": "src/content/docs/docker/ddclient-redundant-hosts-stale-records.md"
+      "category": "network",
+      "section": "server",
+      "slug": "ddclient-redundant-hosts-stale-records",
+      "url": "/ddclient-redundant-hosts-stale-records/",
+      "source": "src/content/docs/ddclient-redundant-hosts-stale-records.md"
     },
     {
       "title": "Docker Compose up --wait 遇到 No such container",
@@ -510,12 +831,15 @@
         "healthcheck"
       ],
       "aliases": [
-        "No such container during compose up --wait"
+        "No such container during compose up --wait",
+        "/docker/docker-compose-wait-container-replaced/"
       ],
       "related": [],
-      "slug": "docker/docker-compose-wait-container-replaced",
-      "url": "/docker/docker-compose-wait-container-replaced/",
-      "source": "src/content/docs/docker/docker-compose-wait-container-replaced.md"
+      "category": "containers",
+      "section": "server",
+      "slug": "docker-compose-wait-container-replaced",
+      "url": "/docker-compose-wait-container-replaced/",
+      "source": "src/content/docs/docker-compose-wait-container-replaced.md"
     },
     {
       "title": "Docker WireGuard 全隧道連線後失去網路或管理連線",
@@ -533,1245 +857,15 @@
       "aliases": [
         "wireguard handshake no response",
         "wg0 no internet after connect",
-        "NetworkManager WireGuard PresharedKey"
+        "NetworkManager WireGuard PresharedKey",
+        "/docker/docker-wireguard-full-tunnel-psk-routing/"
       ],
       "related": [],
-      "slug": "docker/docker-wireguard-full-tunnel-psk-routing",
-      "url": "/docker/docker-wireguard-full-tunnel-psk-routing/",
-      "source": "src/content/docs/docker/docker-wireguard-full-tunnel-psk-routing.md"
-    },
-    {
-      "title": "搬遷或升級 HedgeDoc 時保留筆記、uploads 與 TLS",
-      "description": "Move HedgeDoc or perform a PostgreSQL major upgrade with a logical dump, an empty replacement data directory, UID-safe uploads, and verified public routing.",
-      "date": "2026-09-09",
-      "status": "fixed",
-      "system": "hedgedoc",
-      "severity": "high",
-      "tags": [
-        "hedgedoc",
-        "docker",
-        "postgresql",
-        "cosmos",
-        "cloudflare",
-        "migration"
-      ],
-      "aliases": [
-        "HedgeDoc Docker migration",
-        "HedgeDoc PostgreSQL major upgrade",
-        "PostgreSQL 13 to 17 HedgeDoc",
-        "HedgeDoc PostgreSQL restore",
-        "HedgeDoc uploads permission denied",
-        "Cosmos HedgeDoc route",
-        "HedgeDoc DNS cutover"
-      ],
-      "related": [],
-      "slug": "docker/hedgedoc-postgres-cosmos-migration",
-      "url": "/docker/hedgedoc-postgres-cosmos-migration/",
-      "source": "src/content/docs/docker/hedgedoc-postgres-cosmos-migration.md"
-    },
-    {
-      "title": "n8n 2.x RSS Feed Trigger 沒有輪詢：補齊 minute 並重新發布",
-      "description": "升級到 n8n 2.x 後，舊的 everyHour RSS polling 設定若缺少 minute，會產生無效 cron，工作流雖顯示啟用卻不會自動執行。",
-      "date": "2026-09-30",
-      "status": "fixed",
-      "system": "n8n",
-      "severity": "medium",
-      "tags": [
-        "n8n",
-        "docker",
-        "rss",
-        "scheduler",
-        "newsletter"
-      ],
-      "aliases": [
-        "n8n RSS Feed Trigger not polling",
-        "n8n everyHour missing minute",
-        "n8n workflow active but RSS trigger does not run"
-      ],
-      "related": [],
-      "slug": "docker/n8n-rss-feed-trigger-missing-minute",
-      "url": "/docker/n8n-rss-feed-trigger-missing-minute/",
-      "source": "src/content/docs/docker/n8n-rss-feed-trigger-missing-minute.md"
-    },
-    {
-      "title": "n8n RSS 新文章漏寄：無日期項目清空游標，改用成功後記錄日期",
-      "description": "RSS Feed Trigger 遇到尾端無發布日期的頁面，可能反覆把目前時間當基準而漏抓新文；以 Schedule Trigger、RSS Read、有效日期篩選與寄送成功後更新游標修復。",
-      "date": "2026-10-24",
-      "status": "fixed",
-      "system": "n8n",
-      "severity": "medium",
-      "tags": [
-        "n8n",
-        "rss",
-        "newsletter",
-        "docker",
-        "smtp"
-      ],
-      "aliases": [
-        "n8n RSS Feed Trigger lastItemDate undefined",
-        "RSS missing pubDate silently skips new items",
-        "n8n workflow active but newsletter not sent"
-      ],
-      "related": [],
-      "slug": "docker/n8n-rss-undated-items-missing-posts",
-      "url": "/docker/n8n-rss-undated-items-missing-posts/",
-      "source": "src/content/docs/docker/n8n-rss-undated-items-missing-posts.md"
-    },
-    {
-      "title": "NewsBlur 失連訂閱：核對新 RSS 並保留原訂閱",
-      "description": "NewsBlur 的 feed exception 與 page exception 需分開檢查；先確認搬家與 RSS 內容，再備份歷史、更新原訂閱並實際重抓。",
-      "date": "2026-11-11",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "medium",
-      "tags": [
-        "newsblur",
-        "rss",
-        "feed-discovery"
-      ],
-      "aliases": [
-        "NewsBlur broken feed address",
-        "NewsBlur Unsafe URL DNS",
-        "RSS 換網址"
-      ],
-      "related": [
-        "docker/newsblur-feed-refresh-scheduler",
-        "docker/newsblur-refresh-trims-story-history"
-      ],
-      "slug": "docker/newsblur-broken-feed-address",
-      "url": "/docker/newsblur-broken-feed-address/",
-      "source": "src/content/docs/docker/newsblur-broken-feed-address.md"
-    },
-    {
-      "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
-      "description": "NewsBlur 自訂子網域未列入 ALLOWED_SUBDOMAINS 時，匿名首頁會重導回相同 URL，導致瀏覽器 ERR_TOO_MANY_REDIRECTS。",
-      "date": "2026-09-11",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "high",
-      "tags": [
-        "newsblur",
-        "docker",
-        "custom-domain",
-        "redirect-loop",
-        "django"
-      ],
-      "aliases": [
-        "ERR_TOO_MANY_REDIRECTS NewsBlur",
-        "NewsBlur custom domain redirect loop",
-        "ALLOWED_SUBDOMAINS"
-      ],
-      "related": [],
-      "slug": "docker/newsblur-custom-domain-redirect-loop",
-      "url": "/docker/newsblur-custom-domain-redirect-loop/",
-      "source": "src/content/docs/docker/newsblur-custom-domain-redirect-loop.md"
-    },
-    {
-      "title": "NewsBlur 升 Django 5：轉換舊 Session 並保留登入",
-      "description": "升級 NewsBlur Python、Django、Celery 時，需在舊 runtime 轉換伺服器端 Pickle Session，並分開驗證 SQL、登入、API與背景任務。",
-      "date": "2026-11-21",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "high",
-      "tags": [
-        "newsblur",
-        "django",
-        "session",
-        "redis",
-        "migration"
-      ],
-      "aliases": [
-        "Django PickleSerializer removed",
-        "NewsBlur Python 3.13 Django 5.2",
-        "Redis session JSON migration"
-      ],
-      "related": [],
-      "slug": "docker/newsblur-django5-session-json-migration",
-      "url": "/docker/newsblur-django5-session-json-migration/",
-      "source": "src/content/docs/docker/newsblur-django5-session-json-migration.md"
-    },
-    {
-      "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
-      "description": "Self-hosted NewsBlur can appear stale because Celery workers are running old code, upstream feed routes fail, unread filters hide neutral stories, or no subscribed feeds are due in the scheduler.",
-      "date": "2026-07-15",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "medium",
-      "tags": [
-        "newsblur",
-        "docker",
-        "rss",
-        "celery"
-      ],
-      "aliases": [
-        "NewsBlur no new stories",
-        "NewsBlur feed refresh scheduler",
-        "scheduled_updates due_now",
-        "Celery stale worker"
-      ],
-      "related": [],
-      "slug": "docker/newsblur-feed-refresh-scheduler",
-      "url": "/docker/newsblur-feed-refresh-scheduler/",
-      "source": "src/content/docs/docker/newsblur-feed-refresh-scheduler.md"
-    },
-    {
-      "title": "NewsBlur 升級後 HAProxy 因可選 Backend DNS 失敗重啟",
-      "description": "NewsBlur 的 HAProxy 設定新增主機端可選 backend 時，未解析的 host.docker.internal 可能讓整個 proxy 無法啟動。",
-      "date": "2026-09-08",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "high",
-      "tags": [
-        "newsblur",
-        "haproxy",
-        "docker",
-        "dns",
-        "reverse-proxy"
-      ],
-      "aliases": [
-        "host.docker.internal could not resolve address",
-        "HAProxy Failed to initialize servers addr",
-        "NewsBlur HAProxy restarting",
-        "optional backend DNS failure"
-      ],
-      "related": [],
-      "slug": "docker/newsblur-haproxy-optional-backend-dns",
-      "url": "/docker/newsblur-haproxy-optional-backend-dns/",
-      "source": "src/content/docs/docker/newsblur-haproxy-optional-backend-dns.md"
-    },
-    {
-      "title": "NewsBlur log 爆滿 root disk",
-      "description": "NewsBlur verbose request log can grow until the Docker host root filesystem reaches 100%, requiring truncation and logrotate.",
-      "date": "2026-06-29",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "high",
-      "tags": [
-        "newsblur",
-        "docker",
-        "disk",
-        "logrotate"
-      ],
-      "aliases": [
-        "newsblur.log 29G",
-        "NewsBlur disk full",
-        "root filesystem 100%"
-      ],
-      "related": [],
-      "slug": "docker/newsblur-log-disk-full",
-      "url": "/docker/newsblur-log-disk-full/",
-      "source": "src/content/docs/docker/newsblur-log-disk-full.md"
-    },
-    {
-      "title": "NewsBlur 重抓成功卻只剩 10 篇：舊文裁切與補回",
-      "description": "Feed.update 新增文章會觸發 trim_feed；本次長期未閱讀來源被縮至 10 篇，從隔離還原的備份只補缺漏文章並核對 BSON。",
-      "date": "2026-11-11",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "high",
-      "tags": [
-        "newsblur",
-        "mongodb",
-        "backup",
-        "data-recovery"
-      ],
-      "aliases": [
-        "NewsBlur refresh deletes old stories",
-        "NewsBlur trimming down to 10",
-        "NewsBlur trim_feed history recovery"
-      ],
-      "related": [
-        "docker/newsblur-broken-feed-address"
-      ],
-      "slug": "docker/newsblur-refresh-trims-story-history",
-      "url": "/docker/newsblur-refresh-trims-story-history/",
-      "source": "src/content/docs/docker/newsblur-refresh-trims-story-history.md"
-    },
-    {
-      "title": "NewsBlur RSS 相對圖片破圖",
-      "description": "feedparser used the feed URL as the base for relative images inside content:encoded, causing story images to resolve to the wrong host path.",
-      "date": "2026-07-13",
-      "status": "fixed",
-      "system": "newsblur",
-      "severity": "medium",
-      "tags": [
-        "newsblur",
-        "rss",
-        "docker",
-        "python"
-      ],
-      "aliases": [
-        "RSS relative image",
-        "feedparser base URL"
-      ],
-      "related": [
-        "docker/newsblur-rss-relative-image"
-      ],
-      "slug": "docker/newsblur-rss-relative-image",
-      "url": "/docker/newsblur-rss-relative-image/",
-      "source": "src/content/docs/docker/newsblur-rss-relative-image.md"
-    },
-    {
-      "title": "Nextcloud AIO 自訂映像跨版升級時 Permission denied",
-      "description": "A custom Nextcloud AIO image can fail its intermediate major-version upgrade when the extracted application tree has the wrong ownership or a test override disappears during rsync.",
-      "date": "2026-11-02",
-      "status": "fixed",
-      "system": "nextcloud",
-      "severity": "high",
-      "tags": [
-        "nextcloud",
-        "aio",
-        "docker",
-        "upgrade"
-      ],
-      "aliases": [
-        "Nextcloud AIO mv Permission denied",
-        "Nextcloud AIO custom image ownership",
-        "Nextcloud AIO upgrade rsync config removed"
-      ],
-      "related": [],
-      "slug": "docker/nextcloud-aio-custom-image-major-upgrade",
-      "url": "/docker/nextcloud-aio-custom-image-major-upgrade/",
-      "source": "src/content/docs/docker/nextcloud-aio-custom-image-major-upgrade.md"
-    },
-    {
-      "title": "Nextcloud AIO 磁碟壓力與升級卡在 Starting",
-      "description": "Nextcloud AIO may remain healthy while its Docker host is nearly full; distinguish the UI state from disk pressure, reclaim only safe Docker artifacts, and cap logs before upgrading.",
-      "date": "2026-09-24",
-      "status": "fixed",
-      "system": "nextcloud",
-      "severity": "medium",
-      "tags": [
-        "nextcloud",
-        "aio",
-        "docker",
-        "disk"
-      ],
-      "aliases": [
-        "Nextcloud AIO Starting",
-        "Nextcloud no space left on device",
-        "curl failure writing output",
-        "Nextcloud disk 96%",
-        "Nextcloud AIO Docker image prune",
-        "Nextcloud journal disk full"
-      ],
-      "related": [],
-      "slug": "docker/nextcloud-aio-no-space-left",
-      "url": "/docker/nextcloud-aio-no-space-left/",
-      "source": "src/content/docs/docker/nextcloud-aio-no-space-left.md"
-    },
-    {
-      "title": "Plausible CE v2 升 v3 時避免 PostgreSQL 資料目錄不相容",
-      "description": "Upgrade a self-hosted Plausible Community Edition v2 stack to v3 by logically migrating PostgreSQL, preserving ClickHouse rollback data, and verifying analytics without polluting production traffic.",
-      "date": "2026-07-15",
-      "status": "fixed",
-      "system": "plausible",
-      "severity": "high",
-      "tags": [
-        "plausible",
-        "docker",
-        "postgresql",
-        "clickhouse",
-        "migration"
-      ],
-      "aliases": [
-        "Plausible v2 to v3 migration",
-        "PostgreSQL 14 to 16 Plausible",
-        "ClickHouse 23 to 24 Plausible",
-        "Plausible community edition upgrade"
-      ],
-      "related": [],
-      "slug": "docker/plausible-v2-v3-migration",
-      "url": "/docker/plausible-v2-v3-migration/",
-      "source": "src/content/docs/docker/plausible-v2-v3-migration.md"
-    },
-    {
-      "title": "Postiz 刪文後仍照排程發出",
-      "description": "Postiz UI delete did not cancel the already-started Temporal workflow, so the workflow woke up and published stale post data.",
-      "date": "2026-05-12",
-      "status": "fixed",
-      "system": "postiz",
-      "severity": "high",
-      "tags": [
-        "postiz",
-        "temporal",
-        "workflow"
-      ],
-      "aliases": [
-        "delete post does not cancel workflow",
-        "postWorkflowV101",
-        "stale Temporal workflow"
-      ],
-      "related": [],
-      "slug": "docker/postiz-delete-temporal-workflow",
-      "url": "/docker/postiz-delete-temporal-workflow/",
-      "source": "src/content/docs/docker/postiz-delete-temporal-workflow.md"
-    },
-    {
-      "title": "Postiz fork 升級後取得手機版面，保留 Plurk 與回復路徑",
-      "description": "從 Postiz v2.24.0 升到 v2.25.3，處理 Plurk refresh 與已移除 PostHog 的 cherry-pick 衝突，核對資料及 Temporal worker，並避開舊版 Prisma db-push 的回復風險。",
-      "date": "2026-10-27",
-      "status": "fixed",
-      "system": "postiz",
-      "severity": "medium",
-      "tags": [
-        "postiz",
-        "docker",
-        "temporal",
-        "prisma",
-        "git"
-      ],
-      "aliases": [
-        "Postiz mobile responsive upgrade",
-        "Postiz Plurk cherry-pick conflict",
-        "Postiz rollback Prisma db push"
-      ],
-      "related": [],
-      "slug": "docker/postiz-fork-upgrade-responsive-layout",
-      "url": "/docker/postiz-fork-upgrade-responsive-layout/",
-      "source": "src/content/docs/docker/postiz-fork-upgrade-responsive-layout.md"
-    },
-    {
-      "title": "Postiz MCP 造成 backend hang",
-      "description": "Postiz scheduled posts stayed queued because MCP SSE requests accumulated and blocked backend work needed by Temporal activities.",
-      "date": "2026-03-25",
-      "status": "fixed",
-      "system": "postiz",
-      "severity": "high",
-      "tags": [
-        "postiz",
-        "mcp",
-        "temporal",
-        "nodejs"
-      ],
-      "aliases": [
-        "Postiz queued posts not publishing",
-        "api/mcp hang",
-        "Temporal activity timeout"
-      ],
-      "related": [],
-      "slug": "docker/postiz-mcp-backend-hang",
-      "url": "/docker/postiz-mcp-backend-hang/",
-      "source": "src/content/docs/docker/postiz-mcp-backend-hang.md"
-    },
-    {
-      "title": "Postiz 重啟後貼文卡 QUEUE，Temporal 沒有 worker",
-      "description": "Postiz orchestrator 啟動時連不上 Temporal，PM2 仍顯示 online；重啟又留下占用 3002 的子程序，須清除殘留程序並驗證 task queue polling。",
-      "date": "2026-10-23",
-      "status": "fixed",
-      "system": "postiz",
-      "severity": "high",
-      "tags": [
-        "postiz",
-        "temporal",
-        "pm2",
-        "docker",
-        "nodejs"
-      ],
-      "aliases": [
-        "Postiz QUEUE no pollers",
-        "Temporal worker connection refused",
-        "orchestrator EADDRINUSE 3002"
-      ],
-      "related": [],
-      "slug": "docker/postiz-temporal-worker-startup-orphan-process",
-      "url": "/docker/postiz-temporal-worker-startup-orphan-process/",
-      "source": "src/content/docs/docker/postiz-temporal-worker-startup-orphan-process.md"
-    },
-    {
-      "title": "RSSHub 讀政府 OpenData JSON 遺失文章段落格式",
-      "description": "某些政府 CMS 的 JSON 開放資料會把文章 HTML 壓成純文字；改讀保留轉義 HTML 的 XML，才能讓 RSS 閱讀器保有段落、清單與圖片。",
-      "date": "2026-09-02",
-      "status": "fixed",
-      "system": "rsshub",
-      "severity": "low",
-      "tags": [
-        "rsshub",
-        "rss",
-        "opendata",
-        "xml",
-        "docker"
-      ],
-      "aliases": [
-        "RSSHub OpenData XML",
-        "RSS description no line breaks",
-        "OpenData JSON HTML stripped"
-      ],
-      "related": [],
-      "slug": "docker/rsshub-opendata-xml-preserve-html",
-      "url": "/docker/rsshub-opendata-xml-preserve-html/",
-      "source": "src/content/docs/docker/rsshub-opendata-xml-preserve-html.md"
-    },
-    {
-      "title": "RSSHub Docker 缺 Chromium 導致 puppeteer-real-browser route 503",
-      "description": "RSSHub routes using puppeteer-real-browser need PUPPETEER_REAL_BROWSER_SERVICE or CHROMIUM_EXECUTABLE_PATH; browserless websocket alone is not enough.",
-      "date": "2026-07-14",
-      "status": "fixed",
-      "system": "rsshub",
-      "severity": "medium",
-      "tags": [
-        "rsshub",
-        "docker",
-        "chromium",
-        "puppeteer",
-        "browserless"
-      ],
-      "aliases": [
-        "PUPPETEER_REAL_BROWSER_SERVICE",
-        "CHROMIUM_EXECUTABLE_PATH",
-        "RSSHub Chromium Docker"
-      ],
-      "related": [],
-      "slug": "docker/rsshub-puppeteer-real-browser-chromium",
-      "url": "/docker/rsshub-puppeteer-real-browser-chromium/",
-      "source": "src/content/docs/docker/rsshub-puppeteer-real-browser-chromium.md"
-    },
-    {
-      "title": "自架服務出現陌生帳號時的註冊封鎖與清理",
-      "description": "Self-hosted services may expose a registration route by default; inventory accounts first, then disable registration at the supported setting or reverse proxy and verify the actual signup API.",
-      "date": "2026-07-21",
-      "status": "fixed",
-      "system": "self-hosted-web-services",
-      "severity": "high",
-      "tags": [
-        "docker",
-        "authentication",
-        "account-security",
-        "traefik"
-      ],
-      "aliases": [
-        "unexpected user registrations",
-        "disable self-hosted signup",
-        "block signup API with Traefik"
-      ],
-      "related": [],
-      "slug": "docker/self-hosted-unwanted-signups",
-      "url": "/docker/self-hosted-unwanted-signups/",
-      "source": "src/content/docs/docker/self-hosted-unwanted-signups.md"
-    },
-    {
-      "title": "License & Reuse Notice",
-      "description": "License, ownership, and attribution text for humans and AI-assisted reuse.",
-      "date": "2026-07-14",
-      "status": "fixed",
-      "system": "debug-kb",
-      "severity": "low",
-      "tags": [
-        "license",
-        "ai"
-      ],
-      "aliases": [],
-      "related": [],
-      "slug": "license-ai-notice",
-      "url": "/license-ai-notice/",
-      "source": "src/content/docs/license-ai-notice.md"
-    },
-    {
-      "title": "Android Quick Share 在 Linux 找不到裝置時的 P2P 與藍牙替代方案",
-      "description": "When Android Quick Share cannot discover a Linux desktop, distinguish LAN-only clients from Wi-Fi P2P limits and fall back to Bluetooth OBEX transfer.",
-      "date": "2026-08-11",
-      "status": "investigating",
-      "system": "linux-desktop",
-      "severity": "low",
-      "tags": [
-        "android",
-        "quick-share",
-        "bluetooth",
-        "linux-desktop",
-        "networkmanager"
-      ],
-      "aliases": [
-        "rquickshare same Wi-Fi",
-        "Linux Quick Share device not found",
-        "Android Quick Share Bluetooth fallback",
-        "nearby Fast Initiation scanning failed"
-      ],
-      "related": [],
-      "slug": "linux/android-quick-share-linux-p2p-bluetooth-fallback",
-      "url": "/linux/android-quick-share-linux-p2p-bluetooth-fallback/",
-      "source": "src/content/docs/linux/android-quick-share-linux-p2p-bluetooth-fallback.md"
-    },
-    {
-      "title": "Arch AUR 更新要求移除 pipewire-jack：lib32-jack2 建置依賴衝突",
-      "description": "lib32-mpg123 的建置依賴指定 lib32-jack2，間接拉入 jack2；改用通用 lib32-jack provider，保留 PipeWire 並完成建置。",
-      "date": "2026-10-07",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "low",
-      "tags": [
-        "arch-linux",
-        "aur",
-        "paru",
-        "pipewire",
-        "jack"
-      ],
-      "aliases": [
-        "jack2 and pipewire-jack are in conflict",
-        "Remove pipewire-jack",
-        "lib32-mpg123 makedepends",
-        "lib32-pipewire-jack"
-      ],
-      "related": [],
-      "slug": "linux/arch-aur-lib32-jack2-pipewire-conflict",
-      "url": "/linux/arch-aur-lib32-jack2-pipewire-conflict/",
-      "source": "src/content/docs/linux/arch-aur-lib32-jack2-pipewire-conflict.md"
-    },
-    {
-      "title": "Arch Linux ELAN 指紋辨識在 COSMIC 鎖定畫面失效",
-      "description": "ELAN 04f3:0c4b 已註冊卻無法解鎖時，依序確認專用驅動、實際比對結果，以及 COSMIC 與 Bitwarden 各自使用的 PAM service。",
-      "date": "2026-08-12",
-      "status": "fixed",
-      "system": "Linux desktop",
-      "severity": "medium",
-      "tags": [
-        "arch-linux",
-        "fingerprint",
-        "fprintd",
-        "cosmic",
-        "pam",
-        "bitwarden",
-        "polkit"
-      ],
-      "aliases": [
-        "ELAN 04f3:0c4b fprintd",
-        "COSMIC fingerprint unlock",
-        "pam_fprintd COSMIC lock screen",
-        "COSMIC fingerprint timeout password fallback",
-        "pam_fprintd timeout=-1",
-        "Bitwarden system authentication fingerprint"
-      ],
-      "related": [],
-      "slug": "linux/arch-elan-fingerprint-cosmic-pam",
-      "url": "/linux/arch-elan-fingerprint-cosmic-pam/",
-      "source": "src/content/docs/linux/arch-elan-fingerprint-cosmic-pam.md"
-    },
-    {
-      "title": "Arch NVIDIA 580xx driver/library mismatch：split package 與未重開機",
-      "description": "NVIDIA 更新後出現 driver/library mismatch 時，先分辨 AUR split packages 未對齊，或套件已對齊但仍在使用舊 kernel module。",
-      "date": "2026-10-24",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "medium",
-      "tags": [
-        "arch-linux",
-        "nvidia",
-        "aur",
-        "steam"
-      ],
-      "aliases": [
-        "nvidia driver library mismatch",
-        "lib32-nvidia mismatch",
-        "nvidia-580xx",
-        "nvidia 更新後未重開機"
-      ],
-      "related": [],
-      "slug": "linux/arch-nvidia-580xx-split-package-mismatch",
-      "url": "/linux/arch-nvidia-580xx-split-package-mismatch/",
-      "source": "src/content/docs/linux/arch-nvidia-580xx-split-package-mismatch.md"
-    },
-    {
-      "title": "Arch paru AUR RPC EOF 與 Chaotic-AUR geo mirror timeout",
-      "description": "Diagnose paru AUR RPC unexpected EOF separately from a Chaotic-AUR geo mirror timeout, then restore reliable package upgrade checks.",
-      "date": "2026-08-03",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "medium",
-      "tags": [
-        "arch-linux",
-        "paru",
-        "aur",
-        "chaotic-aur",
-        "networkmanager"
-      ],
-      "aliases": [
-        "paru unexpected EOF",
-        "aur rpc EOF",
-        "chaotic-aur mirror timeout"
-      ],
-      "related": [],
-      "slug": "linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout",
-      "url": "/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/",
-      "source": "src/content/docs/linux/arch-paru-aur-rpc-eof-chaotic-mirror-timeout.md"
-    },
-    {
-      "title": "Brave 更新後外部連結開成另一個瀏覽器實例",
-      "description": "Brave 長時間未重啟時，套件更新後由系統 URL handler 開啟的連結可能啟動新版程序，而非交給舊版視窗。",
-      "date": "2026-08-04",
-      "status": "fixed",
-      "system": "linux-desktop",
-      "severity": "low",
-      "tags": [
-        "brave",
-        "browser",
-        "linux-desktop",
-        "package-update"
-      ],
-      "aliases": [
-        "Brave 外部連結另開視窗",
-        "Brave 不是同一個實例",
-        "Brave update separate process",
-        "xdg-open Brave"
-      ],
-      "related": [],
-      "slug": "linux/brave-update-separate-instance",
-      "url": "/linux/brave-update-separate-instance/",
-      "source": "src/content/docs/linux/brave-update-separate-instance.md"
-    },
-    {
-      "title": "Codex 社群版建置失敗：舊套件與最新 signed stable 不一致",
-      "description": "Distinguish a pinned old Codex Linux package from a corrupt download when the community installer verifies only the latest signed stable release.",
-      "date": "2026-11-06",
-      "status": "wontfix",
-      "system": "desktop",
-      "severity": "low",
-      "tags": [
-        "codex",
-        "arch-linux",
-        "aur",
-        "package-verification"
-      ],
-      "aliases": [
-        "Local package does not match the current signed stable release",
-        "codex-desktop-linux size mismatch"
-      ],
-      "related": [],
-      "slug": "linux/codex-community-pinned-package-stable-mismatch",
-      "url": "/linux/codex-community-pinned-package-stable-mismatch/",
-      "source": "src/content/docs/linux/codex-community-pinned-package-stable-mismatch.md"
-    },
-    {
-      "title": "COSMIC Wayland 下 Chromium 全螢幕立即退出",
-      "description": "Chromium 系瀏覽器在 COSMIC 原生 Wayland 全螢幕後自動退出時，確認實際後端、回退至 XWayland，並在更新後安全驗收原生 Wayland。",
-      "date": "2026-09-07",
-      "status": "fixed",
-      "system": "COSMIC / Chromium",
-      "severity": "medium",
-      "tags": [
-        "linux",
-        "cosmic",
-        "wayland",
-        "chromium",
-        "brave",
-        "fullscreen"
-      ],
-      "aliases": [
-        "Chromium fullscreen exits COSMIC",
-        "Brave 全螢幕自動退出",
-        "ozone-platform x11 fullscreen",
-        "cosmic-comp 2677"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-chromium-wayland-fullscreen-exit",
-      "url": "/linux/cosmic-chromium-wayland-fullscreen-exit/",
-      "source": "src/content/docs/linux/cosmic-chromium-wayland-fullscreen-exit.md"
-    },
-    {
-      "title": "COSMIC 切工作區後按住 Meta 卻輸入數字",
-      "description": "從 Discord 訊息框切到 ChatGPT 後，第二次按數字變成文字輸入。用 Fcitx5 服務停用測試縮小範圍。",
-      "date": "2026-11-13",
-      "status": "investigating",
-      "system": "desktop",
-      "severity": "low",
-      "tags": [
-        "linux",
-        "cosmic",
-        "wayland",
-        "fcitx",
-        "keyboard"
-      ],
-      "aliases": [
-        "Super number workspace switch types digits",
-        "Fcitx5 Meta modifier lost after workspace switch"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-fcitx-meta-workspace-switch",
-      "url": "/linux/cosmic-fcitx-meta-workspace-switch/",
-      "source": "src/content/docs/linux/cosmic-fcitx-meta-workspace-switch.md"
-    },
-    {
-      "title": "COSMIC unlock 後 Fcitx5 卡在 keyboard-us",
-      "description": "COSMIC lock/unlock can leave a focused Wayland input context stuck so Fcitx5 SetCurrentIM returns success but the current input method stays keyboard-us.",
-      "date": "2026-07-31",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "medium",
-      "tags": [
-        "linux",
-        "cosmic",
-        "wayland",
-        "fcitx",
-        "rime",
-        "input-method"
-      ],
-      "aliases": [
-        "cosmic fcitx unlock",
-        "fcitx SetCurrentIM keyboard-us",
-        "wayland_v2 input context",
-        "rime cannot switch after unlock"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-fcitx-unlock-wayland-context",
-      "url": "/linux/cosmic-fcitx-unlock-wayland-context/",
-      "source": "src/content/docs/linux/cosmic-fcitx-unlock-wayland-context.md"
-    },
-    {
-      "title": "COSMIC 桌面凍結：NVIDIA 核心鎖阻塞與重開機恢復",
-      "description": "COSMIC、面板與多個 GPU 程式同時卡在 NVIDIA rwlock；保存快照與紀錄後重開機恢復，保留尚未定位的觸發原因。",
-      "date": "2026-10-29",
-      "status": "investigating",
-      "system": "cosmic-desktop",
-      "severity": "high",
-      "tags": [
-        "cosmic",
-        "nvidia",
-        "linux",
-        "gpu-hang"
-      ],
-      "aliases": [
-        "os_acquire_rwlock_read",
-        "os_acquire_mutex",
-        "COSMIC 桌面當掉",
-        "Failed to map NvKmsKapiMemory",
-        "NVIDIA 5762513",
-        "Module nvidia_drm is in use"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-nvidia-runtime-lockup",
-      "url": "/linux/cosmic-nvidia-runtime-lockup/",
-      "source": "src/content/docs/linux/cosmic-nvidia-runtime-lockup.md"
-    },
-    {
-      "title": "COSMIC Wayland 搭 NVIDIA 時休眠失敗或卡死",
-      "description": "COSMIC 合成器尚未停止渲染時，NVIDIA suspend helper 接管 DRM，可能造成 Xid、nvidia-sleep.sh 卡死與 systemd-suspend 失敗。",
-      "date": "2026-08-19",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "high",
-      "tags": [
-        "arch-linux",
-        "cosmic",
-        "nvidia",
-        "wayland",
-        "suspend"
-      ],
-      "aliases": [
-        "COSMIC NVIDIA suspend failed",
-        "nvidia-sleep.sh stuck",
-        "NVRM Xid 158 suspend",
-        "systemd-suspend cosmic-comp DRM access error"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-nvidia-suspend-race",
-      "url": "/linux/cosmic-nvidia-suspend-race/",
-      "source": "src/content/docs/linux/cosmic-nvidia-suspend-race.md"
-    },
-    {
-      "title": "COSMIC 自動還原視窗：30 秒快照、雙螢幕與重複開窗修正",
-      "description": "在 COSMIC 試用 cosmic-wm-manager，以平時快照支援意外關機恢復，並修正雙螢幕路由、重複開窗與冷啟動逾時。",
-      "date": "2026-10-26",
-      "status": "fixed",
-      "system": "cosmic-desktop",
-      "severity": "medium",
-      "tags": [
-        "cosmic",
-        "wayland",
-        "session-restore",
-        "systemd"
-      ],
-      "aliases": [
-        "COSMIC session restore",
-        "cosmic-wm-manager",
-        "cosmic desktop checkpoint",
-        "COSMIC 重開機視窗還原"
-      ],
-      "related": [],
-      "slug": "linux/cosmic-session-checkpoint-restore",
-      "url": "/linux/cosmic-session-checkpoint-restore/",
-      "source": "src/content/docs/linux/cosmic-session-checkpoint-restore.md"
-    },
-    {
-      "title": "指紋登入後 Brave 空白與 Discord 啟動卡住",
-      "description": "Brave 頁面持續空白、Discord 卡在啟動時，檢查 GNOME Login Keyring 是否鎖定及解鎖提示是否被遮住。",
-      "date": "2026-11-06",
-      "status": "fixed",
-      "system": "GNOME Keyring / Brave / Discord",
-      "severity": "medium",
-      "tags": [
-        "linux",
-        "brave",
-        "discord",
-        "gnome-keyring",
-        "fingerprint",
-        "cosmic"
-      ],
-      "aliases": [
-        "Brave blank pages locked keyring",
-        "Discord loading fingerprint login keyring",
-        "Unlock Login Keyring 視窗被遮住"
-      ],
-      "related": [],
-      "slug": "linux/gnome-keyring-locked-brave-discord",
-      "url": "/linux/gnome-keyring-locked-brave-discord/",
-      "source": "src/content/docs/linux/gnome-keyring-locked-brave-discord.md"
-    },
-    {
-      "title": "HiNet GitHub 下載慢：用 WARP 繞路並保留 Tailscale DNS",
-      "description": "以 GitHub release 與 Cloudflare 下載對照辨識特定路徑瓶頸，設定 Linux WARP Traffic only 與 Tailscale 共存。",
-      "date": "2026-10-12",
-      "status": "fixed",
-      "system": "cloudflare-warp",
-      "severity": "medium",
-      "tags": [
-        "hinet",
-        "github",
-        "warp",
-        "tailscale",
-        "network"
-      ],
-      "aliases": [
-        "Twitter 圖片影片慢",
-        "Fastly 下載緩慢",
-        "warp tunnel_only"
-      ],
-      "related": [],
-      "slug": "linux/hinet-github-slow-warp-tailscale",
-      "url": "/linux/hinet-github-slow-warp-tailscale/",
-      "source": "src/content/docs/linux/hinet-github-slow-warp-tailscale.md"
-    },
-    {
-      "title": "JLCONE 在 COSMIC Wayland 無視窗或登入欄位裁切",
-      "description": "JLCONE 的 bundled Electron 在 COSMIC Wayland 中開窗失敗或只顯示登入宣傳圖時，辨識 Xwayland 未映射與 WebContentsView 合成問題，並以每個 App 的 Wayland／軟體合成 launcher 迴避。",
-      "date": "2026-10-02",
-      "status": "investigating",
-      "system": "JLCONE / COSMIC Wayland",
-      "severity": "low",
-      "tags": [
-        "linux",
-        "jlcone",
-        "electron",
-        "cosmic",
-        "wayland"
-      ],
-      "aliases": [
-        "JLCONE blank login screen Linux",
-        "JLCONE login form missing",
-        "JLCONE WebContentsView Wayland",
-        "jlcone-bin COSMIC"
-      ],
-      "related": [],
-      "slug": "linux/jlcone-cosmic-wayland-login-view",
-      "url": "/linux/jlcone-cosmic-wayland-login-view/",
-      "source": "src/content/docs/linux/jlcone-cosmic-wayland-login-view.md"
-    },
-    {
-      "title": "MK870 在 Linux 連上 sharkfin，卻讀不到原廠改鍵",
-      "description": "ROYUAN MK870 能以 WebHID 連線並讀出鍵位表，不代表推測配列與 FL 原廠改鍵完全相容；以 USB 身分、原始設定檔和讀取快照保留證據。",
-      "date": "2026-11-03",
-      "status": "investigating",
-      "system": "sharkfin",
-      "severity": "low",
-      "tags": [
-        "linux",
-        "keyboard",
-        "mk870",
-        "sharkfin",
-        "webhid"
-      ],
-      "aliases": [
-        "FL ESPORTS Linux",
-        "YC500 keymap readback",
-        "Caps Lock remap missing"
-      ],
-      "related": [],
-      "slug": "linux/mk870-sharkfin-keymap-readback",
-      "url": "/linux/mk870-sharkfin-keymap-readback/",
-      "source": "src/content/docs/linux/mk870-sharkfin-keymap-readback.md"
-    },
-    {
-      "title": "PipeWire 把 DroidCam Loopback 選成預設，Focusrite 語音沒有聲音",
-      "description": "DroidCam 載入 snd-aloop 後，若 Focusrite 或其他實體裝置缺席，PipeWire 的預設輸入輸出可能落到虛擬 Loopback；先確認實體卡與實際預設路由。",
-      "date": "2026-09-14",
-      "status": "fixed",
-      "system": "linux-desktop",
-      "severity": "medium",
-      "tags": [
-        "arch-linux",
-        "pipewire",
-        "wireplumber",
-        "droidcam",
-        "focusrite",
-        "audio"
-      ],
-      "aliases": [
-        "snd-aloop default device",
-        "PipeWire Loopback Analog Stereo",
-        "Focusrite Scarlett 2i2 no sound",
-        "DroidCam Loopback microphone"
-      ],
-      "related": [],
-      "slug": "linux/pipewire-loopback-focusrite-default",
-      "url": "/linux/pipewire-loopback-focusrite-default/",
-      "source": "src/content/docs/linux/pipewire-loopback-focusrite-default.md"
-    },
-    {
-      "title": "Ubuntu 升級後舊 venv 仍綁 Python 3.13",
-      "description": "Rebuild Python 3.13 virtual environments under Python 3.14, preserve the original entry path, and verify real tool behavior before retiring the old runtime.",
-      "date": "2026-10-25",
-      "status": "fixed",
-      "system": "python",
-      "severity": "medium",
-      "tags": [
-        "python",
-        "venv",
-        "ubuntu",
-        "migration",
-        "rollback"
-      ],
-      "aliases": [
-        "Python 3.13 to 3.14 venv migration",
-        "Ubuntu upgrade old Python virtualenv",
-        "venv absolute shebang rollback",
-        "Python virtual environment symlink"
-      ],
-      "related": [],
-      "slug": "linux/python-venv-minor-upgrade-preserve-entrypoint",
-      "url": "/linux/python-venv-minor-upgrade-preserve-entrypoint/",
-      "source": "src/content/docs/linux/python-venv-minor-upgrade-preserve-entrypoint.md"
-    },
-    {
-      "title": "Remmina VNC 透過 SSH 隧道連線失敗",
-      "description": "檢查 Remmina SSH 伺服器、金鑰驗證與遠端 VNC 監聽埠，區分連線建立和桌面畫面驗收。",
-      "date": "2026-10-28",
-      "status": "investigating",
-      "system": "remmina",
-      "severity": "low",
-      "tags": [
-        "remmina",
-        "ssh",
-        "vnc"
-      ],
-      "aliases": [
-        "Remmina SSH tunnel authentication failed",
-        "x11vnc SSH tunnel"
-      ],
-      "related": [],
-      "slug": "linux/remmina-vnc-ssh-tunnel-auth",
-      "url": "/linux/remmina-vnc-ssh-tunnel-auth/",
-      "source": "src/content/docs/linux/remmina-vnc-ssh-tunnel-auth.md"
-    },
-    {
-      "title": "Rime/Fcitx 設定被重設",
-      "description": "Linux 桌面輸入法設定被切回 keyboard-us 時的排查入口。",
-      "date": "2026-06-16",
-      "status": "fixed",
-      "system": "desktop",
-      "severity": "medium",
-      "tags": [
-        "linux",
-        "rime",
-        "fcitx",
-        "input-method"
-      ],
-      "aliases": [
-        "fcitx reset",
-        "rime liur profile"
-      ],
-      "related": [],
-      "slug": "linux/rime-fcitx-reset",
-      "url": "/linux/rime-fcitx-reset/",
-      "source": "src/content/docs/linux/rime-fcitx-reset.md"
-    },
-    {
-      "title": "RP2040 Pro Micro GP26–GP29 上拉失效與 Vial 回到 BOOTSEL",
-      "description": "排查 HW-467AB 相容控制器的 ADC_AVDD 供電異常、矩陣誤觸和 Vial 重啟。",
-      "date": "2026-11-16",
-      "status": "investigating",
-      "system": "RP2040",
-      "severity": "medium",
-      "tags": [
-        "rp2040",
-        "vial",
-        "qmk",
-        "keyboard"
-      ],
-      "aliases": [
-        "HW-467AB GP26 GP27 GP28 GP29 pull-up",
-        "Lily58 Vial RPI-RP2 開機後重新出現"
-      ],
-      "related": [],
-      "slug": "linux/rp2040-promicro-adc-avdd-matrix",
-      "url": "/linux/rp2040-promicro-adc-avdd-matrix/",
-      "source": "src/content/docs/linux/rp2040-promicro-adc-avdd-matrix.md"
-    },
-    {
-      "title": "Stardew Valley Linux 多人連線卡住",
-      "description": "Stardew Valley on Linux can hang at Connecting to online services when bundled Galaxy libraries keep an executable GNU_STACK flag.",
-      "date": "2026-06-28",
-      "status": "fixed",
-      "system": "steam",
-      "severity": "medium",
-      "tags": [
-        "linux",
-        "steam",
-        "stardew-valley",
-        "patchelf"
-      ],
-      "aliases": [
-        "Connecting to online services",
-        "libGalaxy64.so",
-        "GNU_STACK RWE"
-      ],
-      "related": [],
-      "slug": "linux/stardew-valley-galaxy-execstack",
-      "url": "/linux/stardew-valley-galaxy-execstack/",
-      "source": "src/content/docs/linux/stardew-valley-galaxy-execstack.md"
-    },
-    {
-      "title": "Ubuntu sudo-rs 缺少 setuid 權限而無法提權",
-      "description": "Ubuntu 的 sudo alternative 指向 sudo-rs 時，若執行檔失去 root setuid 位元，sudo 會直接拒絕執行；可用 Polkit 或 recovery shell 修復。",
-      "date": "2026-08-12",
-      "status": "fixed",
-      "system": "linux-desktop",
-      "severity": "high",
-      "tags": [
-        "ubuntu",
-        "sudo",
-        "sudo-rs",
-        "permissions",
-        "polkit"
-      ],
-      "aliases": [
-        "sudo must be owned by uid 0 and have the setuid bit set",
-        "sudo-rs setuid missing",
-        "Ubuntu sudo 失效"
-      ],
-      "related": [],
-      "slug": "linux/ubuntu-sudo-rs-setuid-broken",
-      "url": "/linux/ubuntu-sudo-rs-setuid-broken/",
-      "source": "src/content/docs/linux/ubuntu-sudo-rs-setuid-broken.md"
-    },
-    {
-      "title": "COSMIC Wayland 顏文字選取後無法貼上",
-      "description": "Splatmoji 與 rofimoji 選單正常但無法輸入時，檢查 Wayland 剪貼簿、模擬按鍵和實際貼上結果。",
-      "date": "2026-11-10",
-      "status": "fixed",
-      "system": "rofimoji",
-      "severity": "low",
-      "tags": [
-        "linux",
-        "cosmic",
-        "wayland",
-        "rofimoji",
-        "clipboard"
-      ],
-      "aliases": [
-        "kaomoji picker paste fails",
-        "splatmoji wayland paste"
-      ],
-      "related": [],
-      "slug": "linux/wayland-rofimoji-kaomoji-paste",
-      "url": "/linux/wayland-rofimoji-kaomoji-paste/",
-      "source": "src/content/docs/linux/wayland-rofimoji-kaomoji-paste.md"
-    },
-    {
-      "title": "Wine 下 KartRider 進入賽事時 NMService.exe 崩潰",
-      "description": "KartRider 可進大廳但一進實際賽事即崩潰時，辨識舊 beanfun NMService.exe access violation，並安全回退 Wine 測試的方法。",
-      "date": "2026-07-24",
-      "status": "investigating",
-      "system": "Wine / KartRider / beanfun",
-      "severity": "medium",
-      "tags": [
-        "wine",
-        "gaming",
-        "compatibility",
-        "beanfun"
-      ],
-      "aliases": [
-        "KartRider Wine race crash",
-        "NMService.exe access violation",
-        "beanfun Wine crash"
-      ],
-      "related": [],
-      "slug": "linux/wine-nmservice-race-crash",
-      "url": "/linux/wine-nmservice-race-crash/",
-      "source": "src/content/docs/linux/wine-nmservice-race-crash.md"
-    },
-    {
-      "title": "Artalk 關鍵字 filter 不會拒收留言，預設待審時如何處理",
-      "description": "釐清 Artalk 2.10.1 的關鍵字待審與替換模式，避免把空字串替換誤認為拒收，並保留全體留言待審設定。",
-      "date": "2026-11-04",
-      "status": "fixed",
-      "system": "artalk",
-      "severity": "low",
-      "tags": [
-        "artalk",
-        "moderation",
-        "configuration"
-      ],
-      "aliases": [
-        "Artalk keyword filter",
-        "Set to pending when match",
-        "Artalk replace_to 空字串"
-      ],
-      "related": [],
-      "slug": "web/artalk-keyword-filter-pending-replace",
-      "url": "/web/artalk-keyword-filter-pending-replace/",
-      "source": "src/content/docs/web/artalk-keyword-filter-pending-replace.md"
-    },
-    {
-      "title": "Astro Starlight 文件站的 Article schema 與逐頁 Open Graph 圖",
-      "description": "A Starlight documentation site is crawlable but its Article markup and shared social image are incomplete; emit Google-compatible Article data and prerender a representative image per page.",
-      "date": "2026-08-12",
-      "status": "fixed",
-      "system": "astro-starlight",
-      "severity": "low",
-      "tags": [
-        "astro",
-        "starlight",
-        "seo",
-        "json-ld",
-        "open-graph",
-        "social-image"
-      ],
-      "aliases": [
-        "Starlight SEO metadata",
-        "TechArticle Google Article schema",
-        "Open Graph per-page image",
-        "Twitter image alt",
-        "Astro static OG image"
-      ],
-      "related": [],
-      "slug": "web/astro-starlight-article-schema-og-image",
-      "url": "/web/astro-starlight-article-schema-og-image/",
-      "source": "src/content/docs/web/astro-starlight-article-schema-og-image.md"
-    },
-    {
-      "title": "Cloudflare Pages Direct Upload 的 upload-token 回 405",
-      "description": "A Pages Direct Upload client gets HTTP 405 when it POSTs to upload-token; the current Wrangler flow obtains that JWT with GET, then POSTs assets and deployments separately.",
-      "date": "2026-07-16",
-      "status": "fixed",
-      "system": "cloudflare-pages",
-      "severity": "medium",
-      "tags": [
-        "cloudflare",
-        "pages",
-        "direct-upload",
-        "oauth",
-        "cors"
-      ],
-      "aliases": [
-        "Pages upload-token 405",
-        "Cloudflare Pages Direct Upload JWT",
-        "GET upload-token",
-        "Pages assets check-missing",
-        "Pages asset hash BLAKE3",
-        "Wrangler asset hash",
-        "localhost CORS relay"
-      ],
-      "related": [],
-      "slug": "web/cloudflare-pages-upload-token-405",
-      "url": "/web/cloudflare-pages-upload-token-405/",
-      "source": "src/content/docs/web/cloudflare-pages-upload-token-405.md"
+      "category": "network",
+      "section": "server",
+      "slug": "docker-wireguard-full-tunnel-psk-routing",
+      "url": "/docker-wireguard-full-tunnel-psk-routing/",
+      "source": "src/content/docs/docker-wireguard-full-tunnel-psk-routing.md"
     },
     {
       "title": "Framework7 Svelte 白畫面與本機草稿無法開啟",
@@ -1798,12 +892,43 @@
         "Framework7 Blob download intercepted by router",
         "PWA ZIP download user activation",
         "Svelte $effect autosave nested state",
-        "Svelte settings reset after reload"
+        "Svelte settings reset after reload",
+        "/web/framework7-svelte-blank-screen-local-state/"
       ],
       "related": [],
-      "slug": "web/framework7-svelte-blank-screen-local-state",
-      "url": "/web/framework7-svelte-blank-screen-local-state/",
-      "source": "src/content/docs/web/framework7-svelte-blank-screen-local-state.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "framework7-svelte-blank-screen-local-state",
+      "url": "/framework7-svelte-blank-screen-local-state/",
+      "source": "src/content/docs/framework7-svelte-blank-screen-local-state.md"
+    },
+    {
+      "title": "指紋登入後 Brave 空白與 Discord 啟動卡住",
+      "description": "Brave 頁面持續空白、Discord 卡在啟動時，檢查 GNOME Login Keyring 是否鎖定及解鎖提示是否被遮住。",
+      "date": "2026-11-06",
+      "status": "fixed",
+      "system": "GNOME Keyring / Brave / Discord",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "brave",
+        "discord",
+        "gnome-keyring",
+        "fingerprint",
+        "cosmic"
+      ],
+      "aliases": [
+        "Brave blank pages locked keyring",
+        "Discord loading fingerprint login keyring",
+        "Unlock Login Keyring 視窗被遮住",
+        "/linux/gnome-keyring-locked-brave-discord/"
+      ],
+      "related": [],
+      "category": "session",
+      "section": "desktop",
+      "slug": "gnome-keyring-locked-brave-discord",
+      "url": "/gnome-keyring-locked-brave-discord/",
+      "source": "src/content/docs/gnome-keyring-locked-brave-discord.md"
     },
     {
       "title": "Good POSSE 發布檢查顯示未命名空白短文但找不到貼文",
@@ -1820,12 +945,15 @@
       ],
       "aliases": [
         "未命名短文 沒有文字或照片",
-        "releaseReadiness empty note"
+        "releaseReadiness empty note",
+        "/web/good-posse-publish-validation-unidentified-empty-note/"
       ],
       "related": [],
-      "slug": "web/good-posse-publish-validation-unidentified-empty-note",
-      "url": "/web/good-posse-publish-validation-unidentified-empty-note/",
-      "source": "src/content/docs/web/good-posse-publish-validation-unidentified-empty-note.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "good-posse-publish-validation-unidentified-empty-note",
+      "url": "/good-posse-publish-validation-unidentified-empty-note/",
+      "source": "src/content/docs/good-posse-publish-validation-unidentified-empty-note.md"
     },
     {
       "title": "Good POSSE 分享圖卡沒有保留短文手動換行",
@@ -1842,12 +970,15 @@
       ],
       "aliases": [
         "Canvas wrapText newline removed",
-        "分享圖卡換行消失"
+        "分享圖卡換行消失",
+        "/web/good-posse-share-card-manual-line-breaks/"
       ],
       "related": [],
-      "slug": "web/good-posse-share-card-manual-line-breaks",
-      "url": "/web/good-posse-share-card-manual-line-breaks/",
-      "source": "src/content/docs/web/good-posse-share-card-manual-line-breaks.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "good-posse-share-card-manual-line-breaks",
+      "url": "/good-posse-share-card-manual-line-breaks/",
+      "source": "src/content/docs/good-posse-share-card-manual-line-breaks.md"
     },
     {
       "title": "Good POSSE 發送 Threads／Instagram 時找不到資源或拒絕圖卡 JPEG",
@@ -1871,12 +1002,74 @@
         "Threads JPEG Pages 404",
         "media.url must be a public Good POSSE Instagram JPEG asset",
         "Threads graph.threads.com publish failure",
-        "Instagram share-card JPEG allowlist"
+        "Instagram share-card JPEG allowlist",
+        "/web/good-posse-threads-instagram-publish-assets/"
       ],
       "related": [],
-      "slug": "web/good-posse-threads-instagram-publish-assets",
-      "url": "/web/good-posse-threads-instagram-publish-assets/",
-      "source": "src/content/docs/web/good-posse-threads-instagram-publish-assets.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "good-posse-threads-instagram-publish-assets",
+      "url": "/good-posse-threads-instagram-publish-assets/",
+      "source": "src/content/docs/good-posse-threads-instagram-publish-assets.md"
+    },
+    {
+      "title": "搬遷或升級 HedgeDoc 時保留筆記、uploads 與 TLS",
+      "description": "Move HedgeDoc or perform a PostgreSQL major upgrade with a logical dump, an empty replacement data directory, UID-safe uploads, and verified public routing.",
+      "date": "2026-09-09",
+      "status": "fixed",
+      "system": "hedgedoc",
+      "severity": "high",
+      "tags": [
+        "hedgedoc",
+        "docker",
+        "postgresql",
+        "cosmos",
+        "cloudflare",
+        "migration"
+      ],
+      "aliases": [
+        "HedgeDoc Docker migration",
+        "HedgeDoc PostgreSQL major upgrade",
+        "PostgreSQL 13 to 17 HedgeDoc",
+        "HedgeDoc PostgreSQL restore",
+        "HedgeDoc uploads permission denied",
+        "Cosmos HedgeDoc route",
+        "HedgeDoc DNS cutover",
+        "/docker/hedgedoc-postgres-cosmos-migration/"
+      ],
+      "related": [],
+      "category": "other-services",
+      "section": "services",
+      "slug": "hedgedoc-postgres-cosmos-migration",
+      "url": "/hedgedoc-postgres-cosmos-migration/",
+      "source": "src/content/docs/hedgedoc-postgres-cosmos-migration.md"
+    },
+    {
+      "title": "HiNet GitHub 下載慢：用 WARP 繞路並保留 Tailscale DNS",
+      "description": "以 GitHub release 與 Cloudflare 下載對照辨識特定路徑瓶頸，設定 Linux WARP Traffic only 與 Tailscale 共存。",
+      "date": "2026-10-12",
+      "status": "fixed",
+      "system": "cloudflare-warp",
+      "severity": "medium",
+      "tags": [
+        "hinet",
+        "github",
+        "warp",
+        "tailscale",
+        "network"
+      ],
+      "aliases": [
+        "Twitter 圖片影片慢",
+        "Fastly 下載緩慢",
+        "warp tunnel_only",
+        "/linux/hinet-github-slow-warp-tailscale/"
+      ],
+      "related": [],
+      "category": "network",
+      "section": "server",
+      "slug": "hinet-github-slow-warp-tailscale",
+      "url": "/hinet-github-slow-warp-tailscale/",
+      "source": "src/content/docs/hinet-github-slow-warp-tailscale.md"
     },
     {
       "title": "HTML pattern 的連字號在 v 模式造成 Invalid character class",
@@ -1892,12 +1085,15 @@
       ],
       "aliases": [
         "Pattern attribute value is not a valid regular expression",
-        "Invalid character class"
+        "Invalid character class",
+        "/web/html-pattern-v-flag-hyphen/"
       ],
       "related": [],
-      "slug": "web/html-pattern-v-flag-hyphen",
-      "url": "/web/html-pattern-v-flag-hyphen/",
-      "source": "src/content/docs/web/html-pattern-v-flag-hyphen.md"
+      "category": "html",
+      "section": "web",
+      "slug": "html-pattern-v-flag-hyphen",
+      "url": "/html-pattern-v-flag-hyphen/",
+      "source": "src/content/docs/html-pattern-v-flag-hyphen.md"
     },
     {
       "title": "Hugo Stack 在停用 JavaScript 時保留手機導覽與基本功能",
@@ -1916,12 +1112,15 @@
       "aliases": [
         "Hugo no JavaScript fallback",
         "Stack mobile menu hidden",
-        "progressive enhancement"
+        "progressive enhancement",
+        "/web/hugo-no-js-progressive-enhancement/"
       ],
       "related": [],
-      "slug": "web/hugo-no-js-progressive-enhancement",
-      "url": "/web/hugo-no-js-progressive-enhancement/",
-      "source": "src/content/docs/web/hugo-no-js-progressive-enhancement.md"
+      "category": "static-sites",
+      "section": "web",
+      "slug": "hugo-no-js-progressive-enhancement",
+      "url": "/hugo-no-js-progressive-enhancement/",
+      "source": "src/content/docs/hugo-no-js-progressive-enhancement.md"
     },
     {
       "title": "Hugo Stack v4 Gallery 初始化錯誤",
@@ -1938,12 +1137,15 @@
       ],
       "aliases": [
         "StackGallery",
-        "hugo-theme-stack v4"
+        "hugo-theme-stack v4",
+        "/web/hugo-stack-v4-gallery/"
       ],
       "related": [],
-      "slug": "web/hugo-stack-v4-gallery",
-      "url": "/web/hugo-stack-v4-gallery/",
-      "source": "src/content/docs/web/hugo-stack-v4-gallery.md"
+      "category": "static-sites",
+      "section": "web",
+      "slug": "hugo-stack-v4-gallery",
+      "url": "/hugo-stack-v4-gallery/",
+      "source": "src/content/docs/hugo-stack-v4-gallery.md"
     },
     {
       "title": "IndiePing 別名整合後連結數下降與 Feed GUID 驗證",
@@ -1963,12 +1165,15 @@
         "alias query check scanner inconsistent",
         "self links counted as backlinks",
         "Feed GUID changed after alias",
-        "部署 smoke 筆數下降自動回退"
+        "部署 smoke 筆數下降自動回退",
+        "/web/indieping-alias-self-links-feed-guid/"
       ],
       "related": [],
-      "slug": "web/indieping-alias-self-links-feed-guid",
-      "url": "/web/indieping-alias-self-links-feed-guid/",
-      "source": "src/content/docs/web/indieping-alias-self-links-feed-guid.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-alias-self-links-feed-guid",
+      "url": "/indieping-alias-self-links-feed-guid/",
+      "source": "src/content/docs/indieping-alias-self-links-feed-guid.md"
     },
     {
       "title": "IndiePing 同一篇反向連結重複：來源合併與收錄防重",
@@ -1989,12 +1194,15 @@
         "same RSS registered twice",
         "IDNA duplicate blog",
         "重複收錄新舊網域",
-        "保留 Feed GUID 合併文章"
+        "保留 Feed GUID 合併文章",
+        "/web/indieping-duplicate-source-merge/"
       ],
       "related": [],
-      "slug": "web/indieping-duplicate-source-merge",
-      "url": "/web/indieping-duplicate-source-merge/",
-      "source": "src/content/docs/web/indieping-duplicate-source-merge.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-duplicate-source-merge",
+      "url": "/indieping-duplicate-source-merge/",
+      "source": "src/content/docs/indieping-duplicate-source-merge.md"
     },
     {
       "title": "IndiePing RSS 超過 8 MiB：保留有界抓取並調整 Feed 限額",
@@ -2012,12 +1220,15 @@
       "aliases": [
         "Response exceeds byte limit",
         "RSS larger than 8 MiB",
-        "Feed HTTP 200 但掃描失敗"
+        "Feed HTTP 200 但掃描失敗",
+        "/web/indieping-rss-byte-limit/"
       ],
       "related": [],
-      "slug": "web/indieping-rss-byte-limit",
-      "url": "/web/indieping-rss-byte-limit/",
-      "source": "src/content/docs/web/indieping-rss-byte-limit.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-rss-byte-limit",
+      "url": "/indieping-rss-byte-limit/",
+      "source": "src/content/docs/indieping-rss-byte-limit.md"
     },
     {
       "title": "IndiePing RSS parser 與 Node fetch 失敗",
@@ -2040,12 +1251,15 @@
         "Codeberg Pages fetch failed",
         "Undici IPv4 timeout",
         "IndiePing query unreachable",
-        "RSS discovery unreachable"
+        "RSS discovery unreachable",
+        "/web/indieping-rss-parser-codeberg-fetch/"
       ],
       "related": [],
-      "slug": "web/indieping-rss-parser-codeberg-fetch",
-      "url": "/web/indieping-rss-parser-codeberg-fetch/",
-      "source": "src/content/docs/web/indieping-rss-parser-codeberg-fetch.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-rss-parser-codeberg-fetch",
+      "url": "/indieping-rss-parser-codeberg-fetch/",
+      "source": "src/content/docs/indieping-rss-parser-codeberg-fetch.md"
     },
     {
       "title": "IndiePing scanner 靜默停跑",
@@ -2063,12 +1277,15 @@
       "aliases": [
         "scanner stopped silently",
         "SQLite disk full",
-        "journald disk full"
+        "journald disk full",
+        "/web/indieping-scheduler-disk-full/"
       ],
       "related": [],
-      "slug": "web/indieping-scheduler-disk-full",
-      "url": "/web/indieping-scheduler-disk-full/",
-      "source": "src/content/docs/web/indieping-scheduler-disk-full.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-scheduler-disk-full",
+      "url": "/indieping-scheduler-disk-full/",
+      "source": "src/content/docs/indieping-scheduler-disk-full.md"
     },
     {
       "title": "IndiePing 宣告的 RSS 已失效：驗證、替代 Feed 與 HEAD 405",
@@ -2088,12 +1305,15 @@
         "RSS HEAD 405",
         "alternate feed stale",
         "首頁正常但 RSS 失效",
-        "Feed endpoint returns HTML"
+        "Feed endpoint returns HTML",
+        "/web/indieping-stale-feed-discovery/"
       ],
       "related": [],
-      "slug": "web/indieping-stale-feed-discovery",
-      "url": "/web/indieping-stale-feed-discovery/",
-      "source": "src/content/docs/web/indieping-stale-feed-discovery.md"
+      "category": "indieping",
+      "section": "web",
+      "slug": "indieping-stale-feed-discovery",
+      "url": "/indieping-stale-feed-discovery/",
+      "source": "src/content/docs/indieping-stale-feed-discovery.md"
     },
     {
       "title": "Instagram Login 拒絕 platform app，或 OAuth user ID 是數字",
@@ -2113,12 +1333,62 @@
         "Invalid platform app",
         "Instagram did not return a valid Instagram user ID",
         "Instagram Business Login App ID",
-        "Instagram OAuth numeric user_id"
+        "Instagram OAuth numeric user_id",
+        "/web/instagram-login-platform-app-numeric-user-id/"
       ],
       "related": [],
-      "slug": "web/instagram-login-platform-app-numeric-user-id",
-      "url": "/web/instagram-login-platform-app-numeric-user-id/",
-      "source": "src/content/docs/web/instagram-login-platform-app-numeric-user-id.md"
+      "category": "social-api",
+      "section": "web",
+      "slug": "instagram-login-platform-app-numeric-user-id",
+      "url": "/instagram-login-platform-app-numeric-user-id/",
+      "source": "src/content/docs/instagram-login-platform-app-numeric-user-id.md"
+    },
+    {
+      "title": "JLCONE 在 COSMIC Wayland 無視窗或登入欄位裁切",
+      "description": "JLCONE 的 bundled Electron 在 COSMIC Wayland 中開窗失敗或只顯示登入宣傳圖時，辨識 Xwayland 未映射與 WebContentsView 合成問題，並以每個 App 的 Wayland／軟體合成 launcher 迴避。",
+      "date": "2026-10-02",
+      "status": "investigating",
+      "system": "JLCONE / COSMIC Wayland",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "jlcone",
+        "electron",
+        "cosmic",
+        "wayland"
+      ],
+      "aliases": [
+        "JLCONE blank login screen Linux",
+        "JLCONE login form missing",
+        "JLCONE WebContentsView Wayland",
+        "jlcone-bin COSMIC",
+        "/linux/jlcone-cosmic-wayland-login-view/"
+      ],
+      "related": [],
+      "category": "apps",
+      "section": "desktop",
+      "slug": "jlcone-cosmic-wayland-login-view",
+      "url": "/jlcone-cosmic-wayland-login-view/",
+      "source": "src/content/docs/jlcone-cosmic-wayland-login-view.md"
+    },
+    {
+      "title": "License & Reuse Notice",
+      "description": "License, ownership, and attribution text for humans and AI-assisted reuse.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "debug-kb",
+      "severity": "low",
+      "tags": [
+        "license",
+        "ai"
+      ],
+      "aliases": [],
+      "related": [],
+      "category": null,
+      "section": null,
+      "slug": "license-ai-notice",
+      "url": "/license-ai-notice/",
+      "source": "src/content/docs/license-ai-notice.md"
     },
     {
       "title": "Local-first PWA 完整同步後仍無法發布：已刪除貼文的衝突被清單隱藏",
@@ -2138,12 +1408,15 @@
         "正在確認跨裝置狀態",
         "完整同步後仍不能發布",
         "deleted tombstone conflict hidden from library",
-        "R2 delete update conflict blocks publish"
+        "R2 delete update conflict blocks publish",
+        "/web/local-first-pwa-deleted-sync-conflict-blocks-publish/"
       ],
       "related": [],
-      "slug": "web/local-first-pwa-deleted-sync-conflict-blocks-publish",
-      "url": "/web/local-first-pwa-deleted-sync-conflict-blocks-publish/",
-      "source": "src/content/docs/web/local-first-pwa-deleted-sync-conflict-blocks-publish.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "local-first-pwa-deleted-sync-conflict-blocks-publish",
+      "url": "/local-first-pwa-deleted-sync-conflict-blocks-publish/",
+      "source": "src/content/docs/local-first-pwa-deleted-sync-conflict-blocks-publish.md"
     },
     {
       "title": "Mastodon 關閉公開預覽時 public timeline 回 422",
@@ -2162,12 +1435,314 @@
       "aliases": [
         "Mastodon public timeline 422",
         "This method requires an authenticated user",
-        "Mastodon read:statuses app token"
+        "Mastodon read:statuses app token",
+        "/web/mastodon-public-timeline-app-token/"
       ],
       "related": [],
-      "slug": "web/mastodon-public-timeline-app-token",
-      "url": "/web/mastodon-public-timeline-app-token/",
-      "source": "src/content/docs/web/mastodon-public-timeline-app-token.md"
+      "category": "social-api",
+      "section": "web",
+      "slug": "mastodon-public-timeline-app-token",
+      "url": "/mastodon-public-timeline-app-token/",
+      "source": "src/content/docs/mastodon-public-timeline-app-token.md"
+    },
+    {
+      "title": "MK870 在 Linux 連上 sharkfin，卻讀不到原廠改鍵",
+      "description": "ROYUAN MK870 能以 WebHID 連線並讀出鍵位表，不代表推測配列與 FL 原廠改鍵完全相容；以 USB 身分、原始設定檔和讀取快照保留證據。",
+      "date": "2026-11-03",
+      "status": "investigating",
+      "system": "sharkfin",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "keyboard",
+        "mk870",
+        "sharkfin",
+        "webhid"
+      ],
+      "aliases": [
+        "FL ESPORTS Linux",
+        "YC500 keymap readback",
+        "Caps Lock remap missing",
+        "/linux/mk870-sharkfin-keymap-readback/"
+      ],
+      "related": [],
+      "category": "keyboards",
+      "section": "hardware",
+      "slug": "mk870-sharkfin-keymap-readback",
+      "url": "/mk870-sharkfin-keymap-readback/",
+      "source": "src/content/docs/mk870-sharkfin-keymap-readback.md"
+    },
+    {
+      "title": "n8n 2.x RSS Feed Trigger 沒有輪詢：補齊 minute 並重新發布",
+      "description": "升級到 n8n 2.x 後，舊的 everyHour RSS polling 設定若缺少 minute，會產生無效 cron，工作流雖顯示啟用卻不會自動執行。",
+      "date": "2026-09-30",
+      "status": "fixed",
+      "system": "n8n",
+      "severity": "medium",
+      "tags": [
+        "n8n",
+        "docker",
+        "rss",
+        "scheduler",
+        "newsletter"
+      ],
+      "aliases": [
+        "n8n RSS Feed Trigger not polling",
+        "n8n everyHour missing minute",
+        "n8n workflow active but RSS trigger does not run",
+        "/docker/n8n-rss-feed-trigger-missing-minute/"
+      ],
+      "related": [],
+      "category": "n8n",
+      "section": "services",
+      "slug": "n8n-rss-feed-trigger-missing-minute",
+      "url": "/n8n-rss-feed-trigger-missing-minute/",
+      "source": "src/content/docs/n8n-rss-feed-trigger-missing-minute.md"
+    },
+    {
+      "title": "n8n RSS 新文章漏寄：無日期項目清空游標，改用成功後記錄日期",
+      "description": "RSS Feed Trigger 遇到尾端無發布日期的頁面，可能反覆把目前時間當基準而漏抓新文；以 Schedule Trigger、RSS Read、有效日期篩選與寄送成功後更新游標修復。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "n8n",
+      "severity": "medium",
+      "tags": [
+        "n8n",
+        "rss",
+        "newsletter",
+        "docker",
+        "smtp"
+      ],
+      "aliases": [
+        "n8n RSS Feed Trigger lastItemDate undefined",
+        "RSS missing pubDate silently skips new items",
+        "n8n workflow active but newsletter not sent",
+        "/docker/n8n-rss-undated-items-missing-posts/"
+      ],
+      "related": [],
+      "category": "n8n",
+      "section": "services",
+      "slug": "n8n-rss-undated-items-missing-posts",
+      "url": "/n8n-rss-undated-items-missing-posts/",
+      "source": "src/content/docs/n8n-rss-undated-items-missing-posts.md"
+    },
+    {
+      "title": "NewsBlur 失連訂閱：核對新 RSS 並保留原訂閱",
+      "description": "NewsBlur 的 feed exception 與 page exception 需分開檢查；先確認搬家與 RSS 內容，再備份歷史、更新原訂閱並實際重抓。",
+      "date": "2026-11-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "rss",
+        "feed-discovery"
+      ],
+      "aliases": [
+        "NewsBlur broken feed address",
+        "NewsBlur Unsafe URL DNS",
+        "RSS 換網址",
+        "/docker/newsblur-broken-feed-address/"
+      ],
+      "related": [
+        "newsblur-feed-refresh-scheduler",
+        "newsblur-refresh-trims-story-history"
+      ],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-broken-feed-address",
+      "url": "/newsblur-broken-feed-address/",
+      "source": "src/content/docs/newsblur-broken-feed-address.md"
+    },
+    {
+      "title": "NewsBlur 自訂網域被誤判為使用者子網域，首頁無限重導",
+      "description": "NewsBlur 自訂子網域未列入 ALLOWED_SUBDOMAINS 時，匿名首頁會重導回相同 URL，導致瀏覽器 ERR_TOO_MANY_REDIRECTS。",
+      "date": "2026-09-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "docker",
+        "custom-domain",
+        "redirect-loop",
+        "django"
+      ],
+      "aliases": [
+        "ERR_TOO_MANY_REDIRECTS NewsBlur",
+        "NewsBlur custom domain redirect loop",
+        "ALLOWED_SUBDOMAINS",
+        "/docker/newsblur-custom-domain-redirect-loop/"
+      ],
+      "related": [],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-custom-domain-redirect-loop",
+      "url": "/newsblur-custom-domain-redirect-loop/",
+      "source": "src/content/docs/newsblur-custom-domain-redirect-loop.md"
+    },
+    {
+      "title": "NewsBlur 升 Django 5：轉換舊 Session 並保留登入",
+      "description": "升級 NewsBlur Python、Django、Celery 時，需在舊 runtime 轉換伺服器端 Pickle Session，並分開驗證 SQL、登入、API與背景任務。",
+      "date": "2026-11-21",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "django",
+        "session",
+        "redis",
+        "migration"
+      ],
+      "aliases": [
+        "Django PickleSerializer removed",
+        "NewsBlur Python 3.13 Django 5.2",
+        "Redis session JSON migration",
+        "/docker/newsblur-django5-session-json-migration/"
+      ],
+      "related": [],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-django5-session-json-migration",
+      "url": "/newsblur-django5-session-json-migration/",
+      "source": "src/content/docs/newsblur-django5-session-json-migration.md"
+    },
+    {
+      "title": "NewsBlur 沒有新文章時分層檢查 feed refresh",
+      "description": "Self-hosted NewsBlur can appear stale because Celery workers are running old code, upstream feed routes fail, unread filters hide neutral stories, or no subscribed feeds are due in the scheduler.",
+      "date": "2026-07-15",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "docker",
+        "rss",
+        "celery"
+      ],
+      "aliases": [
+        "NewsBlur no new stories",
+        "NewsBlur feed refresh scheduler",
+        "scheduled_updates due_now",
+        "Celery stale worker",
+        "/docker/newsblur-feed-refresh-scheduler/"
+      ],
+      "related": [],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-feed-refresh-scheduler",
+      "url": "/newsblur-feed-refresh-scheduler/",
+      "source": "src/content/docs/newsblur-feed-refresh-scheduler.md"
+    },
+    {
+      "title": "NewsBlur 升級後 HAProxy 因可選 Backend DNS 失敗重啟",
+      "description": "NewsBlur 的 HAProxy 設定新增主機端可選 backend 時，未解析的 host.docker.internal 可能讓整個 proxy 無法啟動。",
+      "date": "2026-09-08",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "haproxy",
+        "docker",
+        "dns",
+        "reverse-proxy"
+      ],
+      "aliases": [
+        "host.docker.internal could not resolve address",
+        "HAProxy Failed to initialize servers addr",
+        "NewsBlur HAProxy restarting",
+        "optional backend DNS failure",
+        "/docker/newsblur-haproxy-optional-backend-dns/"
+      ],
+      "related": [],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-haproxy-optional-backend-dns",
+      "url": "/newsblur-haproxy-optional-backend-dns/",
+      "source": "src/content/docs/newsblur-haproxy-optional-backend-dns.md"
+    },
+    {
+      "title": "NewsBlur log 爆滿 root disk",
+      "description": "NewsBlur verbose request log can grow until the Docker host root filesystem reaches 100%, requiring truncation and logrotate.",
+      "date": "2026-06-29",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "docker",
+        "disk",
+        "logrotate"
+      ],
+      "aliases": [
+        "newsblur.log 29G",
+        "NewsBlur disk full",
+        "root filesystem 100%",
+        "/docker/newsblur-log-disk-full/"
+      ],
+      "related": [],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-log-disk-full",
+      "url": "/newsblur-log-disk-full/",
+      "source": "src/content/docs/newsblur-log-disk-full.md"
+    },
+    {
+      "title": "NewsBlur 重抓成功卻只剩 10 篇：舊文裁切與補回",
+      "description": "Feed.update 新增文章會觸發 trim_feed；本次長期未閱讀來源被縮至 10 篇，從隔離還原的備份只補缺漏文章並核對 BSON。",
+      "date": "2026-11-11",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "high",
+      "tags": [
+        "newsblur",
+        "mongodb",
+        "backup",
+        "data-recovery"
+      ],
+      "aliases": [
+        "NewsBlur refresh deletes old stories",
+        "NewsBlur trimming down to 10",
+        "NewsBlur trim_feed history recovery",
+        "/docker/newsblur-refresh-trims-story-history/"
+      ],
+      "related": [
+        "newsblur-broken-feed-address"
+      ],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-refresh-trims-story-history",
+      "url": "/newsblur-refresh-trims-story-history/",
+      "source": "src/content/docs/newsblur-refresh-trims-story-history.md"
+    },
+    {
+      "title": "NewsBlur RSS 相對圖片破圖",
+      "description": "feedparser used the feed URL as the base for relative images inside content:encoded, causing story images to resolve to the wrong host path.",
+      "date": "2026-07-13",
+      "status": "fixed",
+      "system": "newsblur",
+      "severity": "medium",
+      "tags": [
+        "newsblur",
+        "rss",
+        "docker",
+        "python"
+      ],
+      "aliases": [
+        "RSS relative image",
+        "feedparser base URL",
+        "/docker/newsblur-rss-relative-image/"
+      ],
+      "related": [
+        "newsblur-rss-relative-image"
+      ],
+      "category": "newsblur",
+      "section": "services",
+      "slug": "newsblur-rss-relative-image",
+      "url": "/newsblur-rss-relative-image/",
+      "source": "src/content/docs/newsblur-rss-relative-image.md"
     },
     {
       "title": "電子報標題 emoji 換行：內文圖片樣式套到圖示",
@@ -2186,12 +1761,310 @@
       "aliases": [
         "newsletter emoji image display block",
         "Gmail 標題 emoji 換行",
-        "電子報標題留白過大"
+        "電子報標題留白過大",
+        "/web/newsletter-heading-emoji-image-block/"
       ],
       "related": [],
-      "slug": "web/newsletter-heading-emoji-image-block",
-      "url": "/web/newsletter-heading-emoji-image-block/",
-      "source": "src/content/docs/web/newsletter-heading-emoji-image-block.md"
+      "category": "html",
+      "section": "web",
+      "slug": "newsletter-heading-emoji-image-block",
+      "url": "/newsletter-heading-emoji-image-block/",
+      "source": "src/content/docs/newsletter-heading-emoji-image-block.md"
+    },
+    {
+      "title": "Nextcloud AIO 自訂映像跨版升級時 Permission denied",
+      "description": "A custom Nextcloud AIO image can fail its intermediate major-version upgrade when the extracted application tree has the wrong ownership or a test override disappears during rsync.",
+      "date": "2026-11-02",
+      "status": "fixed",
+      "system": "nextcloud",
+      "severity": "high",
+      "tags": [
+        "nextcloud",
+        "aio",
+        "docker",
+        "upgrade"
+      ],
+      "aliases": [
+        "Nextcloud AIO mv Permission denied",
+        "Nextcloud AIO custom image ownership",
+        "Nextcloud AIO upgrade rsync config removed",
+        "/docker/nextcloud-aio-custom-image-major-upgrade/"
+      ],
+      "related": [],
+      "category": "nextcloud",
+      "section": "services",
+      "slug": "nextcloud-aio-custom-image-major-upgrade",
+      "url": "/nextcloud-aio-custom-image-major-upgrade/",
+      "source": "src/content/docs/nextcloud-aio-custom-image-major-upgrade.md"
+    },
+    {
+      "title": "Nextcloud AIO 磁碟壓力與升級卡在 Starting",
+      "description": "Nextcloud AIO may remain healthy while its Docker host is nearly full; distinguish the UI state from disk pressure, reclaim only safe Docker artifacts, and cap logs before upgrading.",
+      "date": "2026-09-24",
+      "status": "fixed",
+      "system": "nextcloud",
+      "severity": "medium",
+      "tags": [
+        "nextcloud",
+        "aio",
+        "docker",
+        "disk"
+      ],
+      "aliases": [
+        "Nextcloud AIO Starting",
+        "Nextcloud no space left on device",
+        "curl failure writing output",
+        "Nextcloud disk 96%",
+        "Nextcloud AIO Docker image prune",
+        "Nextcloud journal disk full",
+        "/docker/nextcloud-aio-no-space-left/"
+      ],
+      "related": [],
+      "category": "nextcloud",
+      "section": "services",
+      "slug": "nextcloud-aio-no-space-left",
+      "url": "/nextcloud-aio-no-space-left/",
+      "source": "src/content/docs/nextcloud-aio-no-space-left.md"
+    },
+    {
+      "title": "OMP 新版被舊 Bun 啟動而出現 SyntaxError",
+      "description": "OMP 已更新卻在 dist/cli.js 報 SyntaxError 時，檢查 shebang 實際解析到的 Bun 與不同啟動環境的 PATH。",
+      "date": "2026-09-28",
+      "status": "fixed",
+      "system": "oh-my-pi",
+      "severity": "medium",
+      "tags": [
+        "omp",
+        "bun",
+        "linux",
+        "path"
+      ],
+      "aliases": [
+        "Oh My Pi Unexpected identifier",
+        "OMP Bun version mismatch",
+        "pi-coding-agent cli.js SyntaxError",
+        "/ai-tools/omp-old-bun-path-syntax-error/"
+      ],
+      "related": [],
+      "category": "agents",
+      "section": "ai-tools",
+      "slug": "omp-old-bun-path-syntax-error",
+      "url": "/omp-old-bun-path-syntax-error/",
+      "source": "src/content/docs/omp-old-bun-path-syntax-error.md"
+    },
+    {
+      "title": "OpenClaw 升級後 Codex 模型顯示 unavailable",
+      "description": "OpenClaw 升級後，因 Node runtime 或舊 openai-codex provider 殘留而無法使用 Codex 模型時的排查與修復。",
+      "date": "2026-07-31",
+      "status": "fixed",
+      "system": "openclaw",
+      "severity": "medium",
+      "tags": [
+        "openclaw",
+        "codex",
+        "openai",
+        "nodejs"
+      ],
+      "aliases": [
+        "Configured model is unavailable from the provider",
+        "Unknown model openai-codex",
+        "OpenClaw Codex model unavailable",
+        "/ai-tools/openclaw-codex-model-provider-migration/"
+      ],
+      "related": [],
+      "category": "agents",
+      "section": "ai-tools",
+      "slug": "openclaw-codex-model-provider-migration",
+      "url": "/openclaw-codex-model-provider-migration/",
+      "source": "src/content/docs/openclaw-codex-model-provider-migration.md"
+    },
+    {
+      "title": "PipeWire 把 DroidCam Loopback 選成預設，Focusrite 語音沒有聲音",
+      "description": "DroidCam 載入 snd-aloop 後，若 Focusrite 或其他實體裝置缺席，PipeWire 的預設輸入輸出可能落到虛擬 Loopback；先確認實體卡與實際預設路由。",
+      "date": "2026-09-14",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "medium",
+      "tags": [
+        "arch-linux",
+        "pipewire",
+        "wireplumber",
+        "droidcam",
+        "focusrite",
+        "audio"
+      ],
+      "aliases": [
+        "snd-aloop default device",
+        "PipeWire Loopback Analog Stereo",
+        "Focusrite Scarlett 2i2 no sound",
+        "DroidCam Loopback microphone",
+        "/linux/pipewire-loopback-focusrite-default/"
+      ],
+      "related": [],
+      "category": "audio",
+      "section": "desktop",
+      "slug": "pipewire-loopback-focusrite-default",
+      "url": "/pipewire-loopback-focusrite-default/",
+      "source": "src/content/docs/pipewire-loopback-focusrite-default.md"
+    },
+    {
+      "title": "Plausible CE v2 升 v3 時避免 PostgreSQL 資料目錄不相容",
+      "description": "Upgrade a self-hosted Plausible Community Edition v2 stack to v3 by logically migrating PostgreSQL, preserving ClickHouse rollback data, and verifying analytics without polluting production traffic.",
+      "date": "2026-07-15",
+      "status": "fixed",
+      "system": "plausible",
+      "severity": "high",
+      "tags": [
+        "plausible",
+        "docker",
+        "postgresql",
+        "clickhouse",
+        "migration"
+      ],
+      "aliases": [
+        "Plausible v2 to v3 migration",
+        "PostgreSQL 14 to 16 Plausible",
+        "ClickHouse 23 to 24 Plausible",
+        "Plausible community edition upgrade",
+        "/docker/plausible-v2-v3-migration/"
+      ],
+      "related": [],
+      "category": "other-services",
+      "section": "services",
+      "slug": "plausible-v2-v3-migration",
+      "url": "/plausible-v2-v3-migration/",
+      "source": "src/content/docs/plausible-v2-v3-migration.md"
+    },
+    {
+      "title": "Plurk 搜尋把錯誤回應當成空結果",
+      "description": "Plurk search clients must record each query's HTTP and response status before treating an empty result as a valid response.",
+      "date": "2026-11-13",
+      "status": "fixed",
+      "system": "plurk-search",
+      "severity": "medium",
+      "tags": [
+        "plurk",
+        "api",
+        "search",
+        "rate-limit",
+        "python"
+      ],
+      "aliases": [
+        "Plurk search empty rate limit",
+        "Plurk API error mistaken for no results",
+        "/ai-tools/plurk-search-empty-http-error/"
+      ],
+      "related": [],
+      "category": "automation",
+      "section": "ai-tools",
+      "slug": "plurk-search-empty-http-error",
+      "url": "/plurk-search-empty-http-error/",
+      "source": "src/content/docs/plurk-search-empty-http-error.md"
+    },
+    {
+      "title": "Postiz 刪文後仍照排程發出",
+      "description": "Postiz UI delete did not cancel the already-started Temporal workflow, so the workflow woke up and published stale post data.",
+      "date": "2026-05-12",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "temporal",
+        "workflow"
+      ],
+      "aliases": [
+        "delete post does not cancel workflow",
+        "postWorkflowV101",
+        "stale Temporal workflow",
+        "/docker/postiz-delete-temporal-workflow/"
+      ],
+      "related": [],
+      "category": "postiz",
+      "section": "services",
+      "slug": "postiz-delete-temporal-workflow",
+      "url": "/postiz-delete-temporal-workflow/",
+      "source": "src/content/docs/postiz-delete-temporal-workflow.md"
+    },
+    {
+      "title": "Postiz fork 升級後取得手機版面，保留 Plurk 與回復路徑",
+      "description": "從 Postiz v2.24.0 升到 v2.25.3，處理 Plurk refresh 與已移除 PostHog 的 cherry-pick 衝突，核對資料及 Temporal worker，並避開舊版 Prisma db-push 的回復風險。",
+      "date": "2026-10-27",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "medium",
+      "tags": [
+        "postiz",
+        "docker",
+        "temporal",
+        "prisma",
+        "git"
+      ],
+      "aliases": [
+        "Postiz mobile responsive upgrade",
+        "Postiz Plurk cherry-pick conflict",
+        "Postiz rollback Prisma db push",
+        "/docker/postiz-fork-upgrade-responsive-layout/"
+      ],
+      "related": [],
+      "category": "postiz",
+      "section": "services",
+      "slug": "postiz-fork-upgrade-responsive-layout",
+      "url": "/postiz-fork-upgrade-responsive-layout/",
+      "source": "src/content/docs/postiz-fork-upgrade-responsive-layout.md"
+    },
+    {
+      "title": "Postiz MCP 造成 backend hang",
+      "description": "Postiz scheduled posts stayed queued because MCP SSE requests accumulated and blocked backend work needed by Temporal activities.",
+      "date": "2026-03-25",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "mcp",
+        "temporal",
+        "nodejs"
+      ],
+      "aliases": [
+        "Postiz queued posts not publishing",
+        "api/mcp hang",
+        "Temporal activity timeout",
+        "/docker/postiz-mcp-backend-hang/"
+      ],
+      "related": [],
+      "category": "postiz",
+      "section": "services",
+      "slug": "postiz-mcp-backend-hang",
+      "url": "/postiz-mcp-backend-hang/",
+      "source": "src/content/docs/postiz-mcp-backend-hang.md"
+    },
+    {
+      "title": "Postiz 重啟後貼文卡 QUEUE，Temporal 沒有 worker",
+      "description": "Postiz orchestrator 啟動時連不上 Temporal，PM2 仍顯示 online；重啟又留下占用 3002 的子程序，須清除殘留程序並驗證 task queue polling。",
+      "date": "2026-10-23",
+      "status": "fixed",
+      "system": "postiz",
+      "severity": "high",
+      "tags": [
+        "postiz",
+        "temporal",
+        "pm2",
+        "docker",
+        "nodejs"
+      ],
+      "aliases": [
+        "Postiz QUEUE no pollers",
+        "Temporal worker connection refused",
+        "orchestrator EADDRINUSE 3002",
+        "/docker/postiz-temporal-worker-startup-orphan-process/"
+      ],
+      "related": [],
+      "category": "postiz",
+      "section": "services",
+      "slug": "postiz-temporal-worker-startup-orphan-process",
+      "url": "/postiz-temporal-worker-startup-orphan-process/",
+      "source": "src/content/docs/postiz-temporal-worker-startup-orphan-process.md"
     },
     {
       "title": "Android PWA 返回鍵直接關閉 browser",
@@ -2208,12 +2081,15 @@
       ],
       "aliases": [
         "popstate android back button",
-        "PWA back closes browser"
+        "PWA back closes browser",
+        "/web/pwa-android-back-history/"
       ],
       "related": [],
-      "slug": "web/pwa-android-back-history",
-      "url": "/web/pwa-android-back-history/",
-      "source": "src/content/docs/web/pwa-android-back-history.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "pwa-android-back-history",
+      "url": "/pwa-android-back-history/",
+      "source": "src/content/docs/pwa-android-back-history.md"
     },
     {
       "title": "PWA 的 CSP 擋住字型、Cloudflare 腳本與 srcdoc 預覽",
@@ -2230,12 +2106,15 @@
       ],
       "aliases": [
         "Loading the font violates Content Security Policy",
-        "about srcdoc inline script blocked"
+        "about srcdoc inline script blocked",
+        "/web/pwa-csp-fonts-srcdoc-preview/"
       ],
       "related": [],
-      "slug": "web/pwa-csp-fonts-srcdoc-preview",
-      "url": "/web/pwa-csp-fonts-srcdoc-preview/",
-      "source": "src/content/docs/web/pwa-csp-fonts-srcdoc-preview.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "pwa-csp-fonts-srcdoc-preview",
+      "url": "/pwa-csp-fonts-srcdoc-preview/",
+      "source": "src/content/docs/pwa-csp-fonts-srcdoc-preview.md"
     },
     {
       "title": "PWA editor 日期正確但發布後全變成今天",
@@ -2255,12 +2134,15 @@
         "PWA published date becomes today",
         "static site deployment overwrites post dates",
         "editor 顯示日期正確但發布日期錯誤",
-        "短文發布後全部是今天"
+        "短文發布後全部是今天",
+        "/web/pwa-published-date-deployment-time/"
       ],
       "related": [],
-      "slug": "web/pwa-published-date-deployment-time",
-      "url": "/web/pwa-published-date-deployment-time/",
-      "source": "src/content/docs/web/pwa-published-date-deployment-time.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "pwa-published-date-deployment-time",
+      "url": "/pwa-published-date-deployment-time/",
+      "source": "src/content/docs/pwa-published-date-deployment-time.md"
     },
     {
       "title": "R2 同步後，已發布貼文全變成待公開",
@@ -2279,12 +2161,15 @@
       "aliases": [
         "R2 sync marks all published posts pending",
         "已發布內容同步後全部待公開",
-        "release report site published state"
+        "release report site published state",
+        "/web/pwa-r2-sync-published-posts-pending/"
       ],
       "related": [],
-      "slug": "web/pwa-r2-sync-published-posts-pending",
-      "url": "/web/pwa-r2-sync-published-posts-pending/",
-      "source": "src/content/docs/web/pwa-r2-sync-published-posts-pending.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "pwa-r2-sync-published-posts-pending",
+      "url": "/pwa-r2-sync-published-posts-pending/",
+      "source": "src/content/docs/pwa-r2-sync-published-posts-pending.md"
     },
     {
       "title": "PWA 更新後卡在載入：舊 Service Worker 與 IndexedDB 升級互相阻擋",
@@ -2305,12 +2190,43 @@
         "service worker stale app shell",
         "IndexedDB versionchange blocked",
         "PWA 舊版快取",
-        "Cloudflare Pages 手機 PWA 部署後無法載入"
+        "Cloudflare Pages 手機 PWA 部署後無法載入",
+        "/web/pwa-service-worker-indexeddb-upgrade/"
       ],
       "related": [],
-      "slug": "web/pwa-service-worker-indexeddb-upgrade",
-      "url": "/web/pwa-service-worker-indexeddb-upgrade/",
-      "source": "src/content/docs/web/pwa-service-worker-indexeddb-upgrade.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "pwa-service-worker-indexeddb-upgrade",
+      "url": "/pwa-service-worker-indexeddb-upgrade/",
+      "source": "src/content/docs/pwa-service-worker-indexeddb-upgrade.md"
+    },
+    {
+      "title": "Ubuntu 升級後舊 venv 仍綁 Python 3.13",
+      "description": "Rebuild Python 3.13 virtual environments under Python 3.14, preserve the original entry path, and verify real tool behavior before retiring the old runtime.",
+      "date": "2026-10-25",
+      "status": "fixed",
+      "system": "python",
+      "severity": "medium",
+      "tags": [
+        "python",
+        "venv",
+        "ubuntu",
+        "migration",
+        "rollback"
+      ],
+      "aliases": [
+        "Python 3.13 to 3.14 venv migration",
+        "Ubuntu upgrade old Python virtualenv",
+        "venv absolute shebang rollback",
+        "Python virtual environment symlink",
+        "/linux/python-venv-minor-upgrade-preserve-entrypoint/"
+      ],
+      "related": [],
+      "category": "packages",
+      "section": "desktop",
+      "slug": "python-venv-minor-upgrade-preserve-entrypoint",
+      "url": "/python-venv-minor-upgrade-preserve-entrypoint/",
+      "source": "src/content/docs/python-venv-minor-upgrade-preserve-entrypoint.md"
     },
     {
       "title": "R2 append-only 同步每次都掃描舊事件，少量變更仍要數十秒",
@@ -2331,12 +2247,89 @@
         "R2 event index counter gaps",
         "R2 同步重讀已知事件",
         "發布前要同步好幾次",
-        "R2 freshness check slow"
+        "R2 freshness check slow",
+        "/web/r2-append-only-sync-slow-incremental/"
       ],
       "related": [],
-      "slug": "web/r2-append-only-sync-slow-incremental",
-      "url": "/web/r2-append-only-sync-slow-incremental/",
-      "source": "src/content/docs/web/r2-append-only-sync-slow-incremental.md"
+      "category": "pwa",
+      "section": "web",
+      "slug": "r2-append-only-sync-slow-incremental",
+      "url": "/r2-append-only-sync-slow-incremental/",
+      "source": "src/content/docs/r2-append-only-sync-slow-incremental.md"
+    },
+    {
+      "title": "Remmina VNC 透過 SSH 隧道連線失敗",
+      "description": "檢查 Remmina SSH 伺服器、金鑰驗證與遠端 VNC 監聽埠，區分連線建立和桌面畫面驗收。",
+      "date": "2026-10-28",
+      "status": "investigating",
+      "system": "remmina",
+      "severity": "low",
+      "tags": [
+        "remmina",
+        "ssh",
+        "vnc"
+      ],
+      "aliases": [
+        "Remmina SSH tunnel authentication failed",
+        "x11vnc SSH tunnel",
+        "/linux/remmina-vnc-ssh-tunnel-auth/"
+      ],
+      "related": [],
+      "category": "network",
+      "section": "server",
+      "slug": "remmina-vnc-ssh-tunnel-auth",
+      "url": "/remmina-vnc-ssh-tunnel-auth/",
+      "source": "src/content/docs/remmina-vnc-ssh-tunnel-auth.md"
+    },
+    {
+      "title": "Rime/Fcitx 設定被重設",
+      "description": "Linux 桌面輸入法設定被切回 keyboard-us 時的排查入口。",
+      "date": "2026-06-16",
+      "status": "fixed",
+      "system": "desktop",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "rime",
+        "fcitx",
+        "input-method"
+      ],
+      "aliases": [
+        "fcitx reset",
+        "rime liur profile",
+        "/linux/rime-fcitx-reset/"
+      ],
+      "related": [],
+      "category": "input",
+      "section": "desktop",
+      "slug": "rime-fcitx-reset",
+      "url": "/rime-fcitx-reset/",
+      "source": "src/content/docs/rime-fcitx-reset.md"
+    },
+    {
+      "title": "RP2040 Pro Micro GP26–GP29 上拉失效與 Vial 回到 BOOTSEL",
+      "description": "排查 HW-467AB 相容控制器的 ADC_AVDD 供電異常、矩陣誤觸和 Vial 重啟。",
+      "date": "2026-11-16",
+      "status": "investigating",
+      "system": "RP2040",
+      "severity": "medium",
+      "tags": [
+        "rp2040",
+        "vial",
+        "qmk",
+        "keyboard"
+      ],
+      "aliases": [
+        "HW-467AB GP26 GP27 GP28 GP29 pull-up",
+        "Lily58 Vial RPI-RP2 開機後重新出現",
+        "/linux/rp2040-promicro-adc-avdd-matrix/"
+      ],
+      "related": [],
+      "category": "keyboards",
+      "section": "hardware",
+      "slug": "rp2040-promicro-adc-avdd-matrix",
+      "url": "/rp2040-promicro-adc-avdd-matrix/",
+      "source": "src/content/docs/rp2040-promicro-adc-avdd-matrix.md"
     },
     {
       "title": "RSSHub Dcard API 被擋時改抓 JSON-LD",
@@ -2355,12 +2348,42 @@
       "aliases": [
         "RSSHub Dcard 503",
         "Dcard SocialMediaPosting",
-        "Dcard JSON-LD"
+        "Dcard JSON-LD",
+        "/web/rsshub-dcard-json-ld/"
       ],
       "related": [],
-      "slug": "web/rsshub-dcard-json-ld",
-      "url": "/web/rsshub-dcard-json-ld/",
-      "source": "src/content/docs/web/rsshub-dcard-json-ld.md"
+      "category": "rsshub",
+      "section": "services",
+      "slug": "rsshub-dcard-json-ld",
+      "url": "/rsshub-dcard-json-ld/",
+      "source": "src/content/docs/rsshub-dcard-json-ld.md"
+    },
+    {
+      "title": "RSSHub 讀政府 OpenData JSON 遺失文章段落格式",
+      "description": "某些政府 CMS 的 JSON 開放資料會把文章 HTML 壓成純文字；改讀保留轉義 HTML 的 XML，才能讓 RSS 閱讀器保有段落、清單與圖片。",
+      "date": "2026-09-02",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "low",
+      "tags": [
+        "rsshub",
+        "rss",
+        "opendata",
+        "xml",
+        "docker"
+      ],
+      "aliases": [
+        "RSSHub OpenData XML",
+        "RSS description no line breaks",
+        "OpenData JSON HTML stripped",
+        "/docker/rsshub-opendata-xml-preserve-html/"
+      ],
+      "related": [],
+      "category": "rsshub",
+      "section": "services",
+      "slug": "rsshub-opendata-xml-preserve-html",
+      "url": "/rsshub-opendata-xml-preserve-html/",
+      "source": "src/content/docs/rsshub-opendata-xml-preserve-html.md"
     },
     {
       "title": "RSSHub feed URL 指到 private IP 被 RSS reader 拒絕",
@@ -2379,12 +2402,94 @@
       "aliases": [
         "private network RSS URL",
         "reserved network feed URL",
-        "RSSHub private IP"
+        "RSSHub private IP",
+        "/web/rsshub-private-ip-feed-url/"
       ],
       "related": [],
-      "slug": "web/rsshub-private-ip-feed-url",
-      "url": "/web/rsshub-private-ip-feed-url/",
-      "source": "src/content/docs/web/rsshub-private-ip-feed-url.md"
+      "category": "rsshub",
+      "section": "services",
+      "slug": "rsshub-private-ip-feed-url",
+      "url": "/rsshub-private-ip-feed-url/",
+      "source": "src/content/docs/rsshub-private-ip-feed-url.md"
+    },
+    {
+      "title": "RSSHub Docker 缺 Chromium 導致 puppeteer-real-browser route 503",
+      "description": "RSSHub routes using puppeteer-real-browser need PUPPETEER_REAL_BROWSER_SERVICE or CHROMIUM_EXECUTABLE_PATH; browserless websocket alone is not enough.",
+      "date": "2026-07-14",
+      "status": "fixed",
+      "system": "rsshub",
+      "severity": "medium",
+      "tags": [
+        "rsshub",
+        "docker",
+        "chromium",
+        "puppeteer",
+        "browserless"
+      ],
+      "aliases": [
+        "PUPPETEER_REAL_BROWSER_SERVICE",
+        "CHROMIUM_EXECUTABLE_PATH",
+        "RSSHub Chromium Docker",
+        "/docker/rsshub-puppeteer-real-browser-chromium/"
+      ],
+      "related": [],
+      "category": "rsshub",
+      "section": "services",
+      "slug": "rsshub-puppeteer-real-browser-chromium",
+      "url": "/rsshub-puppeteer-real-browser-chromium/",
+      "source": "src/content/docs/rsshub-puppeteer-real-browser-chromium.md"
+    },
+    {
+      "title": "自架服務出現陌生帳號時的註冊封鎖與清理",
+      "description": "Self-hosted services may expose a registration route by default; inventory accounts first, then disable registration at the supported setting or reverse proxy and verify the actual signup API.",
+      "date": "2026-07-21",
+      "status": "fixed",
+      "system": "self-hosted-web-services",
+      "severity": "high",
+      "tags": [
+        "docker",
+        "authentication",
+        "account-security",
+        "traefik"
+      ],
+      "aliases": [
+        "unexpected user registrations",
+        "disable self-hosted signup",
+        "block signup API with Traefik",
+        "/docker/self-hosted-unwanted-signups/"
+      ],
+      "related": [],
+      "category": "other-services",
+      "section": "services",
+      "slug": "self-hosted-unwanted-signups",
+      "url": "/self-hosted-unwanted-signups/",
+      "source": "src/content/docs/self-hosted-unwanted-signups.md"
+    },
+    {
+      "title": "Stardew Valley Linux 多人連線卡住",
+      "description": "Stardew Valley on Linux can hang at Connecting to online services when bundled Galaxy libraries keep an executable GNU_STACK flag.",
+      "date": "2026-06-28",
+      "status": "fixed",
+      "system": "steam",
+      "severity": "medium",
+      "tags": [
+        "linux",
+        "steam",
+        "stardew-valley",
+        "patchelf"
+      ],
+      "aliases": [
+        "Connecting to online services",
+        "libGalaxy64.so",
+        "GNU_STACK RWE",
+        "/linux/stardew-valley-galaxy-execstack/"
+      ],
+      "related": [],
+      "category": "gaming",
+      "section": "desktop",
+      "slug": "stardew-valley-galaxy-execstack",
+      "url": "/stardew-valley-galaxy-execstack/",
+      "source": "src/content/docs/stardew-valley-galaxy-execstack.md"
     },
     {
       "title": "Starlight dev server 舊 content store 導致 500",
@@ -2402,12 +2507,15 @@
       "aliases": [
         "Astro dev server 500",
         "Starlight sidebar slug",
-        "stale content store"
+        "stale content store",
+        "/web/starlight-dev-server-stale-content/"
       ],
       "related": [],
-      "slug": "web/starlight-dev-server-stale-content",
-      "url": "/web/starlight-dev-server-stale-content/",
-      "source": "src/content/docs/web/starlight-dev-server-stale-content.md"
+      "category": "static-sites",
+      "section": "web",
+      "slug": "starlight-dev-server-stale-content",
+      "url": "/starlight-dev-server-stale-content/",
+      "source": "src/content/docs/starlight-dev-server-stale-content.md"
     },
     {
       "title": "Threads OAuth 被 redirect URI、Android App Link 或 user ID 阻擋",
@@ -2432,12 +2540,205 @@
         "Threads did not return a valid Threads user ID",
         "Threads OAuth access token no user_id",
         "Android opens Threads app instead of OAuth",
-        "Threads App Link PWA callback"
+        "Threads App Link PWA callback",
+        "/web/threads-oauth-redirect-uri-user-id/"
       ],
       "related": [],
-      "slug": "web/threads-oauth-redirect-uri-user-id",
-      "url": "/web/threads-oauth-redirect-uri-user-id/",
-      "source": "src/content/docs/web/threads-oauth-redirect-uri-user-id.md"
+      "category": "social-api",
+      "section": "web",
+      "slug": "threads-oauth-redirect-uri-user-id",
+      "url": "/threads-oauth-redirect-uri-user-id/",
+      "source": "src/content/docs/threads-oauth-redirect-uri-user-id.md"
+    },
+    {
+      "title": "Threads 引用卡片讓網址、時間與內文錯配",
+      "description": "A Threads extractor can assign the outer card's first timestamp and text to a quoted permalink, falsely satisfying a search checkpoint; bind timestamps to each permalink and reject unverified legacy coverage.",
+      "date": "2026-10-25",
+      "status": "fixed",
+      "system": "browser-automation",
+      "severity": "medium",
+      "tags": [
+        "threads",
+        "browser-automation",
+        "dom",
+        "checkpoint",
+        "data-integrity"
+      ],
+      "aliases": [
+        "Threads quoted post wrong timestamp",
+        "card querySelector time mismatch",
+        "Threads permalink timestamp pairing",
+        "Threads quote false coverage",
+        "/ai-tools/threads-quoted-post-url-time-pairing/"
+      ],
+      "related": [],
+      "category": "automation",
+      "section": "ai-tools",
+      "slug": "threads-quoted-post-url-time-pairing",
+      "url": "/threads-quoted-post-url-time-pairing/",
+      "source": "src/content/docs/threads-quoted-post-url-time-pairing.md"
+    },
+    {
+      "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
+      "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
+      "date": "2026-11-13",
+      "status": "fixed",
+      "system": "browser-automation",
+      "severity": "medium",
+      "tags": [
+        "threads",
+        "browser-automation",
+        "virtual-dom",
+        "checkpoint",
+        "codex",
+        "recovery"
+      ],
+      "aliases": [
+        "Threads search incomplete",
+        "Threads virtual DOM oldest timestamp",
+        "Threads search checkpoint",
+        "browser runner timeout",
+        "Threads no new URL false completion",
+        "Threads recent 7 day search",
+        "/ai-tools/threads-search-virtual-dom-checkpoint/"
+      ],
+      "related": [],
+      "category": "automation",
+      "section": "ai-tools",
+      "slug": "threads-search-virtual-dom-checkpoint",
+      "url": "/threads-search-virtual-dom-checkpoint/",
+      "source": "src/content/docs/threads-search-virtual-dom-checkpoint.md"
+    },
+    {
+      "title": "Ubuntu sudo-rs 缺少 setuid 權限而無法提權",
+      "description": "Ubuntu 的 sudo alternative 指向 sudo-rs 時，若執行檔失去 root setuid 位元，sudo 會直接拒絕執行；可用 Polkit 或 recovery shell 修復。",
+      "date": "2026-08-12",
+      "status": "fixed",
+      "system": "linux-desktop",
+      "severity": "high",
+      "tags": [
+        "ubuntu",
+        "sudo",
+        "sudo-rs",
+        "permissions",
+        "polkit"
+      ],
+      "aliases": [
+        "sudo must be owned by uid 0 and have the setuid bit set",
+        "sudo-rs setuid missing",
+        "Ubuntu sudo 失效",
+        "/linux/ubuntu-sudo-rs-setuid-broken/"
+      ],
+      "related": [],
+      "category": "permissions",
+      "section": "server",
+      "slug": "ubuntu-sudo-rs-setuid-broken",
+      "url": "/ubuntu-sudo-rs-setuid-broken/",
+      "source": "src/content/docs/ubuntu-sudo-rs-setuid-broken.md"
+    },
+    {
+      "title": "VSCodium Remote SSH 的 Codex extension 卡在送出中",
+      "description": "Codex 在 VSCodium Remote SSH 無限轉圈時，檢查遠端 extension host 是否仍載入舊版 extension 與 stale webview cache。",
+      "date": "2026-07-31",
+      "status": "fixed",
+      "system": "codex-ide-extension",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "vscodium",
+        "vscode",
+        "remote-ssh"
+      ],
+      "aliases": [
+        "Codex extension infinite spinner",
+        "VSCodium Remote SSH Codex",
+        "openai.chatgpt stale extension",
+        "/ai-tools/vscodium-remote-ssh-codex-extension-stale-cache/"
+      ],
+      "related": [],
+      "category": "editors",
+      "section": "ai-tools",
+      "slug": "vscodium-remote-ssh-codex-extension-stale-cache",
+      "url": "/vscodium-remote-ssh-codex-extension-stale-cache/",
+      "source": "src/content/docs/vscodium-remote-ssh-codex-extension-stale-cache.md"
+    },
+    {
+      "title": "VSCodium Codex 側欄無法載入：Service Worker InvalidStateError",
+      "description": "VSCodium 的 openai.chatgpt Webview 無法註冊 Service Worker 時，先正常退出，再備份並重建正確 profile 的快取。",
+      "date": "2026-10-24",
+      "status": "fixed",
+      "system": "codex-ide-extension",
+      "severity": "medium",
+      "tags": [
+        "vscodium",
+        "vscode",
+        "codex",
+        "service-worker"
+      ],
+      "aliases": [
+        "Could not register service worker",
+        "The document is in an invalid state",
+        "openai.chatgpt InvalidStateError",
+        "/ai-tools/vscodium-webview-service-worker-invalid-state/"
+      ],
+      "related": [],
+      "category": "editors",
+      "section": "ai-tools",
+      "slug": "vscodium-webview-service-worker-invalid-state",
+      "url": "/vscodium-webview-service-worker-invalid-state/",
+      "source": "src/content/docs/vscodium-webview-service-worker-invalid-state.md"
+    },
+    {
+      "title": "COSMIC Wayland 顏文字選取後無法貼上",
+      "description": "Splatmoji 與 rofimoji 選單正常但無法輸入時，檢查 Wayland 剪貼簿、模擬按鍵和實際貼上結果。",
+      "date": "2026-11-10",
+      "status": "fixed",
+      "system": "rofimoji",
+      "severity": "low",
+      "tags": [
+        "linux",
+        "cosmic",
+        "wayland",
+        "rofimoji",
+        "clipboard"
+      ],
+      "aliases": [
+        "kaomoji picker paste fails",
+        "splatmoji wayland paste",
+        "/linux/wayland-rofimoji-kaomoji-paste/"
+      ],
+      "related": [],
+      "category": "input",
+      "section": "desktop",
+      "slug": "wayland-rofimoji-kaomoji-paste",
+      "url": "/wayland-rofimoji-kaomoji-paste/",
+      "source": "src/content/docs/wayland-rofimoji-kaomoji-paste.md"
+    },
+    {
+      "title": "Wine 下 KartRider 進入賽事時 NMService.exe 崩潰",
+      "description": "KartRider 可進大廳但一進實際賽事即崩潰時，辨識舊 beanfun NMService.exe access violation，並安全回退 Wine 測試的方法。",
+      "date": "2026-07-24",
+      "status": "investigating",
+      "system": "Wine / KartRider / beanfun",
+      "severity": "medium",
+      "tags": [
+        "wine",
+        "gaming",
+        "compatibility",
+        "beanfun"
+      ],
+      "aliases": [
+        "KartRider Wine race crash",
+        "NMService.exe access violation",
+        "beanfun Wine crash",
+        "/linux/wine-nmservice-race-crash/"
+      ],
+      "related": [],
+      "category": "gaming",
+      "section": "desktop",
+      "slug": "wine-nmservice-race-crash",
+      "url": "/wine-nmservice-race-crash/",
+      "source": "src/content/docs/wine-nmservice-race-crash.md"
     },
     {
       "title": "Wrangler 遠端登入改用裝置授權，避免 localhost 回呼失敗",
@@ -2455,12 +2756,15 @@
       "aliases": [
         "Wrangler auth token expired remote",
         "localhost 8976 callback",
-        "wrangler login device"
+        "wrangler login device",
+        "/web/wrangler-remote-device-login/"
       ],
       "related": [],
-      "slug": "web/wrangler-remote-device-login",
-      "url": "/web/wrangler-remote-device-login/",
-      "source": "src/content/docs/web/wrangler-remote-device-login.md"
+      "category": "cloudflare",
+      "section": "web",
+      "slug": "wrangler-remote-device-login",
+      "url": "/wrangler-remote-device-login/",
+      "source": "src/content/docs/wrangler-remote-device-login.md"
     },
     {
       "title": "YouTube 首頁空白：UnDistracted 隱藏推薦區",
@@ -2478,12 +2782,15 @@
       "aliases": [
         "YouTube home blank",
         "undistracted-style",
-        "Hide Feed"
+        "Hide Feed",
+        "/web/youtube-home-hidden-undistracted/"
       ],
       "related": [],
-      "slug": "web/youtube-home-hidden-undistracted",
-      "url": "/web/youtube-home-hidden-undistracted/",
-      "source": "src/content/docs/web/youtube-home-hidden-undistracted.md"
+      "category": "apps",
+      "section": "desktop",
+      "slug": "youtube-home-hidden-undistracted",
+      "url": "/youtube-home-hidden-undistracted/",
+      "source": "src/content/docs/youtube-home-hidden-undistracted.md"
     }
   ]
 }

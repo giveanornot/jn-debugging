@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
+import { readPages, createSidebar } from './scripts/lib/content.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -51,28 +52,7 @@ export default defineConfig({
 					],
 				}),
 			],
-			sidebar: [
-				{
-					label: 'Start',
-					items: ['about', 'license-ai-notice'],
-				},
-				{
-					label: 'Linux',
-					items: [{ autogenerate: { directory: 'linux' } }],
-				},
-				{
-					label: 'Docker',
-					items: [{ autogenerate: { directory: 'docker' } }],
-				},
-				{
-					label: 'Web',
-					items: [{ autogenerate: { directory: 'web' } }],
-				},
-				{
-					label: 'AI Tools',
-					items: [{ autogenerate: { directory: 'ai-tools' } }],
-				},
-			],
+			sidebar: createSidebar(await readPages()),
 		}),
 	],
 });
