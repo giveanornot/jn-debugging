@@ -1,5 +1,5 @@
 {
-  "count": 105,
+  "count": 106,
   "pages": [
     {
       "title": "關於 JN",
@@ -2568,6 +2568,30 @@
       "slug": "starlight-dev-server-stale-content",
       "url": "/starlight-dev-server-stale-content/",
       "source": "src/content/docs/starlight-dev-server-stale-content.md"
+    },
+    {
+      "title": "Tailscale 接管 DNS 後查詢未必經過 Pi-hole",
+      "description": "在 Linux 比對 Tailscale、路由器和 Pi-hole 的 DNS 回覆，確認實際上游與封鎖是否生效。",
+      "date": "2026-11-22",
+      "status": "fixed",
+      "system": "tailscale",
+      "severity": "low",
+      "tags": [
+        "tailscale",
+        "pi-hole",
+        "dns",
+        "linux"
+      ],
+      "aliases": [
+        "Tailscale DNS bypasses Pi-hole",
+        "MagicDNS Pi-hole 廣告封鎖"
+      ],
+      "related": [],
+      "category": "network",
+      "section": "server",
+      "slug": "tailscale-dns-pihole-router",
+      "url": "/tailscale-dns-pihole-router/",
+      "source": "src/content/docs/tailscale-dns-pihole-router.md"
     },
     {
       "title": "Threads OAuth 被 redirect URI、Android App Link 或 user ID 阻擋",
