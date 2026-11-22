@@ -1,5 +1,5 @@
 {
-  "count": 103,
+  "count": 105,
   "pages": [
     {
       "title": "關於 JN",
@@ -349,6 +349,32 @@
       "source": "src/content/docs/codex-community-pinned-package-stable-mismatch.md"
     },
     {
+      "title": "ChatGPT Community 更新失敗：舊建置器的 Quit 補丁無法套用",
+      "description": "修復 codex-update-manager 先遇到磁碟滿、重試後仍卡在 quit-confirmation-focus 的更新流程。",
+      "date": "2026-11-22",
+      "status": "fixed",
+      "system": "codex-desktop",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "chatgpt",
+        "linux",
+        "ubuntu",
+        "updater"
+      ],
+      "aliases": [
+        "Expected exactly one official Quit coordinator",
+        "quit-confirmation-focus",
+        "No space left on device"
+      ],
+      "related": [],
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-community-updater-quit-patch-drift",
+      "url": "/codex-community-updater-quit-patch-drift/",
+      "source": "src/content/docs/codex-community-updater-quit-patch-drift.md"
+    },
+    {
       "title": "Codex Desktop Linux 找不到 CLI",
       "description": "Codex Desktop Linux reboot 後找不到 CLI 時，同時檢查 launcher path、runtime cache 與磁碟空間。",
       "date": "2026-11-19",
@@ -458,6 +484,32 @@
       "slug": "codex-linux-voice-chat-official-app",
       "url": "/codex-linux-voice-chat-official-app/",
       "source": "src/content/docs/codex-linux-voice-chat-official-app.md"
+    },
+    {
+      "title": "Codex 遠端模型選單少了新模型：共用 app-server 仍在跑舊版",
+      "description": "核對 SSH 遠端模型選單、CLI 與執行中的 app-server 版本，並驗證模型實際可用。",
+      "date": "2026-11-22",
+      "status": "fixed",
+      "system": "codex",
+      "severity": "medium",
+      "tags": [
+        "codex",
+        "linux",
+        "remote",
+        "ssh",
+        "app-server"
+      ],
+      "aliases": [
+        "GPT-6.2 Sol missing",
+        "model/list",
+        "app server is running but is not managed by codex app-server daemon"
+      ],
+      "related": [],
+      "category": "codex",
+      "section": "ai-tools",
+      "slug": "codex-remote-model-picker-old-app-server",
+      "url": "/codex-remote-model-picker-old-app-server/",
+      "source": "src/content/docs/codex-remote-model-picker-old-app-server.md"
     },
     {
       "title": "Codex 手機 Remote 與 SSH 接手對話時出現 active writer",

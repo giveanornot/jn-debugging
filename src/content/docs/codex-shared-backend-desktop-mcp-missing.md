@@ -27,6 +27,12 @@ Codex Desktop 自己有封存工具，不代表外接的共用 app-server 已取
 
 ## 症狀
 
+### 更新後找不到新的 IPC 路徑
+
+ChatGPT Community 更新至上游 `26.1117.41037` 後，橋接探測回報 `No running Codex Desktop app-tools bridge`，桌面視窗已正常出現。檢查 Desktop 程序持有的 Unix socket，發現目錄由 `codex-app-tools` 改成 `codex-app-tools-<UID>`。
+
+探測器同時接受舊目錄與目前使用者 UID 對應的新目錄，繼續確認 socket 由目前使用者擁有、由已確認的桌面程式持有，找到多個候選時停止。更新探測器後，實測 `tools/list` 列出 56 項工具，共用後端的 MCP 設定熱重載成功。
+
 - 聊天結束流程找不到 `set_thread_archived`，其他聊天卻可能有。
 - 插件設定顯示 `codex-app-tools@openai-bundled` 已啟用。
 - 執行聊天的共用後端與 Desktop 自己的 app-server 是不同程序。
