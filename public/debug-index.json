@@ -1,5 +1,5 @@
 {
-  "count": 107,
+  "count": 108,
   "pages": [
     {
       "title": "關於 JN",
@@ -1225,6 +1225,30 @@
       "slug": "hugo-stack-v4-gallery",
       "url": "/hugo-stack-v4-gallery/",
       "source": "src/content/docs/hugo-stack-v4-gallery.md"
+    },
+    {
+      "title": "Hugo 出現 TOCSS-DART 錯誤，找不到 Dart Sass",
+      "description": "從 Hugo server 的 TOCSS-DART 錯誤確認 Dart Sass 是否在 PATH，並區分缺少依賴和編譯時的棄用警告。",
+      "date": "2026-11-23",
+      "status": "fixed",
+      "system": "Hugo",
+      "severity": "low",
+      "tags": [
+        "hugo",
+        "hugo-theme-stack",
+        "dart-sass"
+      ],
+      "aliases": [
+        "TOCSS-DART",
+        "You need to install Dart Sass",
+        "Hugo server Dart Sass PATH"
+      ],
+      "related": [],
+      "category": "static-sites",
+      "section": "web",
+      "slug": "hugo-tocss-dart-sass-missing",
+      "url": "/hugo-tocss-dart-sass-missing/",
+      "source": "src/content/docs/hugo-tocss-dart-sass-missing.md"
     },
     {
       "title": "IndiePing 別名整合後連結數下降與 Feed GUID 驗證",
