@@ -1,5 +1,5 @@
 {
-  "count": 108,
+  "count": 109,
   "pages": [
     {
       "title": "關於 JN",
@@ -919,6 +919,31 @@
       "slug": "docker-compose-wait-container-replaced",
       "url": "/docker-compose-wait-container-replaced/",
       "source": "src/content/docs/docker-compose-wait-container-replaced.md"
+    },
+    {
+      "title": "Docker logs 只顯示舊紀錄，dockerd 出現 json-file 解碼錯誤",
+      "description": "比對 Docker CLI、dockerd 與應用程式輪替日誌的時間範圍，在 json-file 讀取中斷時補查缺漏的事件。",
+      "date": "2026-11-24",
+      "status": "investigating",
+      "system": "Docker Engine",
+      "severity": "medium",
+      "tags": [
+        "docker",
+        "json-file",
+        "logging",
+        "cosmos"
+      ],
+      "aliases": [
+        "docker logs missing recent entries",
+        "Error decoding log file",
+        "docker json-file NUL"
+      ],
+      "related": [],
+      "category": "containers",
+      "section": "server",
+      "slug": "docker-logs-json-file-decode-gap",
+      "url": "/docker-logs-json-file-decode-gap/",
+      "source": "src/content/docs/docker-logs-json-file-decode-gap.md"
     },
     {
       "title": "Docker WireGuard 全隧道連線後失去網路或管理連線",
