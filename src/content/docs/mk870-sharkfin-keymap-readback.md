@@ -1,7 +1,8 @@
 ---
 title: MK870 在 Linux 連上 sharkfin，卻讀不到原廠改鍵
-description: ROYUAN MK870 能以 WebHID 連線並讀出鍵位表，不代表推測配列與 FL 原廠改鍵完全相容；以 USB 身分、原始設定檔和讀取快照保留證據。
+description: ROYUAN MK870 有線可讀板載鍵位與背光快照。遇到 FL 改鍵讀回差異或 Fn 背光失效時，先核對 USB 裝置身分與當下設定。
 date: 2026-11-03
+lastUpdated: 2026-11-23
 tags:
   - linux
   - keyboard
@@ -67,6 +68,8 @@ for dev in Path('/sys/bus/usb/devices').iterdir():
 
 在瀏覽器裝置選單選擇 `Gaming Keyboard` 後，sharkfin 成功辨識協定。這次原有裝置權限已足夠，未新增 udev 規則。
 
+後續排查 Fn＋↑／↓ 時，桌機只列出 `bcdDevice=0002`。向接收器送出唯讀狀態及識別查詢，兩者回傳相同資料，未取得鍵盤識別碼或背光參數。要讀當下板載設定，先用 USB 資料線直連、切至有線模式，並確認系統列出 `Gaming Keyboard`（`0215`）。[sharkfin 接收器協定](https://github.com/dniminenn/sharkfin/blob/master/docs/PROTOCOL.md#24-ghz-receiver)
+
 ### 保存原始讀取結果
 
 1. 在 Contribute → Collect data bundle 取得唯讀診斷；不必送出 issue。
@@ -108,3 +111,9 @@ for dev in Path('/sys/bus/usb/devices').iterdir():
 ## 下次先查
 
 先確認有線裝置的完整 USB 身分與工具版本，再保存唯讀快照。對照原廠軟體的設定檔／層及實體鍵輸出，釐清候選槽位是否對應正確。找到不一致的位置後，才決定補配列、修讀取協定或改用其他工具。
+
+### Fn 背光快捷鍵間歇失效
+
+1. 在 WIN 模式比較單按 F11 與 Fn＋F11。若組合鍵能降低音量，代表該次按壓有辨識到 Fn。可用 Fn＋F12 調高音量，避開音量已在下限的情況。[MK870 三模版原廠手冊](https://fccid.io/m/d78a9ff8164efcab0081136253864cc6d6dc66e5fb4a9df6c264ac48e5fd46e2.pdf)
+2. 若只有背光組合鍵失效，單按 ↑／↓ 確認方向鍵本身有反應。有線連線後，讀取當前背光亮度和作用中的 Fn 層。舊有線快照曾讀到亮度為 0，四組 Fn 表仍包含 ↑／↓ 的亮度動作。後續這次症狀尚未取得新的有線快照。
+3. 若音量組合鍵也會失效，可在熱插拔版本關電、拔線後，將 Fn 軸與已確認正常的字母鍵軸互換。故障跟著軸移動就查軸體。故障留在 Fn 位置則查軸座接點與板載 Fn 指定。本案尚未實測換軸，根因仍待確認。

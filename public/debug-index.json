@@ -1550,7 +1550,7 @@
     },
     {
       "title": "MK870 在 Linux 連上 sharkfin，卻讀不到原廠改鍵",
-      "description": "ROYUAN MK870 能以 WebHID 連線並讀出鍵位表，不代表推測配列與 FL 原廠改鍵完全相容；以 USB 身分、原始設定檔和讀取快照保留證據。",
+      "description": "ROYUAN MK870 有線可讀板載鍵位與背光快照。遇到 FL 改鍵讀回差異或 Fn 背光失效時，先核對 USB 裝置身分與當下設定。",
       "date": "2026-11-03",
       "status": "investigating",
       "system": "sharkfin",
