@@ -1,5 +1,5 @@
 {
-  "count": 106,
+  "count": 107,
   "pages": [
     {
       "title": "關於 JN",
@@ -782,6 +782,33 @@
       "slug": "cosmos-431-cross-subdomain-cookies",
       "url": "/cosmos-431-cross-subdomain-cookies/",
       "source": "src/content/docs/cosmos-431-cross-subdomain-cookies.md"
+    },
+    {
+      "title": "Cosmos 代理的 Docker Compose 服務重建後出現兩個代理網路",
+      "description": "用 Docker 事件辨認 Cosmos 自動建立的代理網路，避免服務重建時把舊代理網路也接回去。",
+      "date": "2026-11-23",
+      "status": "fixed",
+      "system": "cosmos-server",
+      "severity": "medium",
+      "tags": [
+        "cosmos",
+        "docker",
+        "docker-compose",
+        "pictshare"
+      ],
+      "aliases": [
+        "Cosmos duplicate proxy network",
+        "Cosmos PictShare networks differ",
+        "Cosmos Docker Compose recreate"
+      ],
+      "related": [
+        "cosmos-http2-startup-nextproto-race"
+      ],
+      "category": "proxy",
+      "section": "server",
+      "slug": "cosmos-compose-recreate-duplicate-proxy-network",
+      "url": "/cosmos-compose-recreate-duplicate-proxy-network/",
+      "source": "src/content/docs/cosmos-compose-recreate-duplicate-proxy-network.md"
     },
     {
       "title": "Cosmos HTTP1 正常、HTTP2 連線關閉：共用 Server 啟動競態",
