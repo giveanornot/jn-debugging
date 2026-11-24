@@ -2733,7 +2733,7 @@
     {
       "title": "Threads 搜尋被虛擬 DOM 與逾時誤判完成",
       "description": "Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.",
-      "date": "2026-11-13",
+      "date": "2026-11-24",
       "status": "fixed",
       "system": "browser-automation",
       "severity": "medium",
@@ -2752,6 +2752,7 @@
         "browser runner timeout",
         "Threads no new URL false completion",
         "Threads recent 7 day search",
+        "Threads queue archived before resume",
         "/ai-tools/threads-search-virtual-dom-checkpoint/"
       ],
       "related": [],

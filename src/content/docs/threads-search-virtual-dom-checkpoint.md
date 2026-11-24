@@ -1,7 +1,7 @@
 ---
 title: Threads 搜尋被虛擬 DOM 與逾時誤判完成
 description: Threads search must not treat a short batch, timeout, or repeated URLs as completion; use versioned result-group time coverage and resumable batches instead.
-date: 2026-11-13
+date: 2026-11-24
 tags:
   - threads
   - browser-automation
@@ -19,6 +19,7 @@ aliases:
   - browser runner timeout
   - Threads no new URL false completion
   - Threads recent 7 day search
+  - Threads queue archived before resume
   - /ai-tools/threads-search-virtual-dom-checkpoint/
 category: automation
 ---
@@ -122,6 +123,12 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 佇列記來源模組指紋。版本不同先阻擋，再依實際改動選preserve或rebuild，均先備份。捲動／抽取證據失效時追加撤銷標記、新coverage epoch，保留raw與原checkpoint，不以舊coverage完成新遍歷。
 - 污染必須有實頁證據，明確incomplete。品質紀錄逐筆人工標相關／無關／待確認，保留分母與時間窗內外數量；變體共用原詞凍結checkpoint但獨立狀態，不覆蓋原詞缺口。
 
+### 例行歸檔搬走待續佇列
+
+長時間暫停的搜尋可能碰到例行歸檔。舊歸檔只比對檔案時間，會搬走仍待續的佇列。Runner 遇到原路徑缺檔時會建立新佇列，重新計算各詞的搜尋下限，可能失去原本凍結的 checkpoint 和逐詞狀態。
+
+用未結案待辦的佇列連結標記需要保留的批次。歸檔遇到這類連結時，保留同日期的佇列、結果、事件和 manifest。結案後回到一般保留期限。如果已搬走，先核對歸檔副本的日期、query 清單與指紋，並找回同批資料。遇到同名的新狀態時，先比對證據以免覆蓋後續進度。
+
 ### 精確比對的限制
 
 2026-11-13 實頁測試，在 Advanced search 啟用 Exact match 後重新選 Recent：中文自組鍵盤及具體型號的可見樣本，比一般搜尋少了拆詞帶來的商品與無關結果。但 Publii 仍命中同拼字的外語廣告；結果群組也可能附帶不含搜尋詞的上下文。這是少量可見樣本，不代表完整時間覆蓋或全部結果相關。
@@ -142,6 +149,7 @@ page-context `window.scrollBy()` 在 extension backend 沒有丟錯，但 feed �
 - 四詞ABBA在相同checkpoint與1.1秒等待下，單分頁兩次取得39／51組query＋URL，雙分頁兩次各35組。單分頁自己也變動，不能證明等量加速，也不能直接歸因雙分頁漏文；預設維持單分頁。
 - 窄主題補搜中，原詞5筆全無關，具體鍵盤型號13筆有12筆主題相關、1筆待確認；但11筆是checkpoint以前的舊文，時間窗內只有1相關／1待確認。這不證明台灣互動價值、整體召回率或覆蓋所有同類產品。
 - 2026-11-13 單頁小樣本確認 Exact match 的開關與 Recent 可並用；鍵盤詞有改善，Publii 仍有同拼字雜訊。未執行完整變體遍歷或補齊歷史缺口。
+- 2026-11-24 以既有佇列的隔離副本模擬超過保留期限。未結案時，佇列與同批證據保留，runner 重開可讀回原 checkpoint 與逐詞狀態。結案後可歸檔，重跑無待處理檔案。這次驗收涵蓋檔案歸檔與讀取，實頁搜尋續跑仍待測。
 
 跨時間邊界是本工具的驗收條件；平台可能延遲、改排或漏送，不能由此保證全平台貼文已完整取得。搜尋品質與效能實驗資料另行保存，不混入正式seen。
 
