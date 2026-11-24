@@ -1,5 +1,5 @@
 {
-  "count": 109,
+  "count": 111,
   "pages": [
     {
       "title": "關於 JN",
@@ -158,6 +158,31 @@
       "slug": "arch-paru-aur-rpc-eof-chaotic-mirror-timeout",
       "url": "/arch-paru-aur-rpc-eof-chaotic-mirror-timeout/",
       "source": "src/content/docs/arch-paru-aur-rpc-eof-chaotic-mirror-timeout.md"
+    },
+    {
+      "title": "Arch Linux 的 Web Serial 選得到裝置，開啟 ttyACM 卻失敗",
+      "description": "用裝置節點的權限和占用狀態定位 Web Serial 連線問題，並確認瀏覽器終端能送出指令。",
+      "date": "2026-11-24",
+      "status": "fixed",
+      "system": "Web Serial",
+      "severity": "low",
+      "tags": [
+        "arch-linux",
+        "web-serial",
+        "chromium",
+        "usb"
+      ],
+      "aliases": [
+        "Failed to open serial port",
+        "ttyACM0 uucp",
+        "Serial Terminal Local echo"
+      ],
+      "related": [],
+      "category": "permissions",
+      "section": "server",
+      "slug": "arch-web-serial-ttyacm-permission",
+      "url": "/arch-web-serial-ttyacm-permission/",
+      "source": "src/content/docs/arch-web-serial-ttyacm-permission.md"
     },
     {
       "title": "Docker 升級 Artalk 並安全備份 SQLite 留言資料",
@@ -1545,6 +1570,33 @@
       "slug": "local-first-pwa-deleted-sync-conflict-blocks-publish",
       "url": "/local-first-pwa-deleted-sync-conflict-blocks-publish/",
       "source": "src/content/docs/local-first-pwa-deleted-sync-conflict-blocks-publish.md"
+    },
+    {
+      "title": "Marlin 伺服式 Z 探針的 M48 失敗與 Z offset 重校",
+      "description": "先在 Z 軸停住時驗證探針觸發和噴嘴間隙，再判讀 M48 的回原點前置檢查與探測錯誤。",
+      "date": "2026-11-24",
+      "status": "fixed",
+      "system": "Marlin 2.0.8.2",
+      "severity": "medium",
+      "tags": [
+        "marlin",
+        "3d-printing",
+        "ramps",
+        "z-probe",
+        "m48"
+      ],
+      "aliases": [
+        "M48 Probing Failed",
+        "M48 Home XYZ First",
+        "servo probe z_min TRIGGERED",
+        "Z Probe Offset M851"
+      ],
+      "related": [],
+      "category": "3d-printing",
+      "section": "hardware",
+      "slug": "marlin-servo-probe-m48-failed",
+      "url": "/marlin-servo-probe-m48-failed/",
+      "source": "src/content/docs/marlin-servo-probe-m48-failed.md"
     },
     {
       "title": "Mastodon 關閉公開預覽時 public timeline 回 422",

@@ -20,7 +20,7 @@ export const sections = [
 		['social-api', '社群 API'], ['cloudflare', 'Cloudflare 與部署'], ['html', 'HTML 與電子報'],
 	] },
 	{ id: 'hardware', label: '硬體與韌體', groups: [
-		['keyboards', '鍵盤與控制器'],
+		['keyboards', '鍵盤與控制器'], ['3d-printing', '3D 列印'],
 	] },
 ];
 
@@ -37,14 +37,14 @@ const rules = [
 	['apps', /^(android-quick-share-|brave-|jlcone-|youtube-)/],
 	['packages', /^(arch-aur-|arch-paru-|python-venv-)/], ['gaming', /^(stardew-|wine-)/],
 	['network', /^(hinet-|remmina-|docker-wireguard-|ddclient-)/], ['proxy', /^cosmos-/],
-	['containers', /^docker-compose-/], ['database', /^clickhouse-/], ['permissions', /^ubuntu-sudo-/],
+	['containers', /^docker-compose-/], ['database', /^clickhouse-/], ['permissions', /^(ubuntu-sudo-|arch-web-serial-)/],
 	['newsblur', /^newsblur-/], ['rsshub', /^rsshub-/], ['postiz', /^postiz-/],
 	['nextcloud', /^nextcloud-/], ['artalk', /^artalk-/], ['n8n', /^n8n-/],
 	['other-services', /^(hedgedoc-|plausible-|self-hosted-)/], ['indieping', /^indieping-/],
 	['pwa', /^(pwa-|good-posse-|local-first-|r2-|framework7-)/],
 	['static-sites', /^(hugo-|astro-|starlight-|sveltia-)/],
 	['social-api', /^(instagram-|mastodon-|threads-oauth-)/], ['cloudflare', /^(cloudflare-|wrangler-)/],
-	['html', /^(html-pattern-|newsletter-)/], ['keyboards', /^(mk870-|rp2040-)/],
+	['html', /^(html-pattern-|newsletter-)/], ['keyboards', /^(mk870-|rp2040-)/], ['3d-printing', /^marlin-/],
 ];
 
 export function classify(slug) {
